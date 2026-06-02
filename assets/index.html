@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I.E.P. Teniente Manuel Clavero Muga</title>
+    <meta name="description" content="I.E.P. Teniente Manuel Clavero Muga - Institución Educativa en Punchana, Iquitos. Formamos líderes con ciencia, tecnología y valores amazónicos.">
+    <meta name="keywords" content="Colegio Clavero, Iquitos, Punchana, educación secundaria, AIP, innovación pedagógica">
+    <meta name="author" content="Área de Innovación Pedagógica">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="imagenes/favicon.ico">
+    
+    <style>
+        .font-title { font-family: 'Playfair Display', serif; }
+        .font-body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="font-body bg-gray-50 text-gray-800 antialiased">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <img src="imagenes/logo.jpeg" alt="Escudo Clavero" class="h-14 w-auto" onerror="this.onerror=null; this.src='https://via.placeholder.com/60?text=IE'">
+                    <div>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-green-700 block">I.E.P. Tnte.</span>
+                        <span class="font-title text-lg font-bold text-[#0B2545] tracking-tight">Manuel Clavero Muga</span>
+                    </div>
+                </div>
+
+                <!-- Menú desktop -->
+                <div class="hidden xl:flex space-x-6 text-sm font-medium">
+                    <a href="index.html" class="text-green-700 font-semibold border-b-2 border-green-700 pb-1">Inicio</a>
+                    <a href="nosotros.html" class="text-gray-600 hover:text-green-700 transition">Nosotros</a>
+                    <a href="academico.html" class="text-gray-600 hover:text-green-700 transition">Académico</a>
+                    <a href="vida-escolar.html" class="text-gray-600 hover:text-green-700 transition">Vida Escolar</a>
+                    <a href="mural.html" class="text-gray-600 hover:text-green-700 transition">Mural Claveriano</a>
+                    <a href="comunidad.html" class="text-gray-600 hover:text-green-700 transition">Comunidad</a>
+                    <a href="plataformas.html" class="text-gray-600 hover:text-green-700 transition font-semibold">Plataformas</a>
+                    <a href="innovacion-ia.html" class="text-gray-600 hover:text-green-700 transition">Innovación +IA</a>
+                </div>
+
+                <!-- Botón menú móvil -->
+                <div class="xl:hidden">
+                    <button id="btn-menu" class="text-[#0B2545] focus:outline-none" aria-label="Menú de navegación">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú móvil desplegable -->
+        <div id="menu-movil" class="hidden xl:hidden bg-white border-t border-gray-100 px-4 pt-2 pb-6 space-y-3 font-semibold shadow-inner">
+            <a href="index.html" class="block py-2 text-green-700 font-semibold transition">Inicio</a>
+            <a href="nosotros.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Nosotros</a>
+            <a href="academico.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Académico</a>
+            <a href="vida-escolar.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Vida Escolar</a>
+            <a href="mural.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Mural Claveriano</a>
+            <a href="comunidad.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Comunidad</a>
+            <a href="plataformas.html" class="block py-2 text-center bg-green-700 text-white py-2.5 rounded-xl font-medium mt-2 hover:bg-green-800 transition">⚙️ Plataformas Digitales</a>
+            <a href="innovacion-ia.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Innovación +IA</a>
+        </div>
+    </nav>
+
+    <!-- ==================== HEADER / HERO ==================== -->
+    <header class="relative h-screen flex items-center justify-center bg-[#0B2545] overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="imagenes/fondo-colegio.jpg" alt="Manuel Clavero" class="w-full h-full object-cover opacity-30 scale-105 transition-transform duration-1000" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1920'">
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white space-y-6 mt-16">
+            <p class="text-xs sm:text-sm font-semibold tracking-widest uppercase text-green-400 bg-green-500/10 px-4 py-1.5 rounded-full inline-block backdrop-blur-sm">
+                Alma máter del distrito de Punchana
+            </p>
+            <h1 class="font-title text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-none max-w-4xl mx-auto">
+                "Todo claveriano es un <span class="text-green-400 italic font-normal">amigo</span>"
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto font-light">
+                Formando líderes con pundonor, ciencia y tecnología en el corazón de la Amazonía peruana desde 1969.
+            </p>
+            <div class="pt-4 flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="nosotros.html" class="w-full sm:w-auto bg-[#139A43] text-white px-8 py-4 rounded-full font-semibold hover:bg-green-800 transition transform hover:-translate-y-0.5 shadow-lg shadow-green-900/30 text-center">
+                    Conoce nuestra historia
+                </a>
+                <a href="plataformas.html" class="w-full sm:w-auto bg-white/10 border border-white/40 text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-[#0B2545] transition text-center backdrop-blur-sm">
+                    💻 Aula & Plataformas
+                </a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 w-full overflow-hidden leading-none z-10">
+            <svg class="relative block w-full h-[50px] text-gray-50" viewBox="0 0 1200 1200" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" transform="rotate(180 600 600)" fill="currentColor"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main class="relative z-20 -mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Tarjetas de características -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+            <div class="scroll-reveal bg-white rounded-2xl p-8 shadow-xl shadow-gray-200/50 border border-gray-100 hover:transform hover:-translate-y-2 transition duration-300 group">
+                <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-[#139A43] mb-5 group-hover:bg-[#139A43] group-hover:text-white transition duration-300">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                </div>
+                <h3 class="font-title text-xl font-bold text-[#0B2545] mb-2">Innovación Pedagógica</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Impulsados por Fundación Telefónica, integramos tecnologías avanzadas en nuestras aulas virtuales y presenciales.</p>
+            </div>
+
+            <div class="scroll-reveal bg-white rounded-2xl p-8 shadow-xl shadow-gray-200/50 border border-gray-100 hover:transform hover:-translate-y-2 transition duration-300 group">
+                <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-[#0B2545] mb-5 group-hover:bg-[#0B2545] group-hover:text-white transition duration-300">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                    </svg>
+                </div>
+                <h3 class="font-title text-xl font-bold text-[#0B2545] mb-2">Ciencia y Tecnología</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Reconocidos históricamente entre los 25 mejores colegios a nivel nacional en proyectos científicos (CONCITEC).</p>
+            </div>
+
+            <div class="scroll-reveal bg-white rounded-2xl p-8 shadow-xl shadow-gray-200/50 border border-gray-100 hover:transform hover:-translate-y-2 transition duration-300 group">
+                <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-[#139A43] mb-5 group-hover:bg-[#139A43] group-hover:text-white transition duration-300">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
+                <h3 class="font-title text-xl font-bold text-[#0B2545] mb-2">Cultura y Literatura</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Fomentamos el arte mediante los ensayos literarios, el género poético y nuestra Biblioteca Digital de la Amazonía.</p>
+            </div>
+        </div>
+
+        <!-- Mensaje del Director -->
+        <section class="scroll-reveal grid grid-cols-1 lg:grid-cols-12 gap-12 items-center bg-white rounded-3xl p-8 sm:p-12 shadow-xl shadow-gray-200/40 border border-gray-100 mb-24">
+            <div class="lg:col-span-4 flex flex-col items-center text-center">
+                <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden shadow-lg border-4 border-green-700 bg-gray-100 mb-4">
+                    <img src="imagenes/director-real.jpg" alt="Director de la Institución" class="w-full h-full object-cover object-top" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400'">
+                </div>
+                <h4 class="font-title text-xl font-bold text-[#0B2545]">Prof. Luis Nilo Zambrano Peña</h4>
+                <p class="text-xs uppercase tracking-wider text-green-700 font-semibold mt-1">Director Institucional</p>
+            </div>
+            
+            <div class="lg:col-span-8 space-y-4">
+                <span class="text-xs font-bold uppercase text-green-600 tracking-widest block">Mensaje a la Comunidad</span>
+                <h2 class="font-title text-2xl sm:text-3xl font-bold text-[#0B2545] tracking-tight relative">
+                    "En nombre de la I.E. Teniente Manuel Clavero Muga, le damos la más cordial bienvenida a nuestra plataforma virtual"
+                </h2>
+                <p class="text-gray-600 text-sm sm:text-base leading-relaxed font-light italic">
+                    "Es para mí un verdadero honor y un gran privilegio dirigirme a ustedes a través de este espacio de encuentro virtual. Esta plataforma representa un paso firme hacia la modernización de nuestra institución, constituyendo un canal abierto y dinámico diseñado para fortalecer la comunicación, el aprendizaje colaborativo y la integración de toda nuestra querida comunidad claveriana."
+                </p>
+                <p class="text-gray-600 text-sm sm:text-base leading-relaxed font-light">
+                    "Fieles a nuestro lema de 'pundonor, ciencia y tecnología', y trabajando en estrecha alianza con los padres de familia, nos esforzamos diariamente para asegurar que cada estudiante encuentre aquí un entorno estimulante, seguro e innovador. Los invitamos a explorar nuestra plataforma y a caminar unidos hacia la vanguardia de la educación en nuestra maravillosa región amazónica."
+                </p>
+            </div>
+        </section>
+
+        <!-- Nuestra Historia -->
+        <section class="scroll-reveal grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
+            <div class="space-y-6">
+                <span class="text-xs font-bold uppercase text-green-600 tracking-widest block">Nuestra Historia</span>
+                <h2 class="font-title text-3xl sm:text-4xl font-bold text-[#0B2545] tracking-tight">Un Legado de Honor y Excelencia en Loreto</h2>
+                <div class="space-y-4 text-gray-600 text-sm sm:text-base leading-relaxed font-light">
+                    <p>Fundada en 1969, la Institución Educativa Pública Teniente Manuel Clavero Muga nació con el firme propósito de educar a la juventud del pujante distrito de Punchana, convirtiéndose rápidamente en el faro intelectual y cultural de la zona norte de Iquitos.</p>
+                    <p>Llevamos con orgullo el nombre de un héroe naval peruano que personificó la valentía y el amor por la patria. Siguiendo su ejemplo, inspiramos a cada estudiante a cultivar el pundonor, la disciplina y el afán constante de superación.</p>
+                </div>
+                <div class="pt-2">
+                    <a href="nosotros.html" class="inline-flex items-center text-sm font-semibold text-green-700 hover:text-green-800 transition group">
+                        Leer reseña histórica completa
+                        <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-gray-100 aspect-[4/3] group">
+                <img src="imagenes/manuel-clavero-placeholder.jpg" alt="Retrato del Tnte. Manuel Clavero" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=800'">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0B2545]/80 via-transparent to-transparent p-8 flex flex-col justify-end text-white">
+                    <p class="font-title text-lg font-bold">Teniente Manuel Clavero Muga</p>
+                    <p class="text-xs text-gray-300 font-light">Héroe Naval y Patrono de nuestra Institución</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Línea de Tiempo -->
+        <section class="mb-24">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase text-green-600 tracking-widest block">Trayectoria</span>
+                <h2 class="font-title text-3xl font-bold text-[#0B2545] tracking-tight mt-1">Línea de Tiempo Claveriana</h2>
+                <p class="text-gray-500 text-sm mt-2 font-light">Los hitos históricos que consolidaron el prestigio de nuestra alma máter.</p>
+            </div>
+
+            <div class="relative border-l-2 border-green-200 max-w-3xl mx-auto pl-6 sm:pl-10 space-y-12">
+                <div class="relative group">
+                    <div class="absolute -left-[31px] sm:-left-[47px] top-1 bg-green-700 text-white w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-bold shadow-md group-hover:bg-[#0B2545] transition">
+                        1
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 group-hover:shadow-md transition">
+                        <span class="text-lg font-bold text-green-700 font-title block">1969 — Fundación Oficial</span>
+                        <p class="text-gray-600 text-xs sm:text-sm mt-1 leading-relaxed font-light">Nace la institución educativa en respuesta al crecimiento demográfico y la necesidad de educación secundaria de calidad en Punchana.</p>
+                    </div>
+                </div>
+
+                <div class="relative group">
+                    <div class="absolute -left-[31px] sm:-left-[47px] top-1 bg-green-700 text-white w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-bold shadow-md group-hover:bg-[#0B2545] transition">
+                        2
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 group-hover:shadow-md transition">
+                        <span class="text-lg font-bold text-green-700 font-title block">1984 — Reconocimiento Científico</span>
+                        <p class="text-gray-600 text-xs sm:text-sm mt-1 leading-relaxed font-light">Nuestros alumnos logran posicionarse en el ranking de los 25 mejores colegios a nivel nacional por la calidad de sus proyectos en ferias nacionales de CONCITEC.</p>
+                    </div>
+                </div>
+
+                <div class="relative group">
+                    <div class="absolute -left-[31px] sm:-left-[47px] top-1 bg-green-700 text-white w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-bold shadow-md group-hover:bg-[#0B2545] transition">
+                        3
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 group-hover:shadow-md transition">
+                        <span class="text-lg font-bold text-green-700 font-title block">2012 — Modernización de Infraestructura</span>
+                        <p class="text-gray-600 text-xs sm:text-sm mt-1 leading-relaxed font-light">Renovación integral del complejo educativo y equipamiento inicial de laboratorios de ciencias físicas y químicas.</p>
+                    </div>
+                </div>
+
+                <div class="relative group">
+                    <div class="absolute -left-[31px] sm:-left-[47px] top-1 bg-green-700 text-white w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-bold shadow-md group-hover:bg-[#0B2545] transition">
+                        4
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 group-hover:shadow-md transition">
+                        <span class="text-lg font-bold text-green-700 font-title block">Hoy — Era Digital y Alianza Estratégica</span>
+                        <p class="text-gray-600 text-xs sm:text-sm mt-1 leading-relaxed font-light">Implementación del Aula de Innovación Pedagógica (AIP) asistida por Fundación Telefónica y nacimiento de nuestra Biblioteca Digital Amazónica.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estadísticas -->
+        <section class="scroll-reveal bg-[#0B2545] rounded-3xl text-white px-6 py-12 sm:p-12 md:p-16 mb-24 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div class="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="space-y-1">
+                    <p class="font-title text-3xl sm:text-5xl font-bold text-green-400">1,200+</p>
+                    <p class="text-xs uppercase tracking-wider text-gray-300 font-medium">Estudiantes Activos</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="font-title text-3xl sm:text-5xl font-bold text-green-400">60+</p>
+                    <p class="text-xs uppercase tracking-wider text-gray-300 font-medium">Docentes Especializados</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="font-title text-3xl sm:text-5xl font-bold text-green-400">55</p>
+                    <p class="text-xs uppercase tracking-wider text-gray-300 font-medium">Años de Trayectoria</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="font-title text-3xl sm:text-5xl font-bold text-green-400">100%</p>
+                    <p class="text-xs uppercase tracking-wider text-gray-300 font-medium">Compromiso Amazónico</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Noticias destacadas -->
+        <section class="mb-24">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-10">
+                <div>
+                    <span class="text-xs font-bold uppercase text-green-600 tracking-widest block">Actualidad</span>
+                    <h2 class="font-title text-3xl font-bold text-[#0B2545] tracking-tight mt-1">Ecos de la Comunidad Claveriana</h2>
+                </div>
+                <a href="comunidad.html" class="text-sm font-semibold text-green-700 hover:text-green-800 transition flex items-center gap-1">
+                    Ver todos los anuncios
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+            </div>
+
+            <div id="contenedor-noticias-dinamicas" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Noticia 1 -->
+                <article class="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition duration-300 flex flex-col h-full">
+                    <div class="h-48 bg-gray-200 relative overflow-hidden">
+                        <img src="imagenes/noticia1-placeholder.jpg" alt="AIP Virtual" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600'">
+                        <span class="absolute top-4 left-4 text-[10px] font-bold uppercase tracking-wider bg-green-600 text-white px-3 py-1 rounded-full shadow-md">Innovación</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between space-y-4">
+                        <div class="space-y-2">
+                            <time class="text-[11px] text-gray-400 block font-medium">20 de Mayo, 2026</time>
+                            <h3 class="font-title text-lg font-bold text-[#0B2545] leading-snug hover:text-green-700 transition"><a href="#">Modernización del Aula de Innovación Pedagógica (AIP)</a></h3>
+                            <p class="text-gray-600 text-xs sm:text-sm font-light leading-relaxed">Implementamos terminales modernos e internet de alta velocidad gracias al convenio con Fundación Telefónica.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Noticia 2 -->
+                <article class="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition duration-300 flex flex-col h-full">
+                    <div class="h-48 bg-gray-200 relative overflow-hidden">
+                        <img src="imagenes/noticia2-placeholder.jpg" alt="Concurso de Ensayo" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=600'">
+                        <span class="absolute top-4 left-4 text-[10px] font-bold uppercase tracking-wider bg-[#0B2545] text-white px-3 py-1 rounded-full shadow-md">Cultura</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between space-y-4">
+                        <div class="space-y-2">
+                            <time class="text-[11px] text-gray-400 block font-medium">15 de Mayo, 2026</time>
+                            <h3 class="font-title text-lg font-bold text-[#0B2545] leading-snug hover:text-green-700 transition"><a href="#">Éxito Rotundo en los Juegos Florales Escolares Fase Interna</a></h3>
+                            <p class="text-gray-600 text-xs sm:text-sm font-light leading-relaxed">Estudiantes claverianos brillaron con composiciones poéticas y ensayos enfocados en la conservación de la Amazonía.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Noticia 3 -->
+                <article class="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition duration-300 flex flex-col h-full">
+                    <div class="h-48 bg-gray-200 relative overflow-hidden">
+                        <img src="imagenes/noticia3-placeholder.jpg" alt="Escuela de Padres" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=600'">
+                        <span class="absolute top-4 left-4 text-[10px] font-bold uppercase tracking-wider bg-amber-500 text-white px-3 py-1 rounded-full shadow-md">Comunidad</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between space-y-4">
+                        <div class="space-y-2">
+                            <time class="text-[11px] text-gray-400 block font-medium">08 de Mayo, 2026</time>
+                            <h3 class="font-title text-lg font-bold text-[#0B2545] leading-snug hover:text-green-700 transition"><a href="#">Primera Sesión Extraordinaria de Escuela para Padres</a></h3>
+                            <p class="text-gray-600 text-xs sm:text-sm font-light leading-relaxed">Con gran asistencia debatimos sobre la ciudadanía digital y el acompañamiento del aprendizaje en el hogar.</p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-[#0B2545] text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <!-- Sección 1: Enlaces -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Secciones</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="index.html" class="hover:text-white transition">Inicio</a></li>
+                        <li><a href="nosotros.html" class="hover:text-white transition">Nosotros</a></li>
+                        <li><a href="academico.html" class="hover:text-white transition">Propuesta Académica</a></li>
+                        <li><a href="vida-escolar.html" class="hover:text-white transition">Vida Escolar (AIP)</a></li>
+                        <li><a href="mural.html" class="hover:text-white transition">Mural Claveriano</a></li>
+                        <li><a href="comunidad.html" class="hover:text-white transition">Contacto y Comunidad</a></li>
+                        <li><a href="plataformas.html" class="text-green-400 hover:text-white transition font-medium">Ecosistema Plataformas</a></li>
+                        <li><a href="innovacion-ia.html" class="hover:text-white transition">Innovación +IA</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Sección 2: Contacto -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Contacto</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li>📍 Av. Trujillo N° 745, Punchana - Iquitos</li>
+                        <li>📞 065 250385</li>
+                        <li>✉️ colegioclaverom@gmail.com</li>
+                    </ul>
+                </div>
+                
+                <!-- Sección 3: Redes -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Comunidad Digital</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition">🌐 Facebook Institucional</a>
+                    </div>
+                </div>
+                
+                <!-- Sección 4: Innovación -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Innovación</h4>
+                    <p class="text-xs text-gray-400">Aula de Innovación Pedagógica integrada con IA y recursos digitales.</p>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 space-y-4 sm:space-y-0">
+                <p>&copy; 2026 I.E.P. Teniente Manuel Clavero Muga. Todos los derechos reservados.</p>
+                <p class="text-gray-500">Área de Innovación Pedagógica</p>
+            </div>
+        </div>
+    </footer>
+    <!-- ==================== HOLO-MODAL DETALLE DE NOTICIA ==================== -->
+    <div id="modal-detalle-noticia" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 transition-all duration-300">
+        <div id="modal-detalle-card" class="bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-100 w-full max-w-3xl transform scale-95 opacity-0 transition-all duration-300 flex flex-col max-h-[90vh]">
+            <!-- Header Modal -->
+            <div class="px-6 py-4 bg-[#0B2545] text-white flex items-center justify-between">
+                <span id="modal-detalle-categoria" class="text-xs font-bold uppercase tracking-wider bg-green-600 px-3 py-1 rounded-full">Categoría</span>
+                <button onclick="cerrarModalDetalle()" class="text-white/80 hover:text-white transition text-2xl font-bold leading-none">&times;</button>
+            </div>
+            <!-- Cuerpo Modal (Scrollable) -->
+            <div class="overflow-y-auto p-6 space-y-6" id="modal-detalle-cuerpo">
+                <!-- Imagen o Video -->
+                <div id="modal-detalle-media" class="w-full aspect-video rounded-2xl overflow-hidden bg-gray-100 shadow-inner">
+                    <!-- Dinámico -->
+                </div>
+                <!-- Información -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <span id="modal-detalle-autor">👤 Autor</span>
+                        <time id="modal-detalle-fecha">📅 Fecha</time>
+                    </div>
+                    <h2 id="modal-detalle-titulo" class="font-title text-2xl sm:text-3xl font-bold text-[#0B2545] leading-snug">Título</h2>
+                    <hr class="border-gray-100">
+                    <p id="modal-detalle-texto" class="text-gray-600 text-sm sm:text-base leading-relaxed whitespace-pre-line text-justify font-light">
+                        Contenido...
+                    </p>
+                </div>
+            </div>
+            <!-- Footer Modal -->
+            <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-end">
+                <button onclick="cerrarModalDetalle()" class="bg-[#0B2545] text-white px-5 py-2 rounded-xl text-xs font-semibold hover:bg-green-700 transition">
+                    Cerrar Detalle
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== CLAVERITO AI CHATBOT ==================== -->
+    <!-- Botón Flotante -->
+    <button id="chatbot-toggle" class="fixed bottom-6 right-6 z-[90] w-14 h-14 bg-green-700 text-white rounded-full flex items-center justify-center shadow-2xl hover:bg-green-800 transition-all duration-300 hover:scale-105 active:scale-95 group" aria-label="Abrir asistente virtual">
+        <svg class="w-7 h-7 group-hover:rotate-12 transition duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+        </svg>
+        <span class="absolute -top-1 -right-1 flex h-3.5 w-3.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500"></span>
+        </span>
+    </button>
+
+    <!-- Ventana de Chat -->
+    <div id="chatbot-window" class="fixed bottom-24 right-6 z-[90] w-96 max-w-[calc(100vw-2rem)] h-[460px] bg-white/95 backdrop-blur-md border border-gray-100 shadow-2xl rounded-3xl flex flex-col overflow-hidden transition-all duration-300 transform scale-95 opacity-0 pointer-events-none hidden">
+        <!-- Header -->
+        <div class="px-5 py-4 bg-[#0B2545] text-white flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-green-600 flex items-center justify-center font-bold text-lg">🤖</div>
+                <div>
+                    <h4 class="font-title font-bold text-sm leading-tight">Claverito AI</h4>
+                    <p class="text-[10px] text-green-400 font-semibold uppercase tracking-wider flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 bg-green-400 rounded-full inline-block animate-pulse"></span> Activo
+                    </p>
+                </div>
+            </div>
+            <button id="chatbot-close" class="text-white/80 hover:text-white transition text-2xl font-bold leading-none">&times;</button>
+        </div>
+        
+        <!-- Contenedor Mensajes (Scrollable) -->
+        <div id="chatbot-messages" class="flex-grow overflow-y-auto p-4 space-y-3 bg-gray-50/50">
+            <!-- Mensaje de bienvenida inicial -->
+            <div class="flex gap-2">
+                <div class="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center text-xs">🤖</div>
+                <div class="bg-white border border-gray-100 text-gray-700 p-3 rounded-2xl rounded-tl-none text-xs leading-relaxed max-w-[80%] shadow-sm">
+                    ¡Hola! Soy <strong>Claverito AI</strong>, tu asistente de innovación pedagógica. ¿En qué te puedo ayudar hoy? Selecciona una opción abajo:
+                </div>
+            </div>
+        </div>
+
+        <!-- Sugerencias/Opciones -->
+        <div id="chatbot-options" class="p-3 border-t border-gray-100 bg-white flex flex-wrap gap-1.5 justify-start max-h-[120px] overflow-y-auto">
+            <button onclick="preguntarChatbot('historia')" class="text-[11px] font-semibold text-[#0B2545] border border-gray-100 hover:border-green-600 hover:bg-green-50 px-2.5 py-1.5 rounded-xl transition">🏫 Historia</button>
+            <button onclick="preguntarChatbot('admision')" class="text-[11px] font-semibold text-[#0B2545] border border-gray-100 hover:border-green-600 hover:bg-green-50 px-2.5 py-1.5 rounded-xl transition">📅 Admisión 2026</button>
+            <button onclick="preguntarChatbot('director')" class="text-[11px] font-semibold text-[#0B2545] border border-gray-100 hover:border-green-600 hover:bg-green-50 px-2.5 py-1.5 rounded-xl transition">👨‍🏫 Director</button>
+            <button onclick="preguntarChatbot('aip')" class="text-[11px] font-semibold text-[#0B2545] border border-gray-100 hover:border-green-600 hover:bg-green-50 px-2.5 py-1.5 rounded-xl transition">💻 Talleres AIP</button>
+            <button onclick="preguntarChatbot('contacto')" class="text-[11px] font-semibold text-[#0B2545] border border-gray-100 hover:border-green-600 hover:bg-green-50 px-2.5 py-1.5 rounded-xl transition">📞 Dirección</button>
+        </div>
+    </div>
+
+    <style>
+        /* Animaciones para Scroll e Interacciones */
+        .scroll-reveal {
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .js-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .js-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .chat-typing-dot {
+            animation: chatBlink 1.4s infinite both;
+        }
+        .chat-typing-dot:nth-child(2) { animation-delay: .2s; }
+        .chat-typing-dot:nth-child(3) { animation-delay: .4s; }
+        
+        @keyframes chatBlink {
+            0% { opacity: .2; }
+            20% { opacity: 1; }
+            100% { opacity: .2; }
+        }
+    </style>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script src="js/main.js?v=2.4"></script>
+    <script>
+        // Menú móvil con validación
+        const btnMenu = document.getElementById('btn-menu');
+        const menuMovil = document.getElementById('menu-movil');
+
+        if (btnMenu && menuMovil) {
+            btnMenu.addEventListener('click', () => {
+                menuMovil.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</html>

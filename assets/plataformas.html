@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataformas Digitales - I.E.P. Teniente Manuel Clavero Muga</title>
+    <meta name="description" content="Acceso a SIAGIE, Aula de Innovación y Biblioteca Digital Amazónica. Plataformas educativas para estudiantes y docentes.">
+    <meta name="keywords" content="SIAGIE, Aula de Innovación, Biblioteca Digital, plataformas educativas, Google Classroom">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="imagenes/favicon.ico">
+    
+    <style>
+        .font-title { font-family: 'Playfair Display', serif; }
+        .font-body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="font-body bg-gray-50 text-gray-800 antialiased">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <img src="imagenes/logo.jpeg" alt="Escudo Clavero" class="h-14 w-auto" onerror="this.onerror=null; this.src='https://via.placeholder.com/60?text=IE'">
+                    <div>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-green-700 block">I.E.P. Tnte.</span>
+                        <span class="font-title text-lg font-bold text-[#0B2545] tracking-tight">Manuel Clavero Muga</span>
+                    </div>
+                </div>
+
+                <!-- Menú desktop -->
+                <div class="hidden xl:flex space-x-6 text-sm font-medium">
+                    <a href="index.html" class="text-gray-600 hover:text-green-700 transition">Inicio</a>
+                    <a href="nosotros.html" class="text-gray-600 hover:text-green-700 transition">Nosotros</a>
+                    <a href="academico.html" class="text-gray-600 hover:text-green-700 transition">Académico</a>
+                    <a href="vida-escolar.html" class="text-gray-600 hover:text-green-700 transition">Vida Escolar</a>
+                    <a href="mural.html" class="text-gray-600 hover:text-green-700 transition">Mural Claveriano</a>
+                    <a href="comunidad.html" class="text-gray-600 hover:text-green-700 transition">Comunidad</a>
+                    <a href="plataformas.html" class="text-green-700 font-semibold border-b-2 border-green-700 pb-1">Plataformas</a>
+                    <a href="innovacion-ia.html" class="text-gray-600 hover:text-green-700 transition">Innovación +IA</a>
+                </div>
+
+                <!-- Botón menú móvil -->
+                <div class="xl:hidden">
+                    <button id="btn-menu" class="text-[#0B2545] focus:outline-none" aria-label="Menú de navegación">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú móvil desplegable -->
+        <div id="menu-movil" class="hidden xl:hidden bg-white border-t border-gray-100 px-4 pt-2 pb-6 space-y-3 font-semibold shadow-inner">
+            <a href="index.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Inicio</a>
+            <a href="nosotros.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Nosotros</a>
+            <a href="academico.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Académico</a>
+            <a href="vida-escolar.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Vida Escolar</a>
+            <a href="mural.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Mural Claveriano</a>
+            <a href="comunidad.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Comunidad</a>
+            <a href="plataformas.html" class="block py-2 text-green-700 font-semibold">Plataformas Digitales</a>
+            <a href="innovacion-ia.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Innovación +IA</a>
+        </div>
+    </nav>
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="bg-[#0B2545] pt-32 pb-20 text-center text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4">
+            <span class="text-xs font-bold uppercase text-green-400 tracking-widest block mb-2">Ecosistema Virtual</span>
+            <h1 class="font-title text-4xl sm:text-5xl font-bold tracking-tight">Plataformas e Innovación Educativa</h1>
+            <p class="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto mt-4 font-light">
+                Herramientas y accesos digitales diseñados para potenciar el aprendizaje continuo de nuestros estudiantes y la gestión de la comunidad claveriana.
+            </p>
+        </div>
+    </header>
+
+    <!-- ==================== PLATAFORMAS PRINCIPALES ==================== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Tarjeta 1: SIAGIE -->
+            <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-xl transition duration-300 flex flex-col justify-between group">
+                <div>
+                    <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition duration-300">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-title text-xl font-bold text-[#0B2545] mb-2">SIAGIE Minedu</h3>
+                    <p class="text-gray-600 text-sm font-light leading-relaxed mb-6">
+                        Acceso oficial al Sistema de Información de Apoyo a la Gestión de la Institución Educativa para la verificación de actas y notas oficiales.
+                    </p>
+                </div>
+                <a href="https://siagie.minedu.gob.pe" target="_blank" rel="noopener noreferrer" class="w-full bg-[#0B2545] text-white text-center py-3 rounded-xl text-sm font-medium hover:bg-opacity-90 transition">
+                    Ingresar al SIAGIE
+                </a>
+            </div>
+
+            <!-- Tarjeta 2: Aula de Innovación -->
+            <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-xl transition duration-300 flex flex-col justify-between group">
+                <div>
+                    <div class="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center text-green-600 mb-6 group-hover:bg-green-600 group-hover:text-white transition duration-300">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-title text-xl font-bold text-[#0B2545] mb-2">Aula de Innovación</h3>
+                    <p class="text-gray-600 text-sm font-light leading-relaxed mb-6">
+                        Nuestra Aula de Innovación Pedagógica (AIP). Conéctate a los recursos interactivos y cursos auspiciados por la Fundación Telefónica.
+                    </p>
+                </div>
+                <a href="#" class="w-full bg-green-700 text-white text-center py-3 rounded-xl text-sm font-medium hover:bg-green-800 transition">
+                    Entrar al Aula Virtual
+                </a>
+            </div>
+
+            <!-- Tarjeta 3: Biblioteca Amazónica -->
+            <div class="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-xl transition duration-300 flex flex-col justify-between group">
+                <div>
+                    <div class="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 mb-6 group-hover:bg-amber-600 group-hover:text-white transition duration-300">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-title text-xl font-bold text-[#0B2545] mb-2">Biblioteca Amazónica</h3>
+                    <p class="text-gray-600 text-sm font-light leading-relaxed mb-6">
+                        Repositorio exclusivo con ensayos literarios, producción poética claveriana y textos enfocados en la conservación regional de nuestra querida Amazonía.
+                    </p>
+                </div>
+                <a href="#" class="w-full bg-amber-600 text-white text-center py-3 rounded-xl text-sm font-medium hover:bg-amber-700 transition">
+                    Explorar Biblioteca
+                </a>
+            </div>
+
+        </div>
+
+        <!-- ==================== GOOGLE WORKSPACE ==================== -->
+        <div class="mt-20">
+            <div class="text-center mb-12">
+                <span class="text-xs font-bold uppercase text-green-600 tracking-widest block">Entorno Virtual de Aprendizaje</span>
+                <h2 class="font-title text-3xl font-bold text-[#0B2545] mt-1">Google Workspace for Education</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto mt-2 text-sm font-light">Herramientas colaborativas para la gestión académica y el aprendizaje remoto.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Google Classroom -->
+                <div class="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-8 border border-blue-100 shadow-md hover:shadow-xl transition duration-300">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center">
+                            <i class="fab fa-google text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-title text-2xl font-bold text-[#0B2545]">Google Classroom</h3>
+                            <p class="text-xs text-gray-500">Aula Virtual Integrada</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                        Plataforma oficial de gestión de aprendizaje donde docentes y estudiantes acceden a clases, tareas, materiales educativos y retroalimentación en tiempo real, todo integrado con nuestro ecosistema digital.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-2 text-blue-600 font-semibold text-sm hover:text-blue-800 transition">
+                        Acceder a Google Classroom
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Google Drive -->
+                <div class="bg-gradient-to-br from-green-50 to-white rounded-3xl p-8 border border-green-100 shadow-md hover:shadow-xl transition duration-300">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center">
+                            <i class="fab fa-google-drive text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-title text-2xl font-bold text-[#0B2545]">Google Drive</h3>
+                            <p class="text-xs text-gray-500">Portafolio Digital</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                        Almacenamiento en la nube para evidencias de aprendizaje, trabajos colaborativos y repositorio institucional de recursos educativos abiertos (REA).
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-2 text-green-600 font-semibold text-sm hover:text-green-800 transition">
+                        Acceder a Google Drive
+                        <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ENLACES RÁPIDOS ==================== -->
+        <div class="mt-20">
+            <div class="text-center mb-10">
+                <span class="text-xs font-bold uppercase text-green-600 tracking-widest block">Recursos Digitales</span>
+                <h2 class="font-title text-2xl font-bold text-[#0B2545] mt-1">Enlaces de Interés</h2>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://www.perueduca.pe" target="_blank" rel="noopener noreferrer" class="bg-white hover:bg-green-50 border border-gray-200 text-gray-700 px-6 py-3 rounded-2xl text-sm font-medium transition flex items-center gap-2 shadow-sm">
+                    <i class="fas fa-graduation-cap text-green-600"></i> PerúEduca
+                </a>
+                <a href="https://www.minedu.gob.pe" target="_blank" rel="noopener noreferrer" class="bg-white hover:bg-green-50 border border-gray-200 text-gray-700 px-6 py-3 rounded-2xl text-sm font-medium transition flex items-center gap-2 shadow-sm">
+                    <i class="fas fa-landmark text-blue-600"></i> MINEDU
+                </a>
+                <a href="https://www.ugelmaynas.gob.pe" target="_blank" rel="noopener noreferrer" class="bg-white hover:bg-green-50 border border-gray-200 text-gray-700 px-6 py-3 rounded-2xl text-sm font-medium transition flex items-center gap-2 shadow-sm">
+                    <i class="fas fa-building text-amber-600"></i> UGEL Maynas
+                </a>
+                <a href="https://www.fundaciontelefonica.com.pe" target="_blank" rel="noopener noreferrer" class="bg-white hover:bg-green-50 border border-gray-200 text-gray-700 px-6 py-3 rounded-2xl text-sm font-medium transition flex items-center gap-2 shadow-sm">
+                    <i class="fas fa-handshake text-purple-600"></i> Fundación Telefónica
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-[#0B2545] text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <!-- Sección 1: Enlaces -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Secciones</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="index.html" class="hover:text-white transition">Inicio</a></li>
+                        <li><a href="nosotros.html" class="hover:text-white transition">Nosotros</a></li>
+                        <li><a href="academico.html" class="hover:text-white transition">Propuesta Académica</a></li>
+                        <li><a href="vida-escolar.html" class="hover:text-white transition">Vida Escolar (AIP)</a></li>
+                        <li><a href="mural.html" class="hover:text-white transition">Mural Claveriano</a></li>
+                        <li><a href="comunidad.html" class="hover:text-white transition">Contacto y Comunidad</a></li>
+                        <li><a href="plataformas.html" class="text-green-400 hover:text-white transition font-medium">Ecosistema Plataformas</a></li>
+                        <li><a href="innovacion-ia.html" class="hover:text-white transition">Innovación +IA</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Sección 2: Contacto -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Contacto</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li>📍 Av. Trujillo N° 745, Punchana - Iquitos</li>
+                        <li>📞 065 250385</li>
+                        <li>✉️ colegioclaverom@gmail.com</li>
+                    </ul>
+                </div>
+                
+                <!-- Sección 3: Redes -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Comunidad Digital</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition">🌐 Facebook Institucional</a>
+                    </div>
+                </div>
+                
+                <!-- Sección 4: Innovación -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Innovación</h4>
+                    <p class="text-xs text-gray-400">Aula de Innovación Pedagógica integrada con IA y recursos digitales.</p>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 space-y-4 sm:space-y-0">
+                <p>&copy; 2026 I.E.P. Teniente Manuel Clavero Muga. Todos los derechos reservados.</p>
+                <p class="text-gray-500">Área de Innovación Pedagógica</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== SCRIPT ==================== -->
+    <script>
+        // Menú móvil con validación
+        const btnMenu = document.getElementById('btn-menu');
+        const menuMovil = document.getElementById('menu-movil');
+
+        if (btnMenu && menuMovil) {
+            btnMenu.addEventListener('click', () => {
+                menuMovil.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</html>

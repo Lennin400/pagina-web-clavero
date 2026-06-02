@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidad - I.E.P. Teniente Manuel Clavero Muga</title>
+    <meta name="description" content="Contacto, ubicación y formulario de comunicación para padres, exalumnos y aliados institucionales.">
+    <meta name="keywords" content="contacto, comunidad claveriana, Punchana, Iquitos, teléfono, dirección, correo electrónico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="imagenes/favicon.ico">
+
+    <style>
+        .font-title { font-family: 'Playfair Display', serif; }
+        .font-body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="font-body bg-gray-50 text-gray-800 antialiased">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <img src="imagenes/logo.jpeg" alt="Escudo Clavero" class="h-14 w-auto" onerror="this.onerror=null; this.src='https://via.placeholder.com/60?text=IE'">
+                    <div>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-green-700 block">I.E.P. TNTE.</span>
+                        <span class="font-title text-lg font-bold text-[#0B2545] tracking-tight">Manuel Clavero Muga</span>
+                    </div>
+                </div>
+                
+                <!-- Menú desktop -->
+                <div class="hidden xl:flex space-x-6 text-sm font-medium">
+                    <a href="index.html" class="text-gray-600 hover:text-green-700 transition">Inicio</a>
+                    <a href="nosotros.html" class="text-gray-600 hover:text-green-700 transition">Nosotros</a>
+                    <a href="academico.html" class="text-gray-600 hover:text-green-700 transition">Académico</a>
+                    <a href="vida-escolar.html" class="text-gray-600 hover:text-green-700 transition">Vida Escolar</a>
+                    <a href="mural.html" class="text-gray-600 hover:text-green-700 transition">Mural Claveriano</a>
+                    <a href="comunidad.html" class="text-green-700 font-semibold border-b-2 border-green-700 pb-1">Comunidad</a>
+                    <a href="plataformas.html" class="text-gray-600 hover:text-green-700 transition">Plataformas</a>
+                    <a href="innovacion-ia.html" class="text-gray-600 hover:text-green-700 transition">Innovación +IA</a>
+                </div>
+
+                <!-- Botón menú móvil -->
+                <div class="xl:hidden">
+                    <button id="btn-menu" class="text-[#0B2545] focus:outline-none" aria-label="Menú de navegación">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú móvil desplegable -->
+        <div id="menu-movil" class="hidden xl:hidden bg-white border-t border-gray-100 px-4 pt-2 pb-6 space-y-3 font-semibold shadow-inner">
+            <a href="index.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Inicio</a>
+            <a href="nosotros.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Nosotros</a>
+            <a href="academico.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Académico</a>
+            <a href="vida-escolar.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Vida Escolar</a>
+            <a href="mural.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Mural Claveriano</a>
+            <a href="comunidad.html" class="block py-2 text-green-700 font-semibold">Comunidad</a>
+            <a href="plataformas.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Plataformas</a>
+            <a href="innovacion-ia.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Innovación +IA</a>
+            <a href="#" class="block text-center bg-[#139A43] text-white py-2.5 rounded-full mt-2 hover:bg-[#0e7a35] transition">Biblioteca Digital</a>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <div class="relative pt-32 pb-20 bg-[#0B2545] text-white overflow-hidden">
+        <div class="absolute inset-0 opacity-20 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="relative max-w-5xl mx-auto px-4 text-center">
+            <span class="text-xs font-semibold uppercase tracking-widest text-green-400 bg-green-400/10 px-3 py-1 rounded-full">Familia Claveriana</span>
+            <h1 class="font-title text-4xl md:text-5xl font-bold mt-4 mb-4">Comunidad y Comunicación</h1>
+            <p class="text-lg text-gray-300 max-w-2xl mx-auto font-light">Un espacio de encuentro para padres de familia, exalumnos y aliados institucionales vinculados a nuestro amado colegio.</p>
+        </div>
+    </div>
+
+    <!-- ==================== CONTACTO Y FORMULARIO ==================== -->
+    <div class="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <!-- Información de contacto -->
+            <div>
+                <span class="text-xs font-semibold text-green-600 uppercase tracking-wider block">Canales Directos</span>
+                <h2 class="font-title text-3xl font-bold text-[#0B2545] mt-1 mb-6">Conéctate con Nosotros</h2>
+                <p class="text-gray-600 leading-relaxed font-light mb-8">En la I.E.P. Teniente Manuel Clavero Muga valoramos la comunicación activa y transparente. Ponemos a tu disposición distintos medios para atender trámites, sugerencias e integrarte a las actividades escolares.</p>
+                
+                <div class="space-y-4 text-sm">
+                    <p class="text-gray-700">📍 <b>Dirección:</b> Av. Trujillo N° 745, Punchana - Iquitos</p>
+                    <p class="text-gray-700">📞 <b>Teléfono:</b> 065 250385</p>
+                    <p class="text-gray-700">✉️ <b>Correo Electrónico:</b> colegioclaverom@gmail.com</p>
+                </div>
+            </div>
+
+            <!-- Formulario de contacto -->
+            <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 hover:shadow-2xl transition duration-300">
+                <form id="form-contacto" class="space-y-4">
+                    <div>
+                        <label for="nombre" class="block text-xs font-semibold text-gray-600 uppercase mb-2">Nombre Completo</label>
+                        <input type="text" id="nombre" name="nombre" required placeholder="Ej. Juan Pérez" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition">
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="email" class="block text-xs font-semibold text-gray-600 uppercase mb-2">Correo</label>
+                            <input type="email" id="email" name="email" required placeholder="juan@correo.com" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition">
+                        </div>
+                        <div>
+                            <label for="telefono" class="block text-xs font-semibold text-gray-600 uppercase mb-2">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono" required placeholder="987654321" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="mensaje" class="block text-xs font-semibold text-gray-600 uppercase mb-2">Mensaje</label>
+                        <textarea id="mensaje" name="mensaje" rows="4" required placeholder="Escribe tu consulta detalladamente..." class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition resize-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3.5 rounded-xl transition shadow-md hover:shadow-lg">Enviar Consulta</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-[#0B2545] text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <!-- Sección 1: Enlaces -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Secciones</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="index.html" class="hover:text-white transition">Inicio</a></li>
+                        <li><a href="nosotros.html" class="hover:text-white transition">Nosotros</a></li>
+                        <li><a href="academico.html" class="hover:text-white transition">Propuesta Académica</a></li>
+                        <li><a href="vida-escolar.html" class="hover:text-white transition">Vida Escolar (AIP)</a></li>
+                        <li><a href="mural.html" class="hover:text-white transition">Mural Claveriano</a></li>
+                        <li><a href="comunidad.html" class="hover:text-white transition">Contacto y Comunidad</a></li>
+                        <li><a href="plataformas.html" class="hover:text-white transition">Ecosistema Plataformas</a></li>
+                        <li><a href="innovacion-ia.html" class="hover:text-white transition">Innovación +IA</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Sección 2: Contacto -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Contacto</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li>📍 Av. Trujillo N° 745, Punchana - Iquitos</li>
+                        <li>📞 065 250385</li>
+                        <li>✉️ colegioclaverom@gmail.com</li>
+                    </ul>
+                </div>
+                
+                <!-- Sección 3: Redes -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Comunidad Digital</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition">🌐 Facebook Institucional</a>
+                    </div>
+                </div>
+                
+                <!-- Sección 4: Innovación -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Innovación</h4>
+                    <p class="text-xs text-gray-400">Aula de Innovación Pedagógica integrada con IA y recursos digitales.</p>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 space-y-4 sm:space-y-0">
+                <p>&copy; 2026 I.E.P. Teniente Manuel Clavero Muga. Todos los derechos reservados.</p>
+                <p class="text-gray-500">Área de Innovación Pedagógica</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Éxito Custom (Popup Moderno) -->
+    <div id="modal-exito" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl border border-gray-100 transform scale-95 transition-all duration-300 relative">
+            <div class="text-center space-y-4">
+                <!-- Icono animado -->
+                <div class="w-16 h-16 bg-green-50 text-green-600 rounded-full flex items-center justify-center text-3xl mx-auto border-2 border-green-500 animate-pulse">
+                    ✓
+                </div>
+                <h3 class="font-title text-2xl font-bold text-[#0B2545]">¡Consulta Enviada!</h3>
+                <p class="text-gray-600 text-sm font-light leading-relaxed">
+                    Su mensaje ha sido enviado con éxito a nuestro sistema. En breve el Área de Innovación Pedagógica o la Secretaría de la I.E.P. Teniente Manuel Clavero Muga se pondrá en contacto con usted.
+                </p>
+                <button onclick="cerrarModal()" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition shadow-md hover:shadow-lg">
+                    Aceptar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SCRIPT (con validaciones) ==================== -->
+    <script>
+        // Menú móvil con validación
+        const btnMenu = document.getElementById('btn-menu');
+        const menuMovil = document.getElementById('menu-movil');
+
+        if (btnMenu && menuMovil) {
+            btnMenu.addEventListener('click', () => {
+                menuMovil.classList.toggle('hidden');
+            });
+        }
+
+        // Funciones del Modal Custom
+        function mostrarModal() {
+            const modal = document.getElementById('modal-exito');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.firstElementChild.classList.remove('scale-95');
+            modal.firstElementChild.classList.add('scale-100');
+        }
+
+        function cerrarModal() {
+            const modal = document.getElementById('modal-exito');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.firstElementChild.classList.remove('scale-100');
+            modal.firstElementChild.classList.add('scale-95');
+        }
+
+        // Formulario de contacto con validación
+        const formContacto = document.getElementById('form-contacto');
+        
+        if (formContacto) {
+            formContacto.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validación extra
+                const nombre = document.getElementById('nombre')?.value.trim();
+                const email = document.getElementById('email')?.value.trim();
+                const telefono = document.getElementById('telefono')?.value.trim();
+                const mensaje = document.getElementById('mensaje')?.value.trim();
+                
+                if (!nombre || !email || !telefono || !mensaje) {
+                    alert('⚠️ Por favor, completa todos los campos del formulario.');
+                    return;
+                }
+                
+                if (!email.includes('@') || !email.includes('.')) {
+                    alert('⚠️ Por favor, ingresa un correo electrónico válido.');
+                    return;
+                }
+                
+                // Mostrar el modal personalizado en vez del alert del navegador
+                mostrarModal();
+                formContacto.reset();
+            });
+        }
+    </script>
+</body>
+</html>

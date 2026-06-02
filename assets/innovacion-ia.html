@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innovación + IA - I.E.P. Teniente Manuel Clavero Muga</title>
+    <meta name="description" content="Área de Innovación Pedagógica e Inteligencia Artificial en el Colegio Manuel Clavero Muga de Punchana. Tecnología y educación del futuro.">
+    <meta name="keywords" content="Colegio Clavero, Iquitos, Punchana, aula AIP, Inteligencia Artificial escolar, robótica, programación Scratch">
+    <meta name="author" content="Área de Innovación Pedagógica">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="imagenes/favicon.ico">
+    
+    <style>
+        .font-title { font-family: 'Playfair Display', serif; }
+        .font-body { font-family: 'Inter', sans-serif; }
+        
+        /* Animación de ondas de audio estilo JARVIS */
+        @keyframes wavePulse {
+            0%, 100% { height: 4px; }
+            50% { height: 20px; }
+        }
+        .wave-bar {
+            width: 3px;
+            background-color: #4ade80; /* green-400 */
+            border-radius: 2px;
+            animation: wavePulse 1s ease-in-out infinite;
+        }
+        .wave-bar:nth-child(2) { animation-delay: 0.15s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.3s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.45s; }
+        .wave-bar:nth-child(5) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body class="font-body bg-gray-50 text-gray-800 antialiased">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <img src="imagenes/logo.jpeg" alt="Escudo Clavero" class="h-14 w-auto" onerror="this.onerror=null; this.src='https://via.placeholder.com/60?text=IE'">
+                    <div>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-green-700 block">I.E.P. Tnte.</span>
+                        <span class="font-title text-lg font-bold text-[#0B2545] tracking-tight">Manuel Clavero Muga</span>
+                    </div>
+                </div>
+
+                <!-- Menú desktop -->
+                <div class="hidden xl:flex space-x-6 text-sm font-medium">
+                    <a href="index.html" class="text-gray-600 hover:text-green-700 transition">Inicio</a>
+                    <a href="nosotros.html" class="text-gray-600 hover:text-green-700 transition">Nosotros</a>
+                    <a href="academico.html" class="text-gray-600 hover:text-green-700 transition">Académico</a>
+                    <a href="vida-escolar.html" class="text-gray-600 hover:text-green-700 transition">Vida Escolar</a>
+                    <a href="mural.html" class="text-gray-600 hover:text-green-700 transition">Mural Claveriano</a>
+                    <a href="comunidad.html" class="text-gray-600 hover:text-green-700 transition">Comunidad</a>
+                    <a href="plataformas.html" class="text-gray-600 hover:text-green-700 transition font-semibold">Plataformas</a>
+                    <a href="innovacion-ia.html" class="text-green-700 font-semibold border-b-2 border-green-700 pb-1">Innovación +IA</a>
+                </div>
+
+                <!-- Botón menú móvil -->
+                <div class="xl:hidden">
+                    <button id="btn-menu" class="text-[#0B2545] focus:outline-none" aria-label="Menú de navegación">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú móvil desplegable -->
+        <div id="menu-movil" class="hidden xl:hidden bg-white border-t border-gray-100 px-4 pt-2 pb-6 space-y-3 font-semibold shadow-inner">
+            <a href="index.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Inicio</a>
+            <a href="nosotros.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Nosotros</a>
+            <a href="academico.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Académico</a>
+            <a href="vida-escolar.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Vida Escolar</a>
+            <a href="mural.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Mural Claveriano</a>
+            <a href="comunidad.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Comunidad</a>
+            <a href="plataformas.html" class="block py-2 text-center bg-green-700 text-white py-2.5 rounded-xl font-medium mt-2 hover:bg-green-800 transition font-semibold">⚙️ Plataformas Digitales</a>
+            <a href="innovacion-ia.html" class="block py-2 text-green-700 font-semibold transition">Innovación +IA</a>
+        </div>
+    </nav>
+
+    <!-- ==================== HEADER / HERO ==================== -->
+    <header class="relative h-[60vh] flex items-center justify-center bg-[#0B2545] overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="imagenes/fondo-colegio.jpg" alt="Aula de Innovación" class="w-full h-full object-cover opacity-20 scale-105" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200'">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0B2545]/50 to-[#0B2545]"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white space-y-4 mt-20">
+            <p class="text-xs sm:text-sm font-semibold tracking-widest uppercase text-green-400 bg-green-500/10 px-4 py-1.5 rounded-full inline-block backdrop-blur-sm">
+                Área de Innovación Pedagógica (AIP)
+            </p>
+            <h1 class="font-title text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-none max-w-3xl mx-auto">
+                Forjando el <span class="text-green-400 italic font-normal">futuro digital</span> de la Amazonía
+            </h1>
+            <p class="text-md sm:text-lg text-gray-300 max-w-2xl mx-auto font-light">
+                Integramos metodologías activas, programación y el uso responsable de la Inteligencia Artificial como herramientas para potenciar el talento claveriano.
+            </p>
+        </div>
+
+        <div class="absolute bottom-0 w-full overflow-hidden leading-none z-10">
+            <svg class="relative block w-full h-[40px] text-gray-50" viewBox="0 0 1200 1200" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" transform="rotate(180 600 600)" fill="currentColor"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main class="relative z-20 -mt-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        
+        <!-- Aula AIP y Alianza -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center bg-white rounded-3xl p-8 sm:p-12 shadow-xl shadow-gray-200/40 border border-gray-100 mb-20">
+            <div class="lg:col-span-7 space-y-6">
+                <span class="text-xs font-bold uppercase text-green-600 tracking-widest block">Aula Tecnológica</span>
+                <h2 class="font-title text-3xl font-bold text-[#0B2545] tracking-tight">El Corazón Tecnológico de Punchana: Aula AIP</h2>
+                <p class="text-gray-600 text-sm sm:text-base leading-relaxed font-light">
+                    Gracias a nuestro convenio estratégico con **Fundación Telefónica**, la I.E.P. Teniente Manuel Clavero Muga cuenta con un **Aula de Innovación Pedagógica (AIP)** totalmente equipada con laptops, tablets de última generación, proyectores multimedia y conectividad dedicada de alta velocidad.
+                </p>
+                <p class="text-gray-600 text-sm sm:text-base leading-relaxed font-light">
+                    Este espacio no es solo una sala de computadoras; es un laboratorio de ideas donde nuestros docentes de todas las áreas integran recursos digitales en sus sesiones curriculares, permitiendo a los estudiantes interactuar de manera dinámica con la ciencia y la información global.
+                </p>
+                <div class="grid grid-cols-2 gap-4 pt-2">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-green-500 text-lg">✓</span>
+                        <span class="text-gray-700 text-sm font-semibold">Equipamiento Moderno</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-green-500 text-lg">✓</span>
+                        <span class="text-gray-700 text-sm font-semibold">Conectividad de Alta Velocidad</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-green-500 text-lg">✓</span>
+                        <span class="text-gray-700 text-sm font-semibold">Capacitación Docente Constante</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-green-500 text-lg">✓</span>
+                        <span class="text-gray-700 text-sm font-semibold">Uso Ético de la IA</span>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-5 relative rounded-2xl overflow-hidden shadow-lg aspect-video bg-gray-100 group">
+                <img src="imagenes/noticia1-placeholder.jpg" alt="Estudiantes en aula AIP" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-[#0B2545]/20"></div>
+            </div>
+        </section>
+
+        <!-- Pilares de Innovación -->
+        <section class="mb-20">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase text-green-600 tracking-widest block">Nuestra Propuesta Digital</span>
+                <h2 class="font-title text-3xl font-bold text-[#0B2545] tracking-tight mt-1">Pilares de nuestra Transformación Educativa</h2>
+                <p class="text-gray-500 text-sm mt-2 font-light">Diseñamos una educación moderna que une la riqueza de nuestra cultura amazónica con las herramientas del mañana.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Pilar 1 -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-[#139A43] mb-4">
+                        💡
+                    </div>
+                    <h3 class="font-title text-lg font-bold text-[#0B2545] mb-2">Pensamiento Computacional</h3>
+                    <p class="text-gray-600 text-sm font-light leading-relaxed">
+                        Enseñamos a nuestros estudiantes a resolver problemas complejos a través de la programación básica en Scratch y Python, fomentando la lógica y la creatividad.
+                    </p>
+                </div>
+
+                <!-- Pilar 2 -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-[#0B2545] mb-4">
+                        🤖
+                    </div>
+                    <h3 class="font-title text-lg font-bold text-[#0B2545] mb-2">Robótica y Ciencia</h3>
+                    <p class="text-gray-600 text-sm font-light leading-relaxed">
+                        Combinamos placas programables con sensores para que los alumnos diseñen proyectos científicos orientados al cuidado ambiental de nuestra flora y fauna de Loreto.
+                    </p>
+                </div>
+
+                <!-- Pilar 3 -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-[#139A43] mb-4">
+                        🧠
+                    </div>
+                    <h3 class="font-title text-lg font-bold text-[#0B2545] mb-2">Inteligencia Artificial Educativa</h3>
+                    <p class="text-gray-600 text-sm font-light leading-relaxed">
+                        Guiamos a los estudiantes en el uso seguro, crítico y ético de la Inteligencia Artificial (prompts de investigación, organizadores cognitivos) para potenciar su aprendizaje.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Asistente Virtual Claveriano (INTERACTIVE CHATBOT WITH TTS) -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center bg-[#0B2545] rounded-3xl p-8 sm:p-12 shadow-xl relative overflow-hidden mb-20 text-white">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            
+            <div class="lg:col-span-5 space-y-6 relative z-10">
+                <span class="text-xs font-bold uppercase text-green-400 tracking-widest block">Demostración en Vivo</span>
+                <h2 class="font-title text-3xl font-bold text-white tracking-tight">Prueba el Asistente Clavero IA</h2>
+                <p class="text-gray-300 text-sm leading-relaxed font-light">
+                    Diseñamos e implementamos prototipos tecnológicos sencillos para que los estudiantes entiendan cómo interactúan los sistemas inteligentes. 
+                </p>
+                <p class="text-gray-300 text-sm leading-relaxed font-light">
+                    ¡Haz una consulta a nuestro asistente virtual interactivo en la sección de la derecha sobre la historia de nuestro colegio o el aula de cómputo AIP!
+                </p>
+                
+                <!-- Botones de Preguntas Rápidas -->
+                <div class="space-y-2 pt-2">
+                    <button onclick="askClaveroBot('historia')" class="block w-full text-left bg-white/10 hover:bg-white/20 text-xs px-4 py-2.5 rounded-xl border border-white/20 transition">
+                        📖 ¿Cuál es la historia del colegio?
+                    </button>
+                    <button onclick="askClaveroBot('aip')" class="block w-full text-left bg-white/10 hover:bg-white/20 text-xs px-4 py-2.5 rounded-xl border border-white/20 transition">
+                        🖥️ ¿Qué es el aula tecnológica AIP?
+                    </button>
+                    <button onclick="askClaveroBot('patrono')" class="block w-full text-left bg-white/10 hover:bg-white/20 text-xs px-4 py-2.5 rounded-xl border border-white/20 transition">
+                        ⚓ ¿Quién es el patrono Manuel Clavero?
+                    </button>
+                    <button onclick="askClaveroBot('ubicacion')" class="block w-full text-left bg-white/10 hover:bg-white/20 text-xs px-4 py-2.5 rounded-xl border border-white/20 transition">
+                        📍 ¿Dónde está ubicado el colegio?
+                    </button>
+                </div>
+            </div>
+
+            <!-- Caja de Chat -->
+            <div class="lg:col-span-7 relative z-10 w-full bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl flex flex-col h-[420px] overflow-hidden shadow-2xl">
+                <!-- Chat Header -->
+                <div class="bg-[#139A43] px-6 py-4 flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-lg">🤖</div>
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-white">Clavero-Bot v1.3</h4>
+                            <span class="text-[10px] text-green-200 flex items-center gap-1">● En línea (Protocolo JARVIS Castellano)</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Voice controls and animation -->
+                    <div class="flex items-center space-x-3">
+                        <!-- Wave Animation -->
+                        <div id="voice-waves" class="hidden flex items-center space-x-1 h-5 pr-2">
+                            <div class="wave-bar h-1"></div>
+                            <div class="wave-bar h-1"></div>
+                            <div class="wave-bar h-1"></div>
+                            <div class="wave-bar h-1"></div>
+                            <div class="wave-bar h-1"></div>
+                        </div>
+                        
+                        <!-- Toggle Button -->
+                        <button id="btn-toggle-voice" onclick="toggleVoice()" class="bg-white/20 hover:bg-white/30 p-2 rounded-xl text-white text-xs flex items-center gap-1.5 transition">
+                            <span id="voice-status-icon">🔊</span>
+                            <span id="voice-status-text" class="hidden sm:inline">Voz: ON</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat Body (Messages) -->
+                <div id="chat-messages" class="flex-grow p-4 space-y-4 overflow-y-auto text-xs font-light scrollbar-thin">
+                    <!-- El mensaje inicial se agregará automáticamente mediante JS con tono formal y castellano latinoamericano -->
+                </div>
+
+                <!-- Chat Input -->
+                <form onsubmit="handleChatSubmit(event)" class="border-t border-white/10 p-3 flex gap-2">
+                    <input type="text" id="chat-input" placeholder="Pregunte sobre ubicación, historia, director, admisión..." class="flex-grow bg-white/5 border border-white/20 rounded-xl px-4 py-2 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-green-500 focus:bg-white/10 transition">
+                    <button type="submit" class="bg-[#139A43] hover:bg-green-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition">Enviar</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-[#0B2545] text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <!-- Enlaces -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Secciones</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="index.html" class="hover:text-white transition">Inicio</a></li>
+                        <li><a href="nosotros.html" class="hover:text-white transition">Nosotros</a></li>
+                        <li><a href="academico.html" class="hover:text-white transition">Propuesta Académica</a></li>
+                        <li><a href="vida-escolar.html" class="hover:text-white transition">Vida Escolar (AIP)</a></li>
+                        <li><a href="mural.html" class="hover:text-white transition">Mural Claveriano</a></li>
+                        <li><a href="comunidad.html" class="hover:text-white transition">Contacto y Comunidad</a></li>
+                        <li><a href="plataformas.html" class="text-green-400 hover:text-white transition font-medium">Ecosistema Plataformas</a></li>
+                        <li><a href="innovacion-ia.html" class="hover:text-white transition">Innovación +IA</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contacto -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Contacto</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li>📍 Av. Trujillo N° 745, Punchana - Iquitos</li>
+                        <li>📞 065 250385</li>
+                        <li>✉️ colegioclaverom@gmail.com</li>
+                    </ul>
+                </div>
+                
+                <!-- Redes -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Comunidad Digital</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition">🌐 Facebook Institucional</a>
+                    </div>
+                </div>
+                
+                <!-- Innovación -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Innovación</h4>
+                    <p class="text-xs text-gray-400">Aula de Innovación Pedagógica integrada con IA y recursos digitales.</p>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 space-y-4 sm:space-y-0">
+                <p>&copy; 2026 I.E.P. Teniente Manuel Clavero Muga. Todos los derechos reservados.</p>
+                <p class="text-gray-500">Área de Innovación Pedagógica</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script src="js/main.js?v=2.3"></script>
+    <script>
+        // Menú móvil
+        const btnMenu = document.getElementById('btn-menu');
+        const menuMovil = document.getElementById('menu-movil');
+
+        if (btnMenu && menuMovil) {
+            btnMenu.addEventListener('click', () => {
+                menuMovil.classList.toggle('hidden');
+            });
+        }
+
+        // ==================== CONFIGURACIÓN DE VOZ (SPEECH SYNTHESIS / CASTELLANO LATINO) ====================
+        let isVoiceEnabled = true;
+        const synth = window.speechSynthesis;
+        let activeUtterance = null;
+        let voicesList = [];
+
+        function loadVoices() {
+            voicesList = synth.getVoices();
+        }
+        
+        loadVoices();
+        if (synth.onvoiceschanged !== undefined) {
+            synth.onvoiceschanged = loadVoices;
+        }
+
+        function toggleVoice() {
+            isVoiceEnabled = !isVoiceEnabled;
+            const icon = document.getElementById('voice-status-icon');
+            const text = document.getElementById('voice-status-text');
+            
+            if (isVoiceEnabled) {
+                icon.innerText = "🔊";
+                text.innerText = "Voz: ON";
+            } else {
+                icon.innerText = "🔇";
+                text.innerText = "Voz: OFF";
+                if (synth.speaking) {
+                    synth.cancel();
+                }
+                document.getElementById('voice-waves').classList.add('hidden');
+            }
+        }
+
+        // Obtener una voz masculina de Castellano / Español Latinoamericano
+        function getLatinAmericanSpanishVoice() {
+            const spanishVoices = voicesList.filter(voice => voice.lang.toLowerCase().includes('es-'));
+            
+            // Priorizar códigos de idioma de América Latina (excluyendo es-ES)
+            const latAmLocales = ['es-pe', 'es-mx', 'es-419', 'es-co', 'es-ar', 'es-cl', 'es-us'];
+            
+            // 1. Intentar encontrar una voz masculina Latinoamericana
+            let selected = spanishVoices.find(voice => {
+                const lang = voice.lang.toLowerCase();
+                const name = voice.name.toLowerCase();
+                const isSpain = lang.includes('es-es');
+                const isLatAm = latAmLocales.some(locale => lang.includes(locale));
+                const isMale = name.includes('david') || name.includes('julio') || name.includes('daniel') || name.includes('male') || name.includes('hombre') || name.includes('google');
+                return !isSpain && isLatAm && isMale;
+            });
+            
+            // 2. Intentar encontrar cualquier voz Latinoamericana (incluso femenina si evita el acento español)
+            if (!selected) {
+                selected = spanishVoices.find(voice => {
+                    const lang = voice.lang.toLowerCase();
+                    return !lang.includes('es-es') && latAmLocales.some(locale => lang.includes(locale));
+                });
+            }
+            
+            // 3. Intentar encontrar cualquier voz masculina española en general (incluyendo es-ES si es la única de hombre)
+            if (!selected) {
+                selected = spanishVoices.find(voice => {
+                    const name = voice.name.toLowerCase();
+                    return name.includes('david') || name.includes('julio') || name.includes('daniel') || name.includes('male') || name.includes('hombre');
+                });
+            }
+            
+            // 4. Fallback final a la primera que esté disponible
+            return selected || spanishVoices[0] || null;
+        }
+
+        function speakText(text) {
+            if (!isVoiceEnabled) return;
+            
+            if (synth.speaking) {
+                synth.cancel();
+            }
+
+            // Formatear siglas y números para una lectura de voz más natural
+            let speakableText = text.replace(/<\/?[^>]+(>|$)/g, ""); // limpiar HTML
+            speakableText = speakableText.replace(/AIP/g, "A. I. P.");
+            speakableText = speakableText.replace(/I\.E\.P\./g, "I. E. P.");
+            speakableText = speakableText.replace(/SIAGIE/g, "Siágie");
+            speakableText = speakableText.replace(/v1\.3/g, "versión uno punto tres");
+
+            const utterance = new SpeechSynthesisUtterance(speakableText);
+            const voiceSelected = getLatinAmericanSpanishVoice();
+            
+            if (voiceSelected) {
+                utterance.voice = voiceSelected;
+            }
+            
+            // Efecto de voz masculina profunda estilo JARVIS
+            utterance.pitch = 0.80;  // Tono grave
+            utterance.rate = 0.95;   // Velocidad pausada y formal
+            
+            utterance.onstart = () => {
+                document.getElementById('voice-waves').classList.remove('hidden');
+            };
+            utterance.onend = () => {
+                document.getElementById('voice-waves').classList.add('hidden');
+            };
+            utterance.onerror = () => {
+                document.getElementById('voice-waves').classList.add('hidden');
+            };
+
+            activeUtterance = utterance;
+            synth.speak(utterance);
+        }
+
+        // ==================== BASE DE DATOS DE RESPUESTAS FORMALES ====================
+        const claveroBotAnswers = {
+            historia: "La Institución Educativa Pública Teniente Manuel Clavero Muga fue fundada en el año 1969 en el distrito de Punchana, Iquitos. A lo largo de sus más de cincuenta y cinco años de trayectoria, se ha consolidado como un referente de educación científica, tecnológica y moral en la región Loreto.",
+            aip: "El Aula de Innovación Pedagógica (AIP) es un moderno laboratorio tecnológico implementado en convenio con la Fundación Telefónica. Está equipado con laptops, tablets de última generación y conectividad dedicada de alta velocidad, permitiendo a los estudiantes desarrollar competencias de programación y robótica.",
+            patrono: "Nuestro patrono es el Teniente Manuel Clavero Muga, destacado héroe de la Marina de Guerra del Perú. Es reconocido en la historia nacional por su heroísmo en el Combate de La Pedrera en 1911, donde defendió con éxito y patriotismo la soberanía de nuestro territorio amazónico.",
+            robotica: "En los talleres de Robótica y Ciencias, los estudiantes diseñan prototipos y maquetas programables utilizando placas Arduino y sensores. Estos proyectos están orientados a dar soluciones de desarrollo sostenible en la selva, como sistemas de purificación de agua o alertas tempranas ante inundaciones.",
+            ia: "Promovemos la integración responsable de la Inteligencia Artificial en el ámbito escolar. Capacitamos a los alumnos en ingeniería de prompts para investigación académica, pensamiento crítico ante la información digital y el comportamiento ético en la red.",
+            ubicacion: "Nuestra institución educativa está ubicada en la Avenida Trujillo Número 745, en el distrito de Punchana, provincia de Maynas, Iquitos, región de Loreto, Perú.",
+            director: "El Director Institucional de nuestro colegio es el Profesor Luis Nilo Zambrano Peña, quien lidera la plana directiva y docente en nuestro compromiso con el desarrollo académico y moral de la comunidad.",
+            mision: "Nuestra misión institucional es brindar una formación escolar integral, científica y humanística de alta calidad a los estudiantes de Punchana, promoviendo la innovación tecnológica y el cultivo estricto de los valores cívico-patrióticos.",
+            vision: "Nuestra visión al año 2030 es consolidarnos como una institución líder y referente en la región Loreto, reconocida por la excelencia académica de nuestros egresados claverianos y su dominio de competencias tecnológicas y éticas.",
+            plataformas: "Contamos con un completo ecosistema virtual que incluye la plataforma de calificaciones SIAGIE del Minedu, aulas virtuales de Google Classroom para el aprendizaje interactivo y nuestra Biblioteca Digital Amazónica.",
+            turnos: "Nuestra institución ofrece servicios educativos de nivel secundaria organizados en dos turnos: el Turno Mañana y el Turno Tarde, brindando comodidad y facilidades de horario a las familias claverianas.",
+            contacto: "Puede comunicarse con nuestra oficina institucional llamando al número telefónico 065 250385, o escribirnos de forma oficial al correo institucional colegioclaverom@gmail.com.",
+            saludo: "Sistemas activos. Muy buenos días. Soy Clavero-Bot, su asistente virtual de Inteligencia Artificial con protocolo de comunicación formal. ¿En qué puedo asistirle con la información de nuestra institución el día de hoy?",
+            despedida: "Ha sido un honor brindarle la información requerida sobre nuestra institución. Recuerde que en nuestro colegio, todo claveriano es un amigo. Que tenga usted un excelente día. Sistemas en reposo.",
+            default: "Entendido. He registrado su consulta. No dispongo de una respuesta exacta para esa formulación en mi base de datos de consulta rápida. No obstante, puede consultarme acerca de la historia, ubicación, director, misión, visión, turnos académicos, aula virtual AIP, robótica o canales de contacto institucional."
+        };
+
+        function getBotReply(inputText) {
+            const text = inputText.trim().toLowerCase();
+            
+            let scores = {
+                saludo: 0,
+                despedida: 0,
+                ubicacion: 0,
+                aip: 0,
+                patrono: 0,
+                historia: 0,
+                robotica: 0,
+                ia: 0,
+                director: 0,
+                mision: 0,
+                vision: 0,
+                plataformas: 0,
+                turnos: 0,
+                contacto: 0
+            };
+            
+            // Reglas semánticas por palabras clave (coincidencia de intenciones)
+            
+            // SALUDO
+            if (text.includes("hola") || text.includes("buenos") || text.includes("buenas") || text.includes("que tal") || text.includes("qué tal") || text.includes("saludos") || text.includes("presentación") || text.includes("presentacion") || text.includes("iniciar")) {
+                scores.saludo += 5;
+            }
+            
+            // DESPEDIDA
+            if (text.includes("gracias") || text.includes("muchas gracias") || text.includes("adios") || text.includes("adiós") || text.includes("hasta luego") || text.includes("cerrar") || text.includes("finalizar") || text.includes("chau")) {
+                scores.despedida += 5;
+            }
+            
+            // UBICACIÓN (Tiene peso prioritario ante la palabra "Manuel Clavero Muga")
+            if (text.includes("ubicado") || text.includes("ubicación") || text.includes("ubicacion") || text.includes("donde queda") || text.includes("dónde queda") || text.includes("donde esta") || text.includes("dónde está") || text.includes("direccion") || text.includes("dirección") || text.includes("localización") || text.includes("localizacion") || text.includes("lugar") || text.includes("sitio") || text.includes("avenida") || text.includes("calle") || text.includes("mapa") || text.includes("encontrar") || text.includes("distrito") || text.includes("provincia") || text.includes("av") || text.includes("direc")) {
+                scores.ubicacion += 10;
+            }
+            
+            // AULA AIP / COMPUTADORAS
+            if (text.includes("aip") || text.includes("aula de innovación") || text.includes("aula de innovacion") || text.includes("computadora") || text.includes("computación") || text.includes("computacion") || text.includes("cómputo") || text.includes("laptops") || text.includes("tablets") || text.includes("tecnológico") || text.includes("tecnologico") || text.includes("telefónica") || text.includes("telefonica")) {
+                scores.aip += 8;
+            }
+            
+            // PATRONO
+            if (text.includes("patrono") || text.includes("quién es") || text.includes("quien es") || text.includes("combate") || text.includes("pedrera") || text.includes("marina") || text.includes("héroe") || text.includes("heroe") || text.includes("militar") || text.includes("patrón") || text.includes("patron")) {
+                scores.patrono += 7;
+            }
+            if (text.includes("manuel clavero") || text.includes("clavero muga") || text.includes("teniente")) {
+                scores.patrono += 3;
+            }
+            
+            // HISTORIA
+            if (text.includes("historia") || text.includes("fundación") || text.includes("fundacion") || text.includes("fundado") || text.includes("creación") || text.includes("creacion") || text.includes("año") || text.includes("trayectoria") || text.includes("1969") || text.includes("antigüedad") || text.includes("antiguedad") || text.includes("aniversario")) {
+                scores.historia += 8;
+            }
+            
+            // ROBÓTICA
+            if (text.includes("robótica") || text.includes("robotica") || text.includes("arduino") || text.includes("maquetas") || text.includes("sensores") || text.includes("prototipos") || text.includes("automatizado")) {
+                scores.robotica += 8;
+            }
+            
+            // IA
+            if (text.includes("ia") || text.includes("inteligencia artificial") || text.includes("prompts") || text.includes("chatgpt") || text.includes("machine learning")) {
+                scores.ia += 8;
+            }
+            
+            // DIRECTOR
+            if (text.includes("director") || text.includes("subdirector") || text.includes("luis nilo") || text.includes("nilow") || text.includes("zambrano") || text.includes("peña") || text.includes("pea") || text.includes("general") || text.includes("plana")) {
+                scores.director += 10;
+            }
+            
+            // MISIÓN
+            if (text.includes("misión") || text.includes("mision") || text.includes("misiones") || text.includes("propósito") || text.includes("proposito") || text.includes("meta") || text.includes("compromiso")) {
+                scores.mision += 10;
+            }
+            
+            // VISIÓN
+            if (text.includes("visión") || text.includes("vision") || text.includes("2030") || text.includes("referente") || text.includes("referentes") || text.includes("futuro")) {
+                scores.vision += 10;
+            }
+            
+            // PLATAFORMAS
+            if (text.includes("plataforma") || text.includes("plataformas") || text.includes("siagie") || text.includes("classroom") || text.includes("biblioteca") || text.includes("digital") || text.includes("web") || text.includes("página") || text.includes("pagina") || text.includes("ecosistema")) {
+                scores.plataformas += 8;
+            }
+            
+            // TURNOS / HORARIO
+            if (text.includes("turno") || text.includes("turnos") || text.includes("horario") || text.includes("secundaria") || text.includes("tarde") || text.includes("mañana") || text.includes("clases") || text.includes("clase") || text.includes("estudiar")) {
+                scores.turnos += 8;
+            }
+            
+            // CONTACTO
+            if (text.includes("contacto") || text.includes("teléfono") || text.includes("telefono") || text.includes("número") || text.includes("numero") || text.includes("correo") || text.includes("email") || text.includes("gmail") || text.includes("llamar") || text.includes("escribir") || text.includes("llamo") || text.includes("comunicar") || text.includes("telf")) {
+                scores.contacto += 10;
+            }
+
+            let maxIntent = "default";
+            let maxScore = 0;
+            for (let intent in scores) {
+                if (scores[intent] > maxScore) {
+                    maxScore = scores[intent];
+                    maxIntent = intent;
+                }
+            }
+            
+            return claveroBotAnswers[maxIntent];
+        }
+
+        // ==================== INTERFACCIÓN Y ENVIOS ====================
+        function addMessage(text, isUser = false) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageWrapper = document.createElement('div');
+            messageWrapper.classList.add('flex', 'items-start', 'space-x-2');
+            if (isUser) {
+                messageWrapper.classList.add('justify-end');
+            }
+
+            const messageDiv = document.createElement('div');
+            if (isUser) {
+                messageDiv.className = 'bg-[#139A43] text-white rounded-2xl px-4 py-2.5 max-w-[85%]';
+            } else {
+                messageDiv.className = 'bg-white/20 text-white rounded-2xl px-4 py-2.5 max-w-[85%]';
+            }
+            messageDiv.innerText = text;
+
+            messageWrapper.appendChild(messageDiv);
+            messagesContainer.appendChild(messageWrapper);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function askClaveroBot(key) {
+            const questionText = {
+                historia: "¿Cuál es la historia del colegio?",
+                aip: "¿Qué es el aula tecnológica AIP?",
+                patrono: "¿Quién es el patrono Manuel Clavero?",
+                ubicacion: "¿Dónde está ubicado el colegio?"
+            };
+            
+            const question = questionText[key] || "Consulta";
+            addMessage(question, true);
+            
+            if (synth.speaking) {
+                synth.cancel();
+            }
+
+            setTimeout(() => {
+                const answer = claveroBotAnswers[key] || claveroBotAnswers.default;
+                addMessage(answer, false);
+                speakText(answer);
+            }, 500);
+        }
+
+        function handleChatSubmit(event) {
+            event.preventDefault();
+            const input = document.getElementById('chat-input');
+            const rawText = input.value.trim();
+            if (!rawText) return;
+
+            addMessage(rawText, true);
+            input.value = '';
+
+            if (synth.speaking) {
+                synth.cancel();
+            }
+
+            setTimeout(() => {
+                const reply = getBotReply(rawText);
+                addMessage(reply, false);
+                speakText(reply);
+            }, 600);
+        }
+
+        // ==================== SALUDO AUTOMÁTICO AL CARGAR LA PÁGINA ====================
+        window.addEventListener('DOMContentLoaded', () => {
+            // Un pequeño delay para permitir que el sintetizador de voz se inicialice
+            setTimeout(() => {
+                const welcomeMessage = "Sistemas activos. Muy buenos días. Soy Clavero-Bot, su asistente de Inteligencia Artificial. Estoy a su disposición para brindarle información formal sobre nuestra institución educativa. ¿En qué le puedo asistir el día de hoy?";
+                addMessage(welcomeMessage, false);
+                speakText(welcomeMessage);
+            }, 1200);
+        });
+    </script>
+</body>
+</html>

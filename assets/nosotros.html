@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosotros - I.E.P. Teniente Manuel Clavero Muga</title>
+    <meta name="description" content="Conoce nuestra historia, misión, visión y valores. I.E.P. Teniente Manuel Clavero Muga - Formando líderes amazónicos desde 1969.">
+    <meta name="keywords" content="Colegio Clavero, Iquitos, Punchana, misión, visión, historia, valores institucionales">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="imagenes/favicon.ico">
+    
+    <style>
+        .font-title { font-family: 'Playfair Display', serif; }
+        .font-body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="font-body bg-gray-50 text-gray-800 antialiased">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <img src="imagenes/logo.jpeg" alt="Escudo Clavero" class="h-14 w-auto" onerror="this.onerror=null; this.src='https://via.placeholder.com/60?text=IE'">
+                    <div>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-green-700 block">I.E.P. Tnte.</span>
+                        <span class="font-title text-lg font-bold text-[#0B2545] tracking-tight">Manuel Clavero Muga</span>
+                    </div>
+                </div>
+
+                <!-- Menú desktop -->
+                <div class="hidden xl:flex space-x-6 text-sm font-medium">
+                    <a href="index.html" class="text-gray-600 hover:text-green-700 transition">Inicio</a>
+                    <a href="nosotros.html" class="text-green-700 font-semibold border-b-2 border-green-700 pb-1">Nosotros</a>
+                    <a href="academico.html" class="text-gray-600 hover:text-green-700 transition">Académico</a>
+                    <a href="vida-escolar.html" class="text-gray-600 hover:text-green-700 transition">Vida Escolar</a>
+                    <a href="mural.html" class="text-gray-600 hover:text-green-700 transition">Mural Claveriano</a>
+                    <a href="comunidad.html" class="text-gray-600 hover:text-green-700 transition">Comunidad</a>
+                    <a href="plataformas.html" class="text-gray-600 hover:text-green-700 transition">Plataformas</a>
+                    <a href="innovacion-ia.html" class="text-gray-600 hover:text-green-700 transition">Innovación +IA</a>
+                </div>
+
+                <!-- Botón menú móvil -->
+                <div class="xl:hidden">
+                    <button id="btn-menu" class="text-[#0B2545] focus:outline-none" aria-label="Menú de navegación">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú móvil desplegable -->
+        <div id="menu-movil" class="hidden xl:hidden bg-white border-t border-gray-100 px-4 pt-2 pb-6 space-y-3 font-semibold shadow-inner">
+            <a href="index.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Inicio</a>
+            <a href="nosotros.html" class="block py-2 text-green-700 font-semibold">Nosotros</a>
+            <a href="academico.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Académico</a>
+            <a href="vida-escolar.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Vida Escolar</a>
+            <a href="mural.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Mural Claveriano</a>
+            <a href="comunidad.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Comunidad</a>
+            <a href="plataformas.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Plataformas</a>
+            <a href="innovacion-ia.html" class="block py-2 text-[#0B2545] hover:text-green-700 transition">Innovación +IA</a>
+            <a href="#" class="block text-center bg-[#139A43] text-white py-2.5 rounded-full mt-2 hover:bg-[#0e7a35] transition">📚 Biblioteca Digital</a>
+        </div>
+    </nav>
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="bg-[#0B2545] pt-40 pb-24 text-white text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <img src="imagenes/fondo-colegio.jpg" alt="Textura" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1920'">
+        </div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 space-y-3">
+            <span class="text-xs font-bold uppercase tracking-widest text-green-400">Identidad e Historia</span>
+            <h1 class="font-title text-4xl sm:text-5xl font-bold tracking-tight">Nuestra Institución</h1>
+            <p class="text-gray-300 text-sm sm:text-base max-w-xl mx-auto font-light">Conoce los pilares, valores y símbolos que guían el camino de la comunidad claveriana.</p>
+        </div>
+    </header>
+
+    <!-- ==================== MISIÓN Y VISIÓN ==================== -->
+    <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <!-- Misión -->
+            <div class="bg-white p-10 rounded-2xl shadow-md border border-gray-100 space-y-4 hover:shadow-xl transition duration-300 group">
+                <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-[#139A43] group-hover:bg-[#139A43] group-hover:text-white transition duration-300">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <h2 class="font-title text-2xl font-bold text-[#0B2545]">Nuestra Misión</h2>
+                <p class="text-gray-600 text-sm leading-relaxed font-light">
+                    Brindar a nuestros estudiantes del distrito de Punchana una formación escolar integral, científica y humanística de alta calidad. Fomentamos la innovación, el uso de herramientas tecnológicas y el cultivo estricto de valores cívico-patrióticos para asegurar líderes capaces de transformar su entorno regional y nacional.
+                </p>
+            </div>
+            
+            <!-- Visión -->
+            <div class="bg-white p-10 rounded-2xl shadow-md border border-gray-100 space-y-4 hover:shadow-xl transition duration-300 group">
+                <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-[#0B2545] group-hover:bg-[#0B2545] group-hover:text-white transition duration-300">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                </div>
+                <h2 class="font-title text-2xl font-bold text-[#0B2545]">Nuestra Visión</h2>
+                <p class="text-gray-600 text-sm leading-relaxed font-light">
+                    Ser reconocidos al 2030 como una institución educativa líder y referente en la región Loreto por la excelencia académica, la sólida formación en valores éticos y el desarrollo de competencias digitales y tecnológicas avanzadas en nuestros egresados claverianos.
+                </p>
+            </div>
+        </div>
+
+        <!-- ==================== VALORES INSTITUCIONALES ==================== -->
+        <div class="mt-20">
+            <div class="text-center mb-12">
+                <span class="text-xs font-bold uppercase text-green-600 tracking-widest block">Nuestros Fundamentos</span>
+                <h2 class="font-title text-3xl font-bold text-[#0B2545] mt-1">Valores que Nos Guían</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto mt-2 text-sm font-light">Principios que inspiran el quehacer diario de nuestra comunidad educativa.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-2xl p-6 text-center border border-gray-100 shadow-sm hover:shadow-md transition hover:-translate-y-1 duration-300">
+                    <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center text-green-700 mx-auto mb-4">
+                        <i class="fas fa-hand-holding-heart text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-[#0B2545] mb-2">Respeto</h3>
+                    <p class="text-gray-500 text-xs">Fomentamos la convivencia armónica y el trato digno entre todos los miembros de la comunidad.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center border border-gray-100 shadow-sm hover:shadow-md transition hover:-translate-y-1 duration-300">
+                    <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center text-green-700 mx-auto mb-4">
+                        <i class="fas fa-graduation-cap text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-[#0B2545] mb-2">Excelencia</h3>
+                    <p class="text-gray-500 text-xs">Buscamos la mejora continua en todos los procesos académicos y administrativos.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center border border-gray-100 shadow-sm hover:shadow-md transition hover:-translate-y-1 duration-300">
+                    <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center text-green-700 mx-auto mb-4">
+                        <i class="fas fa-shield-alt text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-[#0B2545] mb-2">Pundonor</h3>
+                    <p class="text-gray-500 text-xs">Actuamos con rectitud, honradez y amor por nuestra institución y nuestra patria.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center border border-gray-100 shadow-sm hover:shadow-md transition hover:-translate-y-1 duration-300">
+                    <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center text-green-700 mx-auto mb-4">
+                        <i class="fas fa-lightbulb text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-[#0B2545] mb-2">Innovación</h3>
+                    <p class="text-gray-500 text-xs">Integramos tecnología e inteligencia artificial para potenciar el aprendizaje.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== HISTORIA ==================== -->
+        <div class="mt-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <span class="text-xs font-bold uppercase text-green-600 tracking-widest block">Nuestro Origen</span>
+                    <h2 class="font-title text-3xl sm:text-4xl font-bold text-[#0B2545] tracking-tight">Un Legado de Honor y Excelencia</h2>
+                    <div class="space-y-4 text-gray-600 text-sm sm:text-base leading-relaxed font-light">
+                        <p>Fundada en 1969, la Institución Educativa Pública Teniente Manuel Clavero Muga nació con el firme propósito de educar a la juventud del pujante distrito de Punchana, convirtiéndose rápidamente en el faro intelectual y cultural de la zona norte de Iquitos.</p>
+                        <p>Llevamos con orgullo el nombre de un héroe naval peruano que personificó la valentía y el amor por la patria. El <strong>Teniente Manuel Clavero Muga</strong> fue un oficial de la Marina de Guerra del Perú que destacó por su heroísmo y dedicación. Siguiendo su ejemplo, inspiramos a cada estudiante a cultivar el pundonor, la disciplina y el afán constante de superación.</p>
+                        <p>Hoy, más de cinco décadas después, seguimos firmes en nuestro compromiso de formar líderes amazónicos con ciencia, tecnología y valores, preparándolos para los desafíos del siglo XXI.</p>
+                    </div>
+                </div>
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-gray-100 aspect-[4/3] group">
+                    <img src="imagenes/manuel-clavero-placeholder.jpg" alt="Retrato del Tnte. Manuel Clavero" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=800'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0B2545]/80 via-transparent to-transparent p-8 flex flex-col justify-end text-white">
+                        <p class="font-title text-lg font-bold">Teniente Manuel Clavero Muga</p>
+                        <p class="text-xs text-gray-300 font-light">Héroe Naval y Patrono de nuestra Institución</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-[#0B2545] text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <!-- Sección 1: Enlaces -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Secciones</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="index.html" class="hover:text-white transition">Inicio</a></li>
+                        <li><a href="nosotros.html" class="hover:text-white transition">Nosotros</a></li>
+                        <li><a href="academico.html" class="hover:text-white transition">Propuesta Académica</a></li>
+                        <li><a href="vida-escolar.html" class="hover:text-white transition">Vida Escolar (AIP)</a></li>
+                        <li><a href="mural.html" class="hover:text-white transition">Mural Claveriano</a></li>
+                        <li><a href="comunidad.html" class="hover:text-white transition">Contacto y Comunidad</a></li>
+                        <li><a href="plataformas.html" class="hover:text-white transition">Ecosistema Plataformas</a></li>
+                        <li><a href="innovacion-ia.html" class="hover:text-white transition">Innovación +IA</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Sección 2: Contacto -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Contacto</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li>📍 Av. Trujillo N° 745, Punchana - Iquitos</li>
+                        <li>📞 065 250385</li>
+                        <li>✉️ colegioclaverom@gmail.com</li>
+                    </ul>
+                </div>
+                
+                <!-- Sección 3: Redes -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Comunidad Digital</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition">🌐 Facebook Institucional</a>
+                    </div>
+                </div>
+                
+                <!-- Sección 4: Innovación -->
+                <div>
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-green-400 mb-4">Innovación</h4>
+                    <p class="text-xs text-gray-400">Aula de Innovación Pedagógica integrada con IA y recursos digitales.</p>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 space-y-4 sm:space-y-0">
+                <p>&copy; 2026 I.E.P. Teniente Manuel Clavero Muga. Todos los derechos reservados.</p>
+                <p class="text-gray-500">Área de Innovación Pedagógica</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== SCRIPT ==================== -->
+    <script>
+        // Menú móvil con validación
+        const btnMenu = document.getElementById('btn-menu');
+        const menuMovil = document.getElementById('menu-movil');
+
+        if (btnMenu && menuMovil) {
+            btnMenu.addEventListener('click', () => {
+                menuMovil.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</html>
