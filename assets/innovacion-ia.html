@@ -324,7 +324,7 @@
     </footer>
 
     <!-- ==================== SCRIPTS ==================== -->
-    <script src="js/main.js?v=2.3"></script>
+    <script src="js/main.js?v=2.4"></script>
     <script>
         // Menú móvil
         const btnMenu = document.getElementById('btn-menu');
@@ -446,6 +446,13 @@
         }
 
         // ==================== BASE DE DATOS DE RESPUESTAS FORMALES ====================
+        function obtenerSaludoDia() {
+            const hora = new Date().getHours();
+            if (hora < 12) return "buenos días";
+            if (hora < 19) return "buenas tardes";
+            return "buenas noches";
+        }
+
         const claveroBotAnswers = {
             historia: "La Institución Educativa Pública Teniente Manuel Clavero Muga fue fundada en el año 1969 en el distrito de Punchana, Iquitos. A lo largo de sus más de cincuenta y cinco años de trayectoria, se ha consolidado como un referente de educación científica, tecnológica y moral en la región Loreto.",
             aip: "El Aula de Innovación Pedagógica (AIP) es un moderno laboratorio tecnológico implementado en convenio con la Fundación Telefónica. Está equipado con laptops, tablets de última generación y conectividad dedicada de alta velocidad, permitiendo a los estudiantes desarrollar competencias de programación y robótica.",
@@ -459,7 +466,7 @@
             plataformas: "Contamos con un completo ecosistema virtual que incluye la plataforma de calificaciones SIAGIE del Minedu, aulas virtuales de Google Classroom para el aprendizaje interactivo y nuestra Biblioteca Digital Amazónica.",
             turnos: "Nuestra institución ofrece servicios educativos de nivel secundaria organizados en dos turnos: el Turno Mañana y el Turno Tarde, brindando comodidad y facilidades de horario a las familias claverianas.",
             contacto: "Puede comunicarse con nuestra oficina institucional llamando al número telefónico 065 250385, o escribirnos de forma oficial al correo institucional colegioclaverom@gmail.com.",
-            saludo: "Sistemas activos. Muy buenos días. Soy Clavero-Bot, su asistente virtual de Inteligencia Artificial con protocolo de comunicación formal. ¿En qué puedo asistirle con la información de nuestra institución el día de hoy?",
+            saludo: `Sistemas activos. Muy ${obtenerSaludoDia()}. Soy Clavero-Bot, su asistente virtual de Inteligencia Artificial con protocolo de comunicación formal. ¿En qué puedo asistirle con la información de nuestra institución el día de hoy?`,
             despedida: "Ha sido un honor brindarle la información requerida sobre nuestra institución. Recuerde que en nuestro colegio, todo claveriano es un amigo. Que tenga usted un excelente día. Sistemas en reposo.",
             default: "Entendido. He registrado su consulta. No dispongo de una respuesta exacta para esa formulación en mi base de datos de consulta rápida. No obstante, puede consultarme acerca de la historia, ubicación, director, misión, visión, turnos académicos, aula virtual AIP, robótica o canales de contacto institucional."
         };
@@ -639,7 +646,7 @@
         window.addEventListener('DOMContentLoaded', () => {
             // Un pequeño delay para permitir que el sintetizador de voz se inicialice
             setTimeout(() => {
-                const welcomeMessage = "Sistemas activos. Muy buenos días. Soy Clavero-Bot, su asistente de Inteligencia Artificial. Estoy a su disposición para brindarle información formal sobre nuestra institución educativa. ¿En qué le puedo asistir el día de hoy?";
+                const welcomeMessage = `Sistemas activos. Muy ${obtenerSaludoDia()}. Soy Clavero-Bot, su asistente de Inteligencia Artificial. Estoy a su disposición para brindarle información formal sobre nuestra institución educativa. ¿En qué le puedo asistir el día de hoy?`;
                 addMessage(welcomeMessage, false);
                 speakText(welcomeMessage);
             }, 1200);
