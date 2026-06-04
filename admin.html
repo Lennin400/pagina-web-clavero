@@ -503,8 +503,6 @@
     <!-- ==================== CONTROLLER JAVASCRIPT ==================== -->
     <script src="js/main.js"></script>
     <script>
-        const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:3000' : '';
-
         // Escucha de login
         document.getElementById('form-admin-login').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -521,19 +519,27 @@
                 })
             })
             .then(res => {
-                if (!res.ok) throw new Error('Credenciales incorrectas');
+                if (res.status === 401) throw new Error('credenciales');
+                if (!res.ok) throw new Error('servidor');
                 return res.json();
             })
             .then(data => {
                 if (data.success) {
                     sessionStorage.setItem('clavero_admin_portal_logged_in', 'true');
+                    sessionStorage.setItem('clavero_jwt', data.token); // Guardar el token JWT
                     mostrarAlerta('¡Acceso concedido exitosamente! 🔑', 'success');
                     actualizarVistasAcceso();
                 }
             })
             .catch(err => {
                 console.error(err);
-                mostrarAlerta('Credenciales o PIN incorrectos ❌', 'danger');
+                if (err.message === 'credenciales') {
+                    mostrarAlerta('Usuario o PIN de administrador incorrectos ❌', 'danger');
+                } else if (err.message === 'servidor') {
+                    mostrarAlerta('Error en el servidor de base de datos ❌', 'danger');
+                } else {
+                    mostrarAlerta('No se pudo conectar con la base de datos. ¿Iniciaste el servidor con "node server.js"? 📡', 'danger');
+                }
             });
         });
 
@@ -542,6 +548,7 @@
         
         function logoutAdminPortal() {
             sessionStorage.removeItem('clavero_admin_portal_logged_in');
+            sessionStorage.removeItem('clavero_jwt'); // Limpiar el token JWT
             mostrarAlerta('Sesión cerrada correctamente 🔒', 'info');
             actualizarVistasAcceso();
         }

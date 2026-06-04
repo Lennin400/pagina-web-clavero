@@ -110,6 +110,19 @@ window.mediaCache = [];
 let isDatabaseLoaded = false;
 
 /**
+ * Obtiene cabeceras HTTP que incluyen el token de autenticación JWT si existe
+ * @returns {Object} Cabeceras de la petición
+ */
+function getHeaders() {
+    const headers = { 'Content-Type': 'application/json' };
+    const token = sessionStorage.getItem('clavero_jwt');
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+    return headers;
+}
+
+/**
  * Carga los datos del servidor API e inicializa las vistas de forma segura
  */
 async function loadDatabaseFromServer() {
@@ -197,7 +210,7 @@ async function addPost(post) {
     try {
         const response = await fetch(`${API_BASE}/api/posts`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             body: JSON.stringify(post)
         });
         if (response.ok) {
@@ -214,11 +227,12 @@ async function addPost(post) {
             
             return savedPost;
         } else {
-            throw new Error('Error al guardar en el servidor');
+            const errData = await response.json();
+            throw new Error(errData.error || 'Error al guardar en el servidor');
         }
     } catch (error) {
         console.error('Error al agregar publicación en el servidor:', error);
-        mostrarNotificacion('Error al guardar la publicación en el servidor', 'danger');
+        mostrarNotificacion(`No autorizado o error: ${error.message}`, 'danger');
         window.postsCache.unshift(post);
         triggerInitialRenders();
     }
@@ -231,7 +245,8 @@ async function addPost(post) {
 async function deletePost(id) {
     try {
         const response = await fetch(`${API_BASE}/api/posts/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: getHeaders()
         });
         if (response.ok) {
             window.postsCache = window.postsCache.filter(post => post.id !== id);
@@ -243,11 +258,12 @@ async function deletePost(id) {
             if (typeof window.renderTablePosts === 'function') window.renderTablePosts();
             if (typeof window.renderTableMedia === 'function') window.renderTableMedia();
         } else {
-            throw new Error('Error al borrar en el servidor');
+            const errData = await response.json();
+            throw new Error(errData.error || 'Error al borrar en el servidor');
         }
     } catch (error) {
         console.error('Error al eliminar publicación en el servidor:', error);
-        mostrarNotificacion('Error al eliminar en el servidor', 'danger');
+        mostrarNotificacion(`No autorizado o error: ${error.message}`, 'danger');
         window.postsCache = window.postsCache.filter(post => post.id !== id);
         triggerInitialRenders();
     }
@@ -263,7 +279,7 @@ async function updatePost(id, updatedData) {
     try {
         const response = await fetch(`${API_BASE}/api/posts/${id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             body: JSON.stringify(updatedData)
         });
         if (response.ok) {
@@ -279,8 +295,11 @@ async function updatePost(id, updatedData) {
             if (typeof window.renderTablePosts === 'function') window.renderTablePosts();
             if (typeof window.renderTableMedia === 'function') window.renderTableMedia();
             return true;
+        } else {
+            const errData = await response.json();
+            mostrarNotificacion(`No autorizado o error: ${errData.error}`, 'danger');
+            return false;
         }
-        return false;
     } catch (error) {
         console.error('Error al actualizar publicación en el servidor:', error);
         mostrarNotificacion('Error al actualizar la publicación', 'danger');
@@ -312,7 +331,7 @@ async function addMediaToHistory(mediaItem) {
     try {
         const response = await fetch(`${API_BASE}/api/media`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             body: JSON.stringify(mediaItem)
         });
         if (response.ok) {
@@ -321,6 +340,9 @@ async function addMediaToHistory(mediaItem) {
             
             if (typeof window.cargarEstadisticas === 'function') window.cargarEstadisticas();
             if (typeof window.renderTableMedia === 'function') window.renderTableMedia();
+        } else {
+            const errData = await response.json();
+            console.error('Error al registrar medio:', errData.error);
         }
     } catch (error) {
         console.error('Error al registrar medio en el servidor:', error);
@@ -334,13 +356,17 @@ async function addMediaToHistory(mediaItem) {
 async function deleteMediaFromHistory(id) {
     try {
         const response = await fetch(`${API_BASE}/api/media/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: getHeaders()
         });
         if (response.ok) {
             window.mediaCache = window.mediaCache.filter(item => item.id !== id);
             
             if (typeof window.cargarEstadisticas === 'function') window.cargarEstadisticas();
             if (typeof window.renderTableMedia === 'function') window.renderTableMedia();
+        } else {
+            const errData = await response.json();
+            console.error('Error al borrar medio:', errData.error);
         }
     } catch (error) {
         console.error('Error al borrar medio en el servidor:', error);
@@ -356,7 +382,7 @@ async function updateMediaHistory(id, updatedData) {
     try {
         const response = await fetch(`${API_BASE}/api/media/${id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             body: JSON.stringify(updatedData)
         });
         if (response.ok) {
@@ -527,6 +553,7 @@ function logoutAdmin() {
     sessionStorage.removeItem(CONFIG.SESSION_AUTH_KEY);
     sessionStorage.removeItem('clavero_admin_name');
     sessionStorage.removeItem('clavero_admin_role');
+    sessionStorage.removeItem('clavero_jwt');
 }
 
 // ==================== NOTIFICACIONES ====================
@@ -1197,7 +1224,8 @@ function inicializarModalLogin() {
                 })
             })
             .then(res => {
-                if (!res.ok) throw new Error('PIN incorrecto');
+                if (res.status === 401) throw new Error('pin');
+                if (!res.ok) throw new Error('servidor');
                 return res.json();
             })
             .then(data => {
@@ -1205,6 +1233,7 @@ function inicializarModalLogin() {
                     sessionStorage.setItem(CONFIG.SESSION_AUTH_KEY, 'true');
                     sessionStorage.setItem('clavero_admin_name', data.user.name);
                     sessionStorage.setItem('clavero_admin_role', data.user.role);
+                    sessionStorage.setItem('clavero_jwt', data.token); // Guardar token JWT
                     
                     mostrarNotificacion(`¡Bienvenido(a), ${escapeHtml(data.user.name)}! 🔑`, 'success');
                     actualizarVistaAdminMural();
@@ -1237,7 +1266,13 @@ function inicializarModalLogin() {
             })
             .catch(err => {
                 console.error(err);
-                mostrarNotificacion('PIN de acceso incorrecto ❌', 'danger');
+                if (err.message === 'pin') {
+                    mostrarNotificacion('PIN de acceso incorrecto ❌', 'danger');
+                } else if (err.message === 'servidor') {
+                    mostrarNotificacion('Error en el servidor de base de datos ❌', 'danger');
+                } else {
+                    mostrarNotificacion('No se pudo conectar con el servidor. ¿Iniciaste "node server.js"? 📡', 'danger');
+                }
             });
         });
     }

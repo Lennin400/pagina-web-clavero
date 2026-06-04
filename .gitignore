@@ -1,11 +1,15 @@
 # Node dependencies
 node_modules/
 
-# Local database file (optional to ignore, but recommended to keep clean)
+# Local database files
 data/database.json
+data/database.sqlite
 
 # Local uploads folder (contains testing images)
 uploads/
+
+# Environment configurations (credentials)
+.env
 
 # IDE/Editor settings
 .vscode/
