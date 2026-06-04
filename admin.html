@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - I.E.P. Teniente Manuel Clavero Muga</title>
+    <meta name="description" content="Panel de administración e historial de cargas de la I.E.P. Teniente Manuel Clavero Muga.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="imagenes/favicon.ico">
+    
+    <style>
+        .font-title { font-family: 'Playfair Display', serif; }
+        .font-body { font-family: 'Inter', sans-serif; }
+        .bg-grid-pattern {
+            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .bg-grid-pattern-dark {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="font-body bg-gray-50 text-gray-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- ==================== CONTENEDOR DE LOGIN ==================== -->
+    <div id="login-container" class="flex-grow flex items-center justify-center py-20 px-4 bg-cover bg-center relative overflow-hidden" style="background-image: url('imagenes/admin-fondo.jpg');">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-[3px]"></div>
+        <div class="bg-white/10 backdrop-blur-xl border border-white/20 w-full max-w-md rounded-3xl shadow-2xl p-8 text-white relative z-10 animate-in fade-in zoom-in-95 duration-300">
+            <div class="text-center space-y-3 mb-8">
+                <div class="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg shadow-green-900/30">
+                    <i class="fas fa-user-shield text-2xl text-white"></i>
+                </div>
+                <h1 class="font-title text-2xl font-bold tracking-tight">Portal de Administración</h1>
+                <p class="text-xs text-gray-300 font-light">Ecosistema Digital Claveriano - Punchana</p>
+            </div>
+
+            <form id="form-admin-login" class="space-y-5 text-sm">
+                <!-- Nombre de Usuario -->
+                <div class="space-y-1.5">
+                    <label for="admin-user" class="block font-medium text-gray-200">Usuario Administrador</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
+                            <i class="fas fa-user text-xs"></i>
+                        </span>
+                        <input 
+                            type="text" 
+                            id="admin-user" 
+                            required 
+                            placeholder="admin" 
+                            class="w-full pl-9 pr-4 py-3 bg-white/10 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-400 focus:bg-white/20 transition"
+                        >
+                    </div>
+                </div>
+
+                <!-- PIN / Contraseña -->
+                <div class="space-y-1.5">
+                    <label for="admin-pin" class="block font-medium text-gray-200">PIN de Acceso</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
+                            <i class="fas fa-key text-xs"></i>
+                        </span>
+                        <input 
+                            type="password" 
+                            id="admin-pin" 
+                            required 
+                            placeholder="••••••••" 
+                            class="w-full pl-9 pr-4 py-3 bg-white/10 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-400 focus:bg-white/20 transition"
+                        >
+                    </div>
+                </div>
+
+                <!-- Botón de Entrada -->
+                <button 
+                    type="submit" 
+                    class="w-full bg-[#139A43] hover:bg-green-700 text-white font-semibold py-3.5 rounded-xl transition duration-200 shadow-lg shadow-green-900/20 active:scale-[0.98] mt-2 flex items-center justify-center gap-2"
+                >
+                    <span>Ingresar al Sistema</span>
+                    <i class="fas fa-sign-in-alt"></i>
+                </button>
+            </form>
+            <div class="text-center mt-6">
+                <a href="mural.html" class="text-xs text-gray-300 hover:text-white transition"><i class="fas fa-arrow-left mr-1"></i> Volver al Mural Público</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== CONTENEDOR DEL DASHBOARD ==================== -->
+    <div id="dashboard-container" class="hidden flex-grow flex flex-col bg-gray-50">
+        <!-- Navegación Dashboard -->
+        <nav class="bg-[#0B2545] text-white shadow-md">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <div class="flex items-center space-x-3">
+                        <img src="imagenes/logo.jpeg" alt="Escudo Clavero" class="h-12 w-auto" onerror="this.onerror=null; this.src='https://via.placeholder.com/60?text=IE'">
+                        <div>
+                            <span class="text-[10px] font-semibold uppercase tracking-wider text-green-400 block">I.E.P. TNTE. MANUEL CLAVERO</span>
+                            <span class="font-title text-base font-bold text-white tracking-tight">Panel Administrativo de Control</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-4">
+                        <div class="hidden md:flex items-center gap-3 bg-white/10 px-3 py-1.5 rounded-lg border border-white/10 text-xs">
+                            <span class="w-2.5 h-2.5 bg-green-500 rounded-full inline-block animate-pulse shrink-0"></span>
+                            <img src="imagenes/admin-perfil.png" alt="Admin Profile" class="w-7 h-7 rounded-full object-cover border border-green-400 shrink-0" onerror="this.onerror=null; this.src='https://via.placeholder.com/32?text=LC'">
+                            <span class="font-semibold tracking-wide" id="admin-logged-label">Admin: Lennin Jair Canaquiri Curitima</span>
+                        </div>
+                        <button 
+                            id="btn-admin-panel-logout" 
+                            class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-4 py-2 rounded-xl transition flex items-center gap-1.5"
+                        >
+                            <span>Cerrar Sesión</span>
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Cabecera de Estadísticas y Título -->
+        <header class="bg-gradient-to-r from-[#0B2545] to-[#14345c] text-white pt-10 pb-20 relative overflow-hidden">
+            <div class="absolute inset-0 bg-grid-pattern-dark opacity-5"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
+                <div>
+                    <h2 class="font-title text-3xl font-bold">Resumen de Actividades y Cargas</h2>
+                    <p class="text-sm text-gray-300 font-light mt-1">Supervisión en tiempo real de archivos y publicaciones realizadas por los docentes.</p>
+                </div>
+                
+                <!-- Tarjetas de Estadísticas -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2 text-gray-800">
+                    <!-- Total Publicaciones -->
+                    <div class="bg-white rounded-2xl p-5 shadow-md border border-gray-100 flex items-center gap-4">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center text-xl">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold font-title text-[#0B2545]" id="stat-total-posts">0</p>
+                            <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Publicaciones</p>
+                        </div>
+                    </div>
+                    <!-- Total Archivos de Medios -->
+                    <div class="bg-white rounded-2xl p-5 shadow-md border border-gray-100 flex items-center gap-4">
+                        <div class="w-12 h-12 bg-green-100 text-green-700 rounded-xl flex items-center justify-center text-xl">
+                            <i class="fas fa-photo-video"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold font-title text-[#0B2545]" id="stat-total-media">0</p>
+                            <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Archivos en Historial</p>
+                        </div>
+                    </div>
+                    <!-- Total Fotos -->
+                    <div class="bg-white rounded-2xl p-5 shadow-md border border-gray-100 flex items-center gap-4">
+                        <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center text-xl">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold font-title text-[#0B2545]" id="stat-total-photos">0</p>
+                            <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Fotos Subidas</p>
+                        </div>
+                    </div>
+                    <!-- Total Videos -->
+                    <div class="bg-white rounded-2xl p-5 shadow-md border border-gray-100 flex items-center gap-4">
+                        <div class="w-12 h-12 bg-purple-100 text-purple-700 rounded-xl flex items-center justify-center text-xl">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold font-title text-[#0B2545]" id="stat-total-videos">0</p>
+                            <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Videos Vinculados</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Contenedor Principal Dashboard -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 -mt-10 relative z-20 flex-grow">
+            <!-- Pestañas de Navegación de Control -->
+            <div class="bg-white rounded-3xl p-6 shadow-xl border border-gray-100 mb-8 space-y-6">
+                <div class="flex flex-wrap items-center justify-between border-b pb-4 gap-4">
+                    <div class="flex items-center gap-2">
+                        <button id="tab-btn-media" class="tab-btn active px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#0B2545] text-white transition">
+                            <i class="fas fa-folder-open mr-1.5"></i>Historial de Cargas (Profesores)
+                        </button>
+                        <button id="tab-btn-posts" class="tab-btn px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
+                            <i class="fas fa-edit mr-1.5"></i>Gestionar Mural
+                        </button>
+                        <button id="tab-btn-upload" class="tab-btn px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
+                            <i class="fas fa-plus-circle mr-1.5"></i>Nueva Publicación
+                        </button>
+                    </div>
+                    <a href="mural.html" target="_blank" class="text-xs font-bold text-green-700 hover:text-green-800 transition flex items-center gap-1">
+                        Ver Mural Público <i class="fas fa-external-link-alt text-[10px]"></i>
+                    </a>
+                </div>
+
+                <!-- ==================== PESTAÑA HISTORIAL DE CARGAS ==================== -->
+                <div id="tab-content-media" class="tab-content space-y-6">
+                    <!-- Controles de Búsqueda y Filtro de la Tabla -->
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div class="relative w-full md:max-w-md">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
+                                <i class="fas fa-search text-xs"></i>
+                            </span>
+                            <input 
+                                type="text" 
+                                id="search-media" 
+                                placeholder="Buscar en historial por título o docente..." 
+                                class="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition"
+                            >
+                        </div>
+                        <div class="flex items-center gap-2 w-full md:w-auto">
+                            <select 
+                                id="filter-media-type" 
+                                class="w-full md:w-40 px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition"
+                            >
+                                <option value="all">Todos los Tipos</option>
+                                <option value="foto">🖼️ Fotos</option>
+                                <option value="video">🎥 Videos</option>
+                            </select>
+                            <button onclick="limpiarHistorialCompleto()" class="px-4 py-2.5 text-xs font-semibold bg-red-50 hover:bg-red-100 text-red-600 border border-red-100 rounded-xl transition flex items-center gap-1.5 whitespace-nowrap">
+                                <i class="fas fa-trash-alt"></i> Limpiar Todo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tabla Historial (Ordenada y Limpia) -->
+                    <div class="overflow-x-auto rounded-2xl border border-gray-100 shadow-inner bg-white">
+                        <table class="min-w-full divide-y divide-gray-100 text-left text-xs">
+                            <thead class="bg-gray-50 text-gray-500 font-semibold uppercase tracking-wider text-[10px]">
+                                <tr>
+                                    <th scope="col" class="px-6 py-4">Miniatura / Medio</th>
+                                    <th scope="col" class="px-6 py-4">Detalle / Título</th>
+                                    <th scope="col" class="px-6 py-4">Docente / Remitente</th>
+                                    <th scope="col" class="px-6 py-4">Fecha de Carga</th>
+                                    <th scope="col" class="px-6 py-4">Estado en Mural</th>
+                                    <th scope="col" class="px-6 py-4 text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 text-gray-600" id="table-media-body">
+                                <!-- Cargado dinámicamente con JS -->
+                                <tr>
+                                    <td colspan="6" class="text-center py-12 text-gray-400">
+                                        <i class="fas fa-spinner fa-spin text-xl text-green-600 mb-2 block"></i>
+                                        Cargando historial multimedia...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ==================== PESTAÑA GESTIONAR MURAL ==================== -->
+                <div id="tab-content-posts" class="tab-content hidden space-y-6">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div class="relative w-full md:max-w-md">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
+                                <i class="fas fa-search text-xs"></i>
+                            </span>
+                            <input 
+                                type="text" 
+                                id="search-posts" 
+                                placeholder="Buscar en publicaciones del mural..." 
+                                class="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition"
+                            >
+                        </div>
+                        <select 
+                            id="filter-post-category" 
+                            class="w-full md:w-48 px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 transition"
+                        >
+                            <option value="all">Todas las Categorías</option>
+                            <option value="Institucional">Institucional</option>
+                            <option value="Académico">Académico</option>
+                            <option value="Innovación">Innovación +IA</option>
+                            <option value="Cultura y Deporte">Cultura y Deporte</option>
+                            <option value="Comunidad">Comunidad / Padres</option>
+                        </select>
+                    </div>
+
+                    <!-- Lista de Posts en formato tabla -->
+                    <div class="overflow-x-auto rounded-2xl border border-gray-100 shadow-inner bg-white">
+                        <table class="min-w-full divide-y divide-gray-100 text-left text-xs">
+                            <thead class="bg-gray-50 text-gray-500 font-semibold uppercase tracking-wider text-[10px]">
+                                <tr>
+                                    <th scope="col" class="px-6 py-4">Fijado</th>
+                                    <th scope="col" class="px-6 py-4">Título</th>
+                                    <th scope="col" class="px-6 py-4">Categoría</th>
+                                    <th scope="col" class="px-6 py-4">Fecha</th>
+                                    <th scope="col" class="px-6 py-4">Autor</th>
+                                    <th scope="col" class="px-6 py-4 text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 text-gray-600" id="table-posts-body">
+                                <!-- Cargado dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ==================== PESTAÑA NUEVA PUBLICACIÓN ==================== -->
+                <div id="tab-content-upload" class="tab-content hidden max-w-3xl mx-auto space-y-6">
+                    <div class="bg-gray-50/50 p-6 rounded-2xl border border-gray-100 space-y-4">
+                        <div class="flex items-center gap-2 text-[#0B2545] font-semibold border-b pb-2">
+                            <i class="fas fa-plus-circle text-green-700"></i>
+                            <h3>Agregar Publicación al Mural de Forma Directa</h3>
+                        </div>
+                        <form id="form-direct-publish" class="space-y-4 text-xs">
+                            <div>
+                                <label for="direct-titulo" class="block font-semibold text-gray-700 mb-1">Título de la Publicación</label>
+                                <input 
+                                    type="text" 
+                                    id="direct-titulo" 
+                                    required 
+                                    maxlength="100"
+                                    placeholder="Ej. Talleres de Robótica AIP 2026" 
+                                    class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 text-xs transition"
+                                >
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="direct-autor" class="block font-semibold text-gray-700 mb-1">Autor / Cargo</label>
+                                    <select 
+                                        id="direct-autor" 
+                                        class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 text-xs transition"
+                                    >
+                                        <option value="Director">Director (Prof. Luis Nilo Zambrano Peña)</option>
+                                        <option value="Subdirector">Subdirector / Plana Directiva</option>
+                                        <option value="Docente AIP">Docente AIP (Tecnologías)</option>
+                                        <option value="Docente">Docente General</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="direct-categoria" class="block font-semibold text-gray-700 mb-1">Categoría Temática</label>
+                                    <select 
+                                        id="direct-categoria" 
+                                        class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 text-xs transition"
+                                    >
+                                        <option value="Institucional">Institucional</option>
+                                        <option value="Académico">Académico</option>
+                                        <option value="Innovación">Innovación +IA</option>
+                                        <option value="Cultura y Deporte">Cultura y Deporte</option>
+                                        <option value="Comunidad">Comunidad / Padres</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="direct-tipo" class="block font-semibold text-gray-700 mb-1">Tipo de Publicación</label>
+                                    <select 
+                                        id="direct-tipo" 
+                                        class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 text-xs transition"
+                                    >
+                                        <option value="comunicado">📢 Comunicado (Texto plano)</option>
+                                        <option value="foto">🖼️ Actividad Escolar con Foto</option>
+                                        <option value="video">🎥 Actividad Escolar con Video</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-center space-x-2 pt-6 sm:pl-4">
+                                    <input 
+                                        type="checkbox" 
+                                        id="direct-fijado" 
+                                        class="w-4 h-4 text-green-700 border-gray-300 rounded focus:ring-green-600"
+                                    >
+                                    <label for="direct-fijado" class="font-semibold text-gray-700 select-none cursor-pointer">📌 Fijar arriba en el Mural</label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="direct-contenido" class="block font-semibold text-gray-700 mb-1">Cuerpo de la Publicación</label>
+                                <textarea 
+                                    id="direct-contenido" 
+                                    required 
+                                    rows="4" 
+                                    maxlength="2000"
+                                    placeholder="Escribe el anuncio o detalle de la actividad..." 
+                                    class="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600 text-xs transition resize-none"
+                                ></textarea>
+                            </div>
+
+                            <!-- Input Foto Directa -->
+                            <div id="container-direct-media" class="hidden p-4 rounded-xl bg-white border border-gray-150 space-y-3">
+                                <span class="font-semibold text-gray-700"><i class="fas fa-image mr-1"></i> Cargar Imagen</span>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-[10px] text-gray-400 mb-1">Cargar archivo local</label>
+                                        <input 
+                                            type="file" 
+                                            id="direct-img-local" 
+                                            accept="image/*"
+                                            class="w-full text-[10px] text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[10px] file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
+                                        >
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] text-gray-400 mb-1">Enlace de Imagen Externa (URL)</label>
+                                        <input 
+                                            type="url" 
+                                            id="direct-img-url" 
+                                            placeholder="https://ejemplo.com/imagen.jpg" 
+                                            class="w-full px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-lg text-[10px] focus:outline-none"
+                                        >
+                                    </div>
+                                </div>
+                                <div class="flex justify-center">
+                                    <img id="direct-img-preview" src="" alt="Vista previa" class="hidden max-h-24 rounded-lg border bg-gray-50 p-1">
+                                </div>
+                            </div>
+
+                            <!-- Input Video Directo -->
+                            <div id="container-direct-video" class="hidden p-4 rounded-xl bg-white border border-gray-150 space-y-2">
+                                <span class="font-semibold text-gray-700"><i class="fab fa-youtube mr-1 text-red-600"></i> Video de YouTube</span>
+                                <input 
+                                    type="url" 
+                                    id="direct-video-url" 
+                                    placeholder="https://www.youtube.com/watch?v=fi3OJnt0kjo" 
+                                    class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none"
+                                >
+                            </div>
+
+                            <button 
+                                type="submit" 
+                                class="w-full bg-[#139A43] hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition text-xs shadow-md"
+                            >
+                                Publicar en Mural y Registrar en Historial
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ==================== MODAL VISOR MULTIMEDIA ==================== -->
+    <div id="modal-viewer" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+        <div class="bg-white rounded-3xl overflow-hidden shadow-2xl w-full max-w-3xl border border-gray-100 flex flex-col max-h-[90vh]">
+            <div class="px-6 py-4 bg-[#0B2545] text-white flex items-center justify-between">
+                <h3 class="font-title font-bold text-sm" id="viewer-title">Visor de Archivo</h3>
+                <button onclick="closeViewer()" class="text-white/80 hover:text-white transition text-2xl font-bold leading-none">&times;</button>
+            </div>
+            <div class="p-4 bg-gray-900 flex-grow flex items-center justify-center min-h-[300px] max-h-[60vh] overflow-hidden">
+                <div id="viewer-media-container" class="w-full h-full flex items-center justify-center">
+                    <!-- Dinámico -->
+                </div>
+            </div>
+            <div class="px-6 py-4 bg-gray-50 border-t flex justify-between text-xs text-gray-500">
+                <span id="viewer-author">Subido por: Docente</span>
+                <span id="viewer-date">Fecha: YYYY-MM-DD</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL EDITAR MURAL POST ==================== -->
+    <div id="modal-edit-post" class="fixed inset-0 z-[90] hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+        <div class="bg-white w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            <div class="bg-[#0B2545] p-5 text-white flex items-center justify-between">
+                <h3 class="font-title font-semibold text-lg">Editar Publicación</h3>
+                <button onclick="closeEditModal()" class="text-gray-300 hover:text-white transition text-xl">&times;</button>
+            </div>
+            <form id="form-edit-post" class="p-6 space-y-4 overflow-y-auto text-xs">
+                <input type="hidden" id="edit-post-id">
+                <div>
+                    <label class="block font-semibold text-gray-700 mb-1">Título de la Publicación</label>
+                    <input type="text" id="edit-titulo" required class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-semibold text-gray-700 mb-1">Categoría</label>
+                        <select id="edit-categoria" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none">
+                            <option value="Institucional">Institucional</option>
+                            <option value="Académico">Académico</option>
+                            <option value="Innovación">Innovación +IA</option>
+                            <option value="Cultura y Deporte">Cultura y Deporte</option>
+                            <option value="Comunidad">Comunidad</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center space-x-2 pt-6 pl-4">
+                        <input type="checkbox" id="edit-fijado" class="w-4 h-4 text-green-700 border-gray-300 rounded">
+                        <label for="edit-fijado" class="font-semibold text-gray-700 select-none cursor-pointer">📌 Fijar arriba</label>
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-semibold text-gray-700 mb-1">Contenido</label>
+                    <textarea id="edit-contenido" required rows="4" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none resize-none"></textarea>
+                </div>
+                <div class="flex justify-end gap-3 pt-3 border-t">
+                    <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-gray-100 rounded-lg font-semibold hover:bg-gray-200 transition">Cancelar</button>
+                    <button type="submit" class="px-5 py-2 bg-[#139A43] text-white rounded-lg font-semibold hover:bg-green-700 transition">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== FOOTER PANEL ==================== -->
+    <footer class="bg-[#0B2545] border-t border-white/5 py-6 text-center text-xs text-gray-400">
+        <p>&copy; 2026 I.E.P. Teniente Manuel Clavero Muga. Todos los derechos reservados.</p>
+        <p class="text-gray-500 mt-1">Área de Innovación Pedagógica - Plataforma de Gestión Administrativa</p>
+    </footer>
+
+    <!-- ==================== CONTROLLER JAVASCRIPT ==================== -->
+    <script src="js/main.js"></script>
+    <script>
+        const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:3000' : '';
+
+        // Escucha de login
+        document.getElementById('form-admin-login').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const userVal = document.getElementById('admin-user').value.trim();
+            const pinVal = document.getElementById('admin-pin').value.trim();
+
+            fetch(`${API_BASE}/api/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    type: 'admin',
+                    username: userVal,
+                    pin: pinVal
+                })
+            })
+            .then(res => {
+                if (!res.ok) throw new Error('Credenciales incorrectas');
+                return res.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    sessionStorage.setItem('clavero_admin_portal_logged_in', 'true');
+                    mostrarAlerta('¡Acceso concedido exitosamente! 🔑', 'success');
+                    actualizarVistasAcceso();
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                mostrarAlerta('Credenciales o PIN incorrectos ❌', 'danger');
+            });
+        });
+
+        // Cierre de sesión de admin
+        document.getElementById('btn-admin-panel-logout').addEventListener('click', logoutAdminPortal);
+        
+        function logoutAdminPortal() {
+            sessionStorage.removeItem('clavero_admin_portal_logged_in');
+            mostrarAlerta('Sesión cerrada correctamente 🔒', 'info');
+            actualizarVistasAcceso();
+        }
+
+        // Manejo de Vistas de Acceso (Login vs Dashboard)
+        function actualizarVistasAcceso() {
+            const isLoggedIn = sessionStorage.getItem('clavero_admin_portal_logged_in') === 'true';
+            const loginSection = document.getElementById('login-container');
+            const dashboardSection = document.getElementById('dashboard-container');
+
+            if (isLoggedIn) {
+                loginSection.classList.add('hidden');
+                dashboardSection.classList.remove('hidden');
+                inicializarDashboard();
+            } else {
+                loginSection.classList.remove('hidden');
+                dashboardSection.classList.add('hidden');
+            }
+        }
+
+        // Alertas estilizadas usando el sistema del sitio si es posible
+        function mostrarAlerta(msg, type) {
+            if (window.mostrarNotificacion) {
+                window.mostrarNotificacion(msg, type);
+            } else {
+                alert(msg);
+            }
+        }
+
+        // Inicialización y Carga de datos en Dashboard
+        function inicializarDashboard() {
+            cargarEstadisticas();
+            renderTableMedia();
+            renderTablePosts();
+            setupTabControls();
+            setupDirectPublish();
+        }
+
+        // Carga y cálculo de estadísticas
+        function cargarEstadisticas() {
+            const posts = window.getPosts ? window.getPosts() : [];
+            const history = window.getMediaHistory ? window.getMediaHistory() : [];
+            
+            const totalPosts = posts.length;
+            const totalMedia = history.length;
+            const totalPhotos = history.filter(item => item.type === 'foto').length;
+            const totalVideos = history.filter(item => item.type === 'video').length;
+
+            document.getElementById('stat-total-posts').innerText = totalPosts;
+            document.getElementById('stat-total-media').innerText = totalMedia;
+            document.getElementById('stat-total-photos').innerText = totalPhotos;
+            document.getElementById('stat-total-videos').innerText = totalVideos;
+        }
+
+        // Configuración de las pestañas
+        function setupTabControls() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => {
+                        t.classList.remove('active', 'bg-[#0B2545]', 'text-white');
+                        t.classList.add('bg-gray-100', 'text-gray-700');
+                    });
+                    tab.classList.remove('bg-gray-100', 'text-gray-700');
+                    tab.classList.add('active', 'bg-[#0B2545]', 'text-white');
+
+                    contents.forEach(c => c.classList.add('hidden'));
+                    
+                    if (tab.id === 'tab-btn-media') {
+                        document.getElementById('tab-content-media').classList.remove('hidden');
+                        renderTableMedia();
+                    } else if (tab.id === 'tab-btn-posts') {
+                        document.getElementById('tab-content-posts').classList.remove('hidden');
+                        renderTablePosts();
+                    } else if (tab.id === 'tab-btn-upload') {
+                        document.getElementById('tab-content-upload').classList.remove('hidden');
+                    }
+                });
+            });
+        }
+
+        // Renderizado del Historial de Cargas (Fotos y Videos de Profesores)
+        function renderTableMedia() {
+            const container = document.getElementById('table-media-body');
+            if (!container) return;
+
+            const history = window.getMediaHistory ? window.getMediaHistory() : [];
+            const posts = window.getPosts ? window.getPosts() : [];
+            const query = document.getElementById('search-media').value.toLowerCase().trim();
+            const filterType = document.getElementById('filter-media-type').value;
+
+            // Filtrar historial
+            let filtered = [...history];
+            if (query) {
+                filtered = filtered.filter(item => 
+                    item.title.toLowerCase().includes(query) || 
+                    item.uploaderName.toLowerCase().includes(query)
+                );
+            }
+            if (filterType !== 'all') {
+                filtered = filtered.filter(item => item.type === filterType);
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center py-12 text-gray-400 bg-white">
+                            <i class="fas fa-box-open text-xl mb-1 block"></i>
+                            No hay archivos cargados en el historial que coincidan con la búsqueda.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(item => {
+                const isPublished = posts.some(p => p.id === item.postId);
+                const statusBadge = isPublished 
+                    ? '<span class="px-2 py-1 bg-green-50 text-green-700 border border-green-150 rounded-md font-semibold text-[10px] uppercase">Publicado</span>'
+                    : '<span class="px-2 py-1 bg-gray-50 text-gray-500 border border-gray-150 rounded-md font-semibold text-[10px] uppercase">Archivado</span>';
+                
+                const typeIcon = item.type === 'foto' ? '🖼️ Foto' : '🎥 Video';
+                
+                // Generar miniatura
+                let mediaThumbnail = '';
+                if (item.type === 'video') {
+                    // Obtener thumbnail de YouTube
+                    let videoId = '';
+                    const match = item.url.match(/embed\/([^?]+)/);
+                    if (match && match[1]) {
+                        videoId = match[1];
+                    }
+                    const thumbUrl = videoId ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg` : 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600';
+                    mediaThumbnail = `
+                        <div class="relative w-20 aspect-video rounded-lg overflow-hidden bg-black shadow cursor-pointer border border-gray-200 flex-shrink-0" onclick="viewMedia('${item.id}')">
+                            <img src="${thumbUrl}" class="w-full h-full object-cover" alt="miniatura">
+                            <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                <i class="fas fa-play text-white text-[10px]"></i>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    const imgUrl = item.url || 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600';
+                    mediaThumbnail = `
+                        <div class="w-20 aspect-video rounded-lg overflow-hidden bg-gray-50 border shadow cursor-pointer flex-shrink-0" onclick="viewMedia('${item.id}')">
+                            <img src="${imgUrl}" class="w-full h-full object-cover" alt="miniatura">
+                        </div>
+                    `;
+                }
+
+                // Botón de descargar si es imagen o enlace
+                const downloadBtn = item.type === 'foto' && item.url.startsWith('data:image')
+                    ? `<button onclick="downloadBase64Image('${item.url}', '${item.title}')" class="text-blue-600 hover:text-blue-800 border border-blue-200 bg-blue-50 px-2 py-1 rounded-lg text-[10px] transition" title="Descargar imagen"><i class="fas fa-download"></i></button>`
+                    : `<a href="${item.url}" target="_blank" class="text-blue-600 hover:text-blue-800 border border-blue-200 bg-blue-50 px-2 py-1 rounded-lg text-[10px] transition flex items-center justify-center inline-block" title="Ver original"><i class="fas fa-external-link-alt"></i></a>`;
+
+                const publishActionBtn = isPublished
+                    ? `<button onclick="togglePublishState('${item.id}', false)" class="px-2.5 py-1 text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-100 rounded-lg transition" title="Despublicar del mural"><i class="fas fa-eye-slash mr-1"></i>Archivar</button>`
+                    : `<button onclick="togglePublishState('${item.id}', true)" class="px-2.5 py-1 text-green-700 bg-green-50 hover:bg-green-100 border border-green-100 rounded-lg transition" title="Publicar en mural"><i class="fas fa-paper-plane mr-1"></i>Publicar</button>`;
+
+                return `
+                    <tr class="hover:bg-gray-50/50 transition">
+                        <td class="px-6 py-4 whitespace-nowrap">${mediaThumbnail}</td>
+                        <td class="px-6 py-4">
+                            <div class="max-w-[280px]">
+                                <p class="font-semibold text-gray-800 truncate">${escapeHtml(item.title)}</p>
+                                <span class="text-[10px] text-gray-400 block font-light">${typeIcon}</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="font-medium text-gray-700">${escapeHtml(item.uploaderName)}</div>
+                            <div class="text-[10px] text-gray-400">${escapeHtml(item.uploaderRole)}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-500">${formatReadableDate(item.date)}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">${statusBadge}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right space-x-1.5">
+                            ${publishActionBtn}
+                            ${downloadBtn}
+                            <button onclick="deleteMedia('${item.id}')" class="text-red-600 hover:text-white hover:bg-red-600 border border-red-200 hover:border-red-600 px-2 py-1 rounded-lg transition" title="Eliminar permanente"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Renderizado de las publicaciones del mural para su administración
+        function renderTablePosts() {
+            const container = document.getElementById('table-posts-body');
+            if (!container) return;
+
+            const posts = window.getPosts ? window.getPosts() : [];
+            const query = document.getElementById('search-posts').value.toLowerCase().trim();
+            const filterCat = document.getElementById('filter-post-category').value;
+
+            // Filtrar posts
+            let filtered = [...posts];
+            if (query) {
+                filtered = filtered.filter(post => 
+                    post.title.toLowerCase().includes(query) || 
+                    post.content.toLowerCase().includes(query) ||
+                    post.authorName.toLowerCase().includes(query)
+                );
+            }
+            if (filterCat !== 'all') {
+                filtered = filtered.filter(post => post.category === filterCat);
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center py-12 text-gray-400 bg-white">
+                            <i class="fas fa-bullhorn text-xl mb-1 block"></i>
+                            No hay publicaciones vigentes en el mural.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(post => {
+                const pinIcon = post.pinned 
+                    ? `<button onclick="togglePinPost('${post.id}', false)" class="text-amber-500 hover:text-amber-600 text-sm" title="Quitar fijado">📌</button>`
+                    : `<button onclick="togglePinPost('${post.id}', true)" class="text-gray-300 hover:text-amber-500 text-sm" title="Fijar al inicio">📌</button>`;
+                
+                return `
+                    <tr class="hover:bg-gray-50/50 transition">
+                        <td class="px-6 py-4 text-center whitespace-nowrap">${pinIcon}</td>
+                        <td class="px-6 py-4">
+                            <div class="max-w-[280px]">
+                                <p class="font-semibold text-gray-800 truncate">${escapeHtml(post.title)}</p>
+                                <p class="text-[10px] text-gray-400 truncate font-light">${escapeHtml(post.content)}</p>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-0.5 border bg-gray-50 text-gray-600 rounded text-[10px] font-semibold">${escapeHtml(post.category)}</span></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-gray-500">${formatReadableDate(post.date)}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="font-medium text-gray-700">${escapeHtml(post.authorName)}</div>
+                            <div class="text-[10px] text-gray-400">${escapeHtml(post.author)}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right space-x-1.5">
+                            <button onclick="editPost('${post.id}')" class="text-blue-600 hover:text-white hover:bg-blue-600 border border-blue-200 hover:border-blue-600 px-2 py-1.5 rounded-lg transition" title="Editar"><i class="fas fa-edit"></i></button>
+                            <button onclick="deleteMuralPostDirectly('${post.id}')" class="text-red-600 hover:text-white hover:bg-red-600 border border-red-200 hover:border-red-600 px-2 py-1.5 rounded-lg transition" title="Eliminar del mural"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Registro de los listeners de búsqueda en tiempo real
+        document.getElementById('search-media').addEventListener('input', renderTableMedia);
+        document.getElementById('filter-media-type').addEventListener('change', renderTableMedia);
+        document.getElementById('search-posts').addEventListener('input', renderTablePosts);
+        document.getElementById('filter-post-category').addEventListener('change', renderTablePosts);
+
+        // Controladores para la publicación directa desde el panel
+        function setupDirectPublish() {
+            const selectTipo = document.getElementById('direct-tipo');
+            const mediaCont = document.getElementById('container-direct-media');
+            const videoCont = document.getElementById('container-direct-video');
+            const imgPreview = document.getElementById('direct-img-preview');
+            const imgLocal = document.getElementById('direct-img-local');
+            const formDirect = document.getElementById('form-direct-publish');
+
+            let directBase64Image = '';
+
+            selectTipo.addEventListener('change', function(e) {
+                const tipo = e.target.value;
+                mediaCont.classList.add('hidden');
+                videoCont.classList.add('hidden');
+                
+                if (tipo === 'foto') {
+                    mediaCont.classList.remove('hidden');
+                } else if (tipo === 'video') {
+                    videoCont.classList.remove('hidden');
+                }
+            });
+
+            // Convertir imagen local a base64
+            imgLocal.addEventListener('change', async function(e) {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        directBase64Image = event.target.result;
+                        imgPreview.src = directBase64Image;
+                        imgPreview.classList.remove('hidden');
+                        document.getElementById('direct-img-url').value = '';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            formDirect.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const title = document.getElementById('direct-titulo').value.trim();
+                const content = document.getElementById('direct-contenido').value.trim();
+                const type = selectTipo.value;
+                const category = document.getElementById('direct-categoria').value;
+                const authorRole = document.getElementById('direct-autor').value;
+                const pinned = document.getElementById('direct-fijado').checked;
+
+                const AUTHOR_NAMES = {
+                    'Director': 'Prof. Luis Nilo Zambrano Peña',
+                    'Subdirector': 'Plana Directiva Institucional',
+                    'Docente AIP': 'Área de Innovación Pedagógica (AIP)',
+                    'Docente': 'Docente General'
+                };
+
+                let mediaUrl = '';
+                if (type === 'foto') {
+                    mediaUrl = directBase64Image || document.getElementById('direct-img-url').value.trim() || 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600';
+                } else if (type === 'video') {
+                    const youtubeLink = document.getElementById('direct-video-url').value.trim();
+                    // Conversión rápida de YouTube Link a Embed
+                    let videoId = '';
+                    try {
+                        if (youtubeLink.includes('youtube.com/watch')) {
+                            const urlParams = new URLSearchParams(new URL(youtubeLink).search);
+                            videoId = urlParams.get('v');
+                        } else if (youtubeLink.includes('youtu.be/')) {
+                            videoId = youtubeLink.split('youtu.be/')[1]?.split('?')[0];
+                        } else if (youtubeLink.includes('youtube.com/shorts/')) {
+                            videoId = youtubeLink.split('shorts/')[1]?.split('?')[0];
+                        } else if (youtubeLink.includes('embed/')) {
+                            videoId = youtubeLink.split('embed/')[1]?.split('?')[0];
+                        }
+                    } catch(err) {}
+                    
+                    mediaUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : youtubeLink;
+                }
+
+                const newPostId = 'post-' + Date.now();
+                const today = new Date().toISOString().split('T')[0];
+                const authorName = AUTHOR_NAMES[authorRole] || 'Docente Claveriano';
+
+                const newPost = {
+                    id: newPostId,
+                    title,
+                    content,
+                    type,
+                    category,
+                    author: authorRole,
+                    authorName,
+                    mediaUrl,
+                    date: today,
+                    pinned
+                };
+
+                // Guardar en posts y en historial
+                let savedPost = newPost;
+                if (window.addPost) {
+                    savedPost = await window.addPost(newPost);
+                } else {
+                    const posts = window.getPosts ? window.getPosts() : [];
+                    posts.unshift(newPost);
+                    if (window.savePosts) window.savePosts(posts);
+                }
+
+                if (type === 'foto' || type === 'video') {
+                    const mediaItem = {
+                        id: 'media-' + Date.now(),
+                        title,
+                        type,
+                        url: savedPost.mediaUrl || mediaUrl,
+                        uploaderName: authorName,
+                        uploaderRole: authorRole,
+                        date: today,
+                        postId: newPostId
+                    };
+                    if (window.addMediaToHistory) {
+                        await window.addMediaToHistory(mediaItem);
+                    }
+                }
+
+                formDirect.reset();
+                imgPreview.src = '';
+                imgPreview.classList.add('hidden');
+                directBase64Image = '';
+                mediaCont.classList.add('hidden');
+                videoCont.classList.add('hidden');
+
+                mostrarAlerta('¡Publicación agregada con éxito al mural y registrada en historial! 🎉', 'success');
+                inicializarDashboard();
+                
+                // Mover a la pestaña historial
+                document.getElementById('tab-btn-media').click();
+            });
+        }
+
+        // ==================== ACCIONES AUXILIARES ====================
+
+        // Publicar/Despublicar un item del historial
+        window.togglePublishState = async function(mediaId, shouldPublish) {
+            const history = window.getMediaHistory ? window.getMediaHistory() : [];
+            const item = history.find(i => i.id === mediaId);
+            if (!item) return;
+
+            if (shouldPublish) {
+                // Crear post en el mural
+                const newPostId = item.postId || ('post-' + Date.now());
+                const newPost = {
+                    id: newPostId,
+                    title: item.title,
+                    content: `Actividad registrada en el archivo multimedia institucional por el docente ${item.uploaderName}.`,
+                    type: item.type,
+                    category: 'Institucional',
+                    author: item.uploaderRole,
+                    authorName: item.uploaderName,
+                    mediaUrl: item.url,
+                    date: new Date().toISOString().split('T')[0],
+                    pinned: false
+                };
+                
+                if (window.addPost) {
+                    await window.addPost(newPost);
+                }
+                
+                item.postId = newPostId;
+                if (window.updateMediaHistory) {
+                    await window.updateMediaHistory(mediaId, { postId: newPostId });
+                }
+                mostrarAlerta('¡Archivo publicado exitosamente en el mural! 📢', 'success');
+            } else {
+                // Eliminar post del mural pero dejarlo en el historial
+                if (window.deletePost) {
+                    await window.deletePost(item.postId);
+                }
+                mostrarAlerta('Archivo despublicado (movido al archivador) 📁', 'info');
+            }
+
+            inicializarDashboard();
+        };
+
+        // Eliminar del historial permanente
+        window.deleteMedia = async function(mediaId) {
+            if (confirm('¿Estás seguro de que deseas eliminar este archivo del historial de cargas permanentemente? (También se eliminará del mural si está publicado)')) {
+                const history = window.getMediaHistory ? window.getMediaHistory() : [];
+                const item = history.find(i => i.id === mediaId);
+                
+                if (item && item.postId) {
+                    if (window.deletePost) {
+                        await window.deletePost(item.postId);
+                    }
+                }
+
+                if (window.deleteMediaFromHistory) {
+                    await window.deleteMediaFromHistory(mediaId);
+                }
+                
+                mostrarAlerta('Archivo eliminado del historial permanentemente 🗑️', 'info');
+                inicializarDashboard();
+            }
+        };
+
+        // Eliminar post del mural de forma directa
+        window.deleteMuralPostDirectly = async function(postId) {
+            if (confirm('¿Estás seguro de que deseas eliminar esta publicación del mural?')) {
+                if (window.deletePost) {
+                    await window.deletePost(postId);
+                }
+                mostrarAlerta('Publicación eliminada del mural 🗑️', 'info');
+                inicializarDashboard();
+            }
+        };
+
+        // Toggle Pin Status de una publicación
+        window.togglePinPost = async function(postId, state) {
+            if (window.updatePost) {
+                await window.updatePost(postId, { pinned: state });
+            }
+            mostrarAlerta(state ? 'Publicación fijada al inicio 📌' : 'Publicación desfijada 📍', 'success');
+            inicializarDashboard();
+        };
+
+        // Editar Publicación
+        window.editPost = function(postId) {
+            const posts = window.getPosts ? window.getPosts() : [];
+            const post = posts.find(p => p.id === postId);
+            if (!post) return;
+
+            document.getElementById('edit-post-id').value = post.id;
+            document.getElementById('edit-titulo').value = post.title;
+            document.getElementById('edit-categoria').value = post.category;
+            document.getElementById('edit-contenido').value = post.content;
+            document.getElementById('edit-fijado').checked = post.pinned || false;
+
+            const modal = document.getElementById('modal-edit-post');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        };
+
+        window.closeEditModal = function() {
+            const modal = document.getElementById('modal-edit-post');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        };
+
+        document.getElementById('form-edit-post').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const id = document.getElementById('edit-post-id').value;
+            const title = document.getElementById('edit-titulo').value.trim();
+            const category = document.getElementById('edit-categoria').value;
+            const content = document.getElementById('edit-contenido').value.trim();
+            const pinned = document.getElementById('edit-fijado').checked;
+
+            if (window.updatePost) {
+                await window.updatePost(id, { title, category, content, pinned });
+            }
+
+            closeEditModal();
+            mostrarAlerta('¡Publicación actualizada con éxito! 🎉', 'success');
+            inicializarDashboard();
+        });
+
+        // Limpiar Historial Completo
+        window.limpiarHistorialCompleto = async function() {
+            if (confirm('¿Estás seguro de que deseas limpiar todo el historial de cargas? Las fotos y videos del mural permanecerán activas pero la tabla de historial se vaciará.')) {
+                try {
+                    const response = await fetch(`${API_BASE}/api/media`, {
+                        method: 'DELETE'
+                    });
+                    if (response.ok) {
+                        window.saveMediaHistory([]);
+                        mostrarAlerta('Historial de cargas vaciado 🗑️', 'info');
+                        inicializarDashboard();
+                    }
+                } catch (error) {
+                    console.error('Error al vaciar historial de medios:', error);
+                    mostrarAlerta('Error al vaciar el historial', 'danger');
+                }
+            }
+        };
+
+        // Descargar Imagen Base64
+        window.downloadBase64Image = function(base64Data, filename) {
+            try {
+                const link = document.createElement('a');
+                link.href = base64Data;
+                link.download = filename.substring(0, 20).replace(/\s+/g, '_') + '.jpg';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } catch (err) {
+                window.open(base64Data, '_blank');
+            }
+        };
+
+        // Visor multimedia modal
+        window.viewMedia = function(mediaId) {
+            const history = window.getMediaHistory ? window.getMediaHistory() : [];
+            const item = history.find(i => i.id === mediaId);
+            if (!item) return;
+
+            document.getElementById('viewer-title').innerText = item.title;
+            document.getElementById('viewer-author').innerText = `Subido por: ${item.uploaderName} (${item.uploaderRole})`;
+            document.getElementById('viewer-date').innerText = `Fecha de Carga: ${formatReadableDate(item.date)}`;
+
+            const mediaContainer = document.getElementById('viewer-media-container');
+            
+            if (item.type === 'video') {
+                mediaContainer.innerHTML = `
+                    <iframe 
+                        class="w-full aspect-video rounded-xl shadow-lg border-2 border-white/10"
+                        src="${item.url}" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                `;
+            } else {
+                mediaContainer.innerHTML = `
+                    <img src="${item.url}" class="max-w-full max-h-[50vh] object-contain rounded-xl shadow-lg border-2 border-white/10" alt="${escapeHtml(item.title)}">
+                `;
+            }
+
+            const viewer = document.getElementById('modal-viewer');
+            viewer.classList.remove('hidden');
+            viewer.classList.add('flex');
+        };
+
+        window.closeViewer = function() {
+            const viewer = document.getElementById('modal-viewer');
+            viewer.classList.add('hidden');
+            viewer.classList.remove('flex');
+            document.getElementById('viewer-media-container').innerHTML = ''; // Detener video
+        };
+
+        // Auxiliares estáticos replicados de main.js en caso de no cargar a tiempo
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
+        function formatReadableDate(dateString) {
+            if (!dateString) return '';
+            try {
+                const date = new Date(dateString + 'T00:00:00');
+                return date.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+            } catch (e) {
+                return dateString;
+            }
+        }
+
+        // Al iniciar página
+        actualizarVistasAcceso();
+    </script>
+</body>
+</html>

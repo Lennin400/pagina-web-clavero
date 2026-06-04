@@ -1,0 +1,13 @@
+{
+  "name": "pagina-web-clavero",
+  "version": "1.0.0",
+  "description": "Servidor backend y base de datos para la página web de la I.E.P. Teniente Manuel Clavero Muga",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}

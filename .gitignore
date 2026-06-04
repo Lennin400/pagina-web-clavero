@@ -1,0 +1,17 @@
+# Node dependencies
+node_modules/
+
+# Local database file (optional to ignore, but recommended to keep clean)
+data/database.json
+
+# Local uploads folder (contains testing images)
+uploads/
+
+# IDE/Editor settings
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

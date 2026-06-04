@@ -98,81 +98,296 @@ const AUTHOR_NAMES = {
     'Estudiante': 'Consejo Estudiantil Claveriano'
 };
 
-// ==================== FUNCIONES DE BASE DE DATOS (LOCALSTORAGE) ====================
+// ==================== CONFIGURACIÓN DE BASE DE DATOS (SERVIDOR API) ====================
+
+const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:3000' : '';
+
+// Cachés globales en memoria
+window.postsCache = [];
+window.mediaCache = [];
+
+// Estado de carga inicial
+let isDatabaseLoaded = false;
 
 /**
- * Obtiene todas las publicaciones del localStorage
+ * Carga los datos del servidor API e inicializa las vistas de forma segura
+ */
+async function loadDatabaseFromServer() {
+    try {
+        console.log('Cargando datos desde el servidor en:', API_BASE || 'mismo origen');
+        
+        const postsRes = await fetch(`${API_BASE}/api/posts`);
+        if (postsRes.ok) {
+            window.postsCache = await postsRes.json();
+        } else {
+            console.warn('No se pudo leer posts del servidor, usando temporales');
+            window.postsCache = [...SAMPLE_POSTS];
+        }
+        
+        const mediaRes = await fetch(`${API_BASE}/api/media`);
+        if (mediaRes.ok) {
+            window.mediaCache = await mediaRes.json();
+        } else {
+            console.warn('No se pudo leer medios del servidor');
+            window.mediaCache = [];
+        }
+        
+        isDatabaseLoaded = true;
+        
+        // Ejecutar renders de forma segura cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', triggerInitialRenders);
+        } else {
+            triggerInitialRenders();
+        }
+    } catch (error) {
+        console.error('Error al conectar con la base de datos:', error);
+        window.postsCache = [...SAMPLE_POSTS];
+        isDatabaseLoaded = true;
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', triggerInitialRenders);
+        } else {
+            triggerInitialRenders();
+        }
+    }
+}
+
+function triggerInitialRenders() {
+    if (typeof renderLatestIndexNews === 'function') renderLatestIndexNews();
+    if (typeof renderMural === 'function') {
+        const activeTypeBtn = document.querySelector('.btn-filtro-tipo.active');
+        const filterType = activeTypeBtn?.dataset.type || 'all';
+        const filterCategory = document.getElementById('filtro-categoria')?.value || 'all';
+        const searchQuery = document.getElementById('busqueda-mural')?.value || '';
+        renderMural(filterType, filterCategory, searchQuery);
+    }
+    if (typeof window.inicializarDashboard === 'function') {
+        const isLoggedIn = sessionStorage.getItem('clavero_admin_portal_logged_in') === 'true';
+        if (isLoggedIn) {
+            window.inicializarDashboard();
+        }
+    }
+}
+
+// Iniciar la carga inmediatamente
+loadDatabaseFromServer();
+
+/**
+ * Obtiene todas las publicaciones de la caché sincronizada
  * @returns {Array} Lista de publicaciones
  */
 function getPosts() {
-    try {
-        const rawData = localStorage.getItem(CONFIG.LOCAL_STORAGE_KEY);
-        if (!rawData) {
-            localStorage.setItem(CONFIG.LOCAL_STORAGE_KEY, JSON.stringify(SAMPLE_POSTS));
-            return [...SAMPLE_POSTS];
-        }
-        const parsed = JSON.parse(rawData);
-        if (!Array.isArray(parsed)) {
-            localStorage.setItem(CONFIG.LOCAL_STORAGE_KEY, JSON.stringify(SAMPLE_POSTS));
-            return [...SAMPLE_POSTS];
-        }
-        return parsed;
-    } catch (error) {
-        console.error('Error al leer publicaciones:', error);
-        mostrarNotificacion('Error al cargar las publicaciones', 'danger');
-        return [...SAMPLE_POSTS];
-    }
+    return window.postsCache && window.postsCache.length > 0 ? window.postsCache : SAMPLE_POSTS;
 }
 
 /**
- * Guarda las publicaciones en localStorage
+ * Guarda las publicaciones (mantiene compatibilidad, actualiza la caché local)
  * @param {Array} posts - Lista de publicaciones
  */
 function savePosts(posts) {
+    window.postsCache = posts;
+}
+
+/**
+ * Agrega una nueva publicación al servidor y actualiza la caché
+ * @param {Object} post - Publicación a agregar
+ */
+async function addPost(post) {
     try {
-        localStorage.setItem(CONFIG.LOCAL_STORAGE_KEY, JSON.stringify(posts));
+        const response = await fetch(`${API_BASE}/api/posts`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(post)
+        });
+        if (response.ok) {
+            const savedPost = await response.json();
+            window.postsCache.unshift(savedPost);
+            
+            // Re-renderizar interfaces locales
+            triggerInitialRenders();
+            
+            // Si estamos en el portal de administración, actualizar estadísticas y tablas
+            if (typeof window.cargarEstadisticas === 'function') window.cargarEstadisticas();
+            if (typeof window.renderTablePosts === 'function') window.renderTablePosts();
+            if (typeof window.renderTableMedia === 'function') window.renderTableMedia();
+            
+            return savedPost;
+        } else {
+            throw new Error('Error al guardar en el servidor');
+        }
     } catch (error) {
-        console.error('Error al guardar publicaciones:', error);
-        mostrarNotificacion('Error al guardar la publicación', 'danger');
+        console.error('Error al agregar publicación en el servidor:', error);
+        mostrarNotificacion('Error al guardar la publicación en el servidor', 'danger');
+        window.postsCache.unshift(post);
+        triggerInitialRenders();
     }
 }
 
 /**
- * Agrega una nueva publicación
- * @param {Object} post - Publicación a agregar
- */
-function addPost(post) {
-    const posts = getPosts();
-    posts.unshift(post);
-    savePosts(posts);
-}
-
-/**
- * Elimina una publicación por ID
+ * Elimina una publicación por ID del servidor y actualiza la caché
  * @param {string} id - ID de la publicación
  */
-function deletePost(id) {
-    let posts = getPosts();
-    posts = posts.filter(post => post.id !== id);
-    savePosts(posts);
+async function deletePost(id) {
+    try {
+        const response = await fetch(`${API_BASE}/api/posts/${id}`, {
+            method: 'DELETE'
+        });
+        if (response.ok) {
+            window.postsCache = window.postsCache.filter(post => post.id !== id);
+            window.mediaCache = window.mediaCache.filter(item => item.postId !== id);
+            
+            triggerInitialRenders();
+            
+            if (typeof window.cargarEstadisticas === 'function') window.cargarEstadisticas();
+            if (typeof window.renderTablePosts === 'function') window.renderTablePosts();
+            if (typeof window.renderTableMedia === 'function') window.renderTableMedia();
+        } else {
+            throw new Error('Error al borrar en el servidor');
+        }
+    } catch (error) {
+        console.error('Error al eliminar publicación en el servidor:', error);
+        mostrarNotificacion('Error al eliminar en el servidor', 'danger');
+        window.postsCache = window.postsCache.filter(post => post.id !== id);
+        triggerInitialRenders();
+    }
 }
 
 /**
- * Actualiza una publicación existente
+ * Actualiza una publicación existente en el servidor y la caché
  * @param {string} id - ID de la publicación
  * @param {Object} updatedData - Datos actualizados
  * @returns {boolean} - True si se actualizó correctamente
  */
-function updatePost(id, updatedData) {
-    const posts = getPosts();
-    const index = posts.findIndex(post => post.id === id);
-    if (index !== -1) {
-        posts[index] = { ...posts[index], ...updatedData };
-        savePosts(posts);
-        return true;
+async function updatePost(id, updatedData) {
+    try {
+        const response = await fetch(`${API_BASE}/api/posts/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedData)
+        });
+        if (response.ok) {
+            const result = await response.json();
+            const index = window.postsCache.findIndex(post => post.id === id);
+            if (index !== -1) {
+                window.postsCache[index] = result;
+            }
+            
+            triggerInitialRenders();
+            
+            if (typeof window.cargarEstadisticas === 'function') window.cargarEstadisticas();
+            if (typeof window.renderTablePosts === 'function') window.renderTablePosts();
+            if (typeof window.renderTableMedia === 'function') window.renderTableMedia();
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error('Error al actualizar publicación en el servidor:', error);
+        mostrarNotificacion('Error al actualizar la publicación', 'danger');
+        return false;
     }
-    return false;
 }
+
+/**
+ * Obtiene el historial de medios de la caché sincronizada
+ * @returns {Array} Lista de items multimedia del historial
+ */
+function getMediaHistory() {
+    return window.mediaCache || [];
+}
+
+/**
+ * Guarda el historial de medios (actualiza caché local)
+ * @param {Array} history - Lista de items de medios
+ */
+function saveMediaHistory(history) {
+    window.mediaCache = history;
+}
+
+/**
+ * Agrega un nuevo elemento al historial de medios en el servidor
+ * @param {Object} mediaItem - Item multimedia a registrar
+ */
+async function addMediaToHistory(mediaItem) {
+    try {
+        const response = await fetch(`${API_BASE}/api/media`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(mediaItem)
+        });
+        if (response.ok) {
+            const savedItem = await response.json();
+            window.mediaCache.unshift(savedItem);
+            
+            if (typeof window.cargarEstadisticas === 'function') window.cargarEstadisticas();
+            if (typeof window.renderTableMedia === 'function') window.renderTableMedia();
+        }
+    } catch (error) {
+        console.error('Error al registrar medio en el servidor:', error);
+    }
+}
+
+/**
+ * Elimina un elemento del historial de medios por ID en el servidor
+ * @param {string} id - ID del item del historial
+ */
+async function deleteMediaFromHistory(id) {
+    try {
+        const response = await fetch(`${API_BASE}/api/media/${id}`, {
+            method: 'DELETE'
+        });
+        if (response.ok) {
+            window.mediaCache = window.mediaCache.filter(item => item.id !== id);
+            
+            if (typeof window.cargarEstadisticas === 'function') window.cargarEstadisticas();
+            if (typeof window.renderTableMedia === 'function') window.renderTableMedia();
+        }
+    } catch (error) {
+        console.error('Error al borrar medio en el servidor:', error);
+    }
+}
+
+/**
+ * Actualiza un elemento de medio en el servidor y la caché
+ * @param {string} id - ID del medio
+ * @param {Object} updatedData - Datos a actualizar
+ */
+async function updateMediaHistory(id, updatedData) {
+    try {
+        const response = await fetch(`${API_BASE}/api/media/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedData)
+        });
+        if (response.ok) {
+            const result = await response.json();
+            const index = window.mediaCache.findIndex(item => item.id === id);
+            if (index !== -1) {
+                window.mediaCache[index] = result;
+            }
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error('Error al actualizar historial de medios:', error);
+        return false;
+    }
+}
+
+// Exponer funciones globales para la administración en admin.html
+window.getMediaHistory = getMediaHistory;
+window.saveMediaHistory = saveMediaHistory;
+window.addMediaToHistory = addMediaToHistory;
+window.deleteMediaFromHistory = deleteMediaFromHistory;
+window.updateMediaHistory = updateMediaHistory;
+window.getPosts = getPosts;
+window.savePosts = savePosts;
+window.addPost = addPost;
+window.deletePost = deletePost;
+window.updatePost = updatePost;
+window.isAdminLoggedIn = isAdminLoggedIn;
+window.loginAdmin = loginAdmin;
+window.logoutAdmin = logoutAdmin;
 
 // ==================== UTILERÍAS ====================
 
@@ -854,6 +1069,21 @@ function inicializarModalPublicacion() {
             };
             
             addPost(newPost);
+
+            // Registrar automáticamente en el historial de archivos si es foto o video
+            if (type === 'foto' || type === 'video') {
+                const mediaItem = {
+                    id: 'media-' + Date.now(),
+                    title: title,
+                    type: type,
+                    url: mediaUrl,
+                    uploaderName: authorName,
+                    uploaderRole: authorRole,
+                    date: today,
+                    postId: newPost.id
+                };
+                addMediaToHistory(mediaItem);
+            }
             
             formPublicar.reset();
             if (imgPreview) {
@@ -955,41 +1185,60 @@ function inicializarModalLogin() {
                 return;
             }
             
-            if (pin === CONFIG.PIN_ACCESO) {
-                sessionStorage.setItem(CONFIG.SESSION_AUTH_KEY, 'true');
-                sessionStorage.setItem('clavero_admin_name', nombre);
-                sessionStorage.setItem('clavero_admin_role', rol);
-                
-                mostrarNotificacion(`¡Bienvenido(a), ${escapeHtml(nombre)}! 🔑`, 'success');
-                actualizarVistaAdminMural();
-                cerrarModalLogin();
-                
-                // Abrir modal de publicación
-                const modalPublicar = document.getElementById('modal-publicar');
-                const formPublicar = document.getElementById('form-publicar');
-                const containerMediaInput = document.getElementById('container-media-input');
-                const containerVideoInput = document.getElementById('container-video-input');
-                const imgPreview = document.getElementById('post-img-preview');
-                const postAutorSelect = document.getElementById('post-autor');
-                
-                if (postAutorSelect) {
-                    postAutorSelect.value = rol;
+            // Validar credenciales con el servidor API
+            fetch(`${API_BASE}/api/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    type: 'teacher',
+                    pin: pin,
+                    name: nombre,
+                    role: rol
+                })
+            })
+            .then(res => {
+                if (!res.ok) throw new Error('PIN incorrecto');
+                return res.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    sessionStorage.setItem(CONFIG.SESSION_AUTH_KEY, 'true');
+                    sessionStorage.setItem('clavero_admin_name', data.user.name);
+                    sessionStorage.setItem('clavero_admin_role', data.user.role);
+                    
+                    mostrarNotificacion(`¡Bienvenido(a), ${escapeHtml(data.user.name)}! 🔑`, 'success');
+                    actualizarVistaAdminMural();
+                    cerrarModalLogin();
+                    
+                    // Abrir modal de publicación
+                    const modalPublicar = document.getElementById('modal-publicar');
+                    const formPublicar = document.getElementById('form-publicar');
+                    const containerMediaInput = document.getElementById('container-media-input');
+                    const containerVideoInput = document.getElementById('container-video-input');
+                    const imgPreview = document.getElementById('post-img-preview');
+                    const postAutorSelect = document.getElementById('post-autor');
+                    
+                    if (postAutorSelect) {
+                        postAutorSelect.value = data.user.role;
+                    }
+                    if (formPublicar) formPublicar.reset();
+                    if (imgPreview) {
+                        imgPreview.src = '';
+                        imgPreview.classList.add('hidden');
+                    }
+                    if (containerMediaInput) containerMediaInput.classList.remove('hidden');
+                    if (containerVideoInput) containerVideoInput.classList.add('hidden');
+                    
+                    if (modalPublicar) {
+                        modalPublicar.classList.remove('hidden');
+                        modalPublicar.classList.add('flex');
+                    }
                 }
-                if (formPublicar) formPublicar.reset();
-                if (imgPreview) {
-                    imgPreview.src = '';
-                    imgPreview.classList.add('hidden');
-                }
-                if (containerMediaInput) containerMediaInput.classList.remove('hidden');
-                if (containerVideoInput) containerVideoInput.classList.add('hidden');
-                
-                if (modalPublicar) {
-                    modalPublicar.classList.remove('hidden');
-                    modalPublicar.classList.add('flex');
-                }
-            } else {
+            })
+            .catch(err => {
+                console.error(err);
                 mostrarNotificacion('PIN de acceso incorrecto ❌', 'danger');
-            }
+            });
         });
     }
 }
