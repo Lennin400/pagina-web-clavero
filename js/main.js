@@ -98,9 +98,11 @@ const AUTHOR_NAMES = {
     'Estudiante': 'Consejo Estudiantil Claveriano'
 };
 
-// ==================== CONFIGURACIÓN DE BASE DE DATOS (SERVIDOR API) ====================
-
-const API_BASE = window.location.protocol === 'file:' ? 'http://localhost:3000' : '';
+// Si la página se ejecuta desde github.io (producción), apunta a tu servidor de hosting (Render/Railway).
+// Si se ejecuta localmente como archivo, apunta a localhost:3000. De lo contrario, usa ruta relativa.
+const API_BASE = window.location.hostname.includes('github.io')
+    ? 'https://TU-SERVIDOR-BACKEND.onrender.com' // <-- Cambia esto por tu URL de Render o Railway cuando lo subas
+    : (window.location.protocol === 'file:' ? 'http://localhost:3000' : '');
 
 // Cachés globales en memoria
 window.postsCache = [];

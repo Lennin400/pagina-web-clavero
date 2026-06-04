@@ -4,31 +4,42 @@ const path = require('path');
 const fs = require('fs').promises;
 require('dotenv').config();
 
-const dialect = process.env.DB_DIALECT || 'sqlite';
 let sequelize;
 
-if (dialect === 'sqlite') {
-    const storagePath = process.env.DB_STORAGE || './data/database.sqlite';
-    // Asegurar que la carpeta de la base de datos exista
-    const storageDir = path.dirname(path.resolve(storagePath));
-    
-    sequelize = new Sequelize({
-        dialect: 'sqlite',
-        storage: storagePath,
+if (process.env.DATABASE_URL) {
+    // Si Railway o Render nos dan una URL directa de conexión (normalmente PostgreSQL)
+    sequelize = new Sequelize(process.env.DATABASE_URL, {
+        dialect: 'postgres',
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false // Requerido para bases de datos administradas en la nube
+            }
+        },
         logging: false
     });
 } else {
-    sequelize = new Sequelize(
-        process.env.DB_NAME,
-        process.env.DB_USER,
-        process.env.DB_PASS,
-        {
-            host: process.env.DB_HOST,
-            port: process.env.DB_PORT || (dialect === 'postgres' ? 5432 : 3306),
-            dialect: dialect,
+    const dialect = process.env.DB_DIALECT || 'sqlite';
+    if (dialect === 'sqlite') {
+        const storagePath = process.env.DB_STORAGE || './data/database.sqlite';
+        sequelize = new Sequelize({
+            dialect: 'sqlite',
+            storage: storagePath,
             logging: false
-        }
-    );
+        });
+    } else {
+        sequelize = new Sequelize(
+            process.env.DB_NAME,
+            process.env.DB_USER,
+            process.env.DB_PASS,
+            {
+                host: process.env.DB_HOST,
+                port: process.env.DB_PORT || (dialect === 'postgres' ? 5432 : 3306),
+                dialect: dialect,
+                logging: false
+            }
+        );
+    }
 }
 
 // ==================== DEFINICIÓN DE MODELOS SQL ====================
