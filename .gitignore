@@ -3,7 +3,8 @@ node_modules/
 
 # Local database files
 data/database.json
-data/database.sqlite
+data/*.sqlite
+data/*.sqlite-journal
 
 # Local uploads folder (contains testing images)
 uploads/
@@ -18,4 +19,8 @@ uploads/
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+*.swp
+.DS_Store
+
+# Railway volume (no se sube)
+/data/

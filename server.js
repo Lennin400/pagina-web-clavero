@@ -12,7 +12,24 @@ const { User, Post, Media, initDB } = require('./database');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'clave_secreta_super_segura_claveriano_2026';
-const UPLOADS_DIR = path.join(__dirname, 'uploads');
+
+// Detectar Railway
+const isRailway = !!process.env.RAILWAY_VOLUME_MOUNT_PATH;
+
+// ✅ CORREGIDO: Solo una declaración de UPLOADS_DIR
+const UPLOADS_DIR = isRailway 
+    ? '/data/uploads' 
+    : path.join(__dirname, 'uploads');
+
+// Asegurar que la carpeta exista
+(async () => {
+    try {
+        await fs.mkdir(UPLOADS_DIR, { recursive: true });
+        console.log(`📁 Uploads directory: ${UPLOADS_DIR}`);
+    } catch (err) {
+        console.error('Error creating uploads directory:', err);
+    }
+})();
 
 // Habilitar CORS y parsear JSON
 app.use(cors());
@@ -82,11 +99,9 @@ app.post('/api/login', async (req, res) => {
     try {
         const { username, password } = req.body;
         
-        // Adaptadores para compatibilidad con las solicitudes actuales
         const loginUser = username || req.body.username;
         const loginPin = req.body.pin || password;
         
-        // 1. Caso de Login de Docentes (público mediante PIN)
         if (req.body.type === 'teacher' || (!loginUser && loginPin)) {
             if (loginPin === 'clavero2026') {
                 const teacher = await User.findOne({ where: { username: 'docente' } });
@@ -107,7 +122,6 @@ app.post('/api/login', async (req, res) => {
                 });
             }
         } else {
-            // 2. Caso de Login de Administrador u otros usuarios con contraseñas encriptadas
             const user = await User.findOne({ where: { username: loginUser } });
             if (user) {
                 const isPasswordValid = await bcrypt.compare(loginPin, user.password_hash);
@@ -134,17 +148,12 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-
 // --- Publicaciones (Mural) ---
 
-// Obtener todas las publicaciones (Público)
 app.get('/api/posts', async (req, res) => {
     try {
         const posts = await Post.findAll({
-            order: [
-                ['pinned', 'DESC'],
-                ['createdAt', 'DESC']
-            ]
+            order: [['pinned', 'DESC'], ['createdAt', 'DESC']]
         });
         res.json(posts);
     } catch (err) {
@@ -153,19 +162,15 @@ app.get('/api/posts', async (req, res) => {
     }
 });
 
-// Agregar una publicación (Protegido)
 app.post('/api/posts', authenticateToken, requireRole(['admin', 'teacher']), async (req, res) => {
     try {
         const postData = req.body;
         
-        // Procesar imagen si viene en base64
         if (postData.mediaUrl) {
             postData.mediaUrl = await saveBase64Image(postData.mediaUrl);
         }
         
-        // Asociar al ID del usuario autenticado
         postData.userId = req.user.id;
-        
         const newPost = await Post.create(postData);
         res.status(201).json(newPost);
     } catch (err) {
@@ -174,7 +179,6 @@ app.post('/api/posts', authenticateToken, requireRole(['admin', 'teacher']), asy
     }
 });
 
-// Editar una publicación (Protegido)
 app.put('/api/posts/:id', authenticateToken, requireRole(['admin', 'teacher']), async (req, res) => {
     try {
         const { id } = req.params;
@@ -184,7 +188,6 @@ app.put('/api/posts/:id', authenticateToken, requireRole(['admin', 'teacher']), 
             return res.status(404).json({ error: 'Publicación no encontrada.' });
         }
         
-        // Validación de propiedad: Docente solo edita lo suyo; Admin edita todo
         if (req.user.role !== 'admin' && post.userId !== req.user.id) {
             return res.status(403).json({ error: 'No tienes privilegios para editar publicaciones de otros autores.' });
         }
@@ -196,12 +199,8 @@ app.put('/api/posts/:id', authenticateToken, requireRole(['admin', 'teacher']), 
         
         await post.update(updatedData);
         
-        // Sincronizar título en historial de medios si aplica
         if (updatedData.title) {
-            await Media.update(
-                { title: updatedData.title },
-                { where: { postId: id } }
-            );
+            await Media.update({ title: updatedData.title }, { where: { postId: id } });
         }
         
         res.json(post);
@@ -211,7 +210,6 @@ app.put('/api/posts/:id', authenticateToken, requireRole(['admin', 'teacher']), 
     }
 });
 
-// Eliminar una publicación (Protegido)
 app.delete('/api/posts/:id', authenticateToken, requireRole(['admin', 'teacher']), async (req, res) => {
     try {
         const { id } = req.params;
@@ -221,7 +219,6 @@ app.delete('/api/posts/:id', authenticateToken, requireRole(['admin', 'teacher']
             return res.status(404).json({ error: 'Publicación no encontrada.' });
         }
         
-        // Validación de propiedad: Docente solo borra lo suyo; Admin borra todo
         if (req.user.role !== 'admin' && post.userId !== req.user.id) {
             return res.status(403).json({ error: 'No tienes privilegios para eliminar publicaciones de otros autores.' });
         }
@@ -234,15 +231,11 @@ app.delete('/api/posts/:id', authenticateToken, requireRole(['admin', 'teacher']
     }
 });
 
-
 // --- Historial de Medios ---
 
-// Obtener todo el historial de medios (Público/Dashboard)
 app.get('/api/media', async (req, res) => {
     try {
-        const media = await Media.findAll({
-            order: [['createdAt', 'DESC']]
-        });
+        const media = await Media.findAll({ order: [['createdAt', 'DESC']] });
         res.json(media);
     } catch (err) {
         console.error('Error al obtener medios SQL:', err);
@@ -250,7 +243,6 @@ app.get('/api/media', async (req, res) => {
     }
 });
 
-// Agregar elemento al historial de medios (Protegido)
 app.post('/api/media', authenticateToken, requireRole(['admin', 'teacher']), async (req, res) => {
     try {
         const mediaData = req.body;
@@ -260,7 +252,6 @@ app.post('/api/media', authenticateToken, requireRole(['admin', 'teacher']), asy
         }
         
         mediaData.uploaderId = req.user.id;
-        
         const mediaItem = await Media.create(mediaData);
         res.status(201).json(mediaItem);
     } catch (err) {
@@ -269,7 +260,6 @@ app.post('/api/media', authenticateToken, requireRole(['admin', 'teacher']), asy
     }
 });
 
-// Editar elemento del historial de medios (Protegido)
 app.put('/api/media/:id', authenticateToken, requireRole(['admin', 'teacher']), async (req, res) => {
     try {
         const { id } = req.params;
@@ -291,7 +281,6 @@ app.put('/api/media/:id', authenticateToken, requireRole(['admin', 'teacher']), 
     }
 });
 
-// Eliminar elemento de historial de medios (Protegido)
 app.delete('/api/media/:id', authenticateToken, requireRole(['admin', 'teacher']), async (req, res) => {
     try {
         const { id } = req.params;
@@ -313,7 +302,6 @@ app.delete('/api/media/:id', authenticateToken, requireRole(['admin', 'teacher']
     }
 });
 
-// Eliminar todo el historial de medios (Solo Admin)
 app.delete('/api/media', authenticateToken, requireRole(['admin']), async (req, res) => {
     try {
         await Media.destroy({ truncate: true });

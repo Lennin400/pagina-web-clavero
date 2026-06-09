@@ -21,7 +21,20 @@ if (process.env.DATABASE_URL) {
 } else {
     const dialect = process.env.DB_DIALECT || 'sqlite';
     if (dialect === 'sqlite') {
-        const storagePath = process.env.DB_STORAGE || './data/database.sqlite';
+        // Detectar si estamos en Railway (por la variable de entorno que Railway crea)
+        const isRailway = !!process.env.RAILWAY_VOLUME_MOUNT_PATH;
+        
+        let storagePath;
+        if (isRailway) {
+            // Railway: usa el VOLUMEN montado en /data/
+            storagePath = '/data/database.sqlite';
+        } else {
+            // Local: usa la carpeta ./data/
+            storagePath = process.env.DB_STORAGE || './data/database.sqlite';
+        }
+        
+        console.log(`📁 Base de datos SQLite en: ${storagePath}`);
+        
         sequelize = new Sequelize({
             dialect: 'sqlite',
             storage: storagePath,
@@ -41,6 +54,30 @@ if (process.env.DATABASE_URL) {
         );
     }
 }
+
+//else {
+//     const dialect = process.env.DB_DIALECT || 'sqlite';
+//     if (dialect === 'sqlite') {
+//         const  isRailway = process.env.DB_STORAGE || './data/database.sqlite';
+//         sequelize = new Sequelize({
+//             dialect: 'sqlite',
+//             storage:  isRailway,
+//             logging: false
+//         });
+//     } else {
+//         sequelize = new Sequelize(
+//             process.env.DB_NAME,
+//             process.env.DB_USER,
+//             process.env.DB_PASS,
+//             {
+//                 host: process.env.DB_HOST,
+//                 port: process.env.DB_PORT || (dialect === 'postgres' ? 5432 : 3306),
+//                 dialect: dialect,
+//                 logging: false
+//             }
+//         );
+//     }
+// }
 
 // ==================== DEFINICIÓN DE MODELOS SQL ====================
 
@@ -222,19 +259,151 @@ const SAMPLE_POSTS = [
     }
 ];
 
+// // Función para inicializar base de datos y sembrar datos de prueba
+// async function initDB() {
+//     try {
+
+
+//          // Asegurar que la carpeta 'data' exista si usamos SQLite
+//         const dbDialect = process.env.DB_DIALECT || 'sqlite';  // ✅ Definir la variable aquí
+//         if (dbDialect === 'sqlite') {
+//             const storagePath = process.env.DB_STORAGE || './data/database.sqlite';
+//             const storageDir = path.dirname(path.resolve(storagePath));
+//             await fs.mkdir(storageDir, { recursive: true });
+        
+        
+//         }
+//         // // Asegurar que la carpeta 'data' exista si usamos SQLite
+//         // if (dialect === 'sqlite') {
+//         //     const storagePath = process.env.DB_STORAGE || './data/database.sqlite';
+//         //     const storageDir = path.dirname(path.resolve(storagePath));
+//         //     await fs.mkdir(storageDir, { recursive: true });
+//         // }
+
+//         // Probar conexión
+//         await sequelize.authenticate();
+//         console.log(`Conexión exitosa a la base de datos SQL (${dialect}).`);
+
+//         // Sincronizar tablas (crear si no existen)
+//         await sequelize.sync({ alter: true });
+//         console.log('Tablas SQL sincronizadas correctamente.');
+
+//         // 1. Sembrar Usuarios si no existen
+//         const userCount = await User.count();
+//         let adminUser, teacherUser;
+
+//         if (userCount === 0) {
+//             console.log('Sembrando usuarios iniciales...');
+            
+//             // Hashear contraseñas de forma segura
+//             const adminPassHash = await bcrypt.hash('admin2026', 10);
+//             const teacherPassHash = await bcrypt.hash('clavero2026', 10);
+
+//             adminUser = await User.create({
+//                 username: 'admin',
+//                 password_hash: adminPassHash,
+//                 name: 'Lennin Jair Canaquiri Curitima',
+//                 role: 'admin'
+//             });
+
+//             teacherUser = await User.create({
+//                 username: 'docente',
+//                 password_hash: teacherPassHash,
+//                 name: 'Área de Innovación Pedagógica (AIP)',
+//                 role: 'teacher'
+//             });
+            
+//             console.log('Usuarios de prueba creados.');
+//             console.log('  Admin: user "admin", pass "admin2026"');
+//             console.log('  Docente: user "docente", pass "clavero2026"');
+//         } else {
+//             adminUser = await User.findOne({ where: { username: 'admin' } });
+//             teacherUser = await User.findOne({ where: { username: 'docente' } });
+//         }
+
+//         // 2. Sembrar Publicaciones si no existen
+//         const postCount = await Post.count();
+//         if (postCount === 0) {
+//             console.log('Sembrando publicaciones de muestra...');
+            
+//             for (const postData of SAMPLE_POSTS) {
+//                 // Asociar las publicaciones al Director (admin) o AIP (docente) según corresponda
+//                 const creator = postData.author === 'Director' ? adminUser : teacherUser;
+                
+//                 await Post.create({
+//                     ...postData,
+//                     userId: creator ? creator.id : null
+//                 });
+//             }
+//             console.log('Publicaciones sembradas.');
+//         }
+
+//         // 3. Sembrar Historial de Medios si no existe
+//         const mediaCount = await Media.count();
+//         if (mediaCount === 0) {
+//             console.log('Sembrando historial multimedia de muestra...');
+//             const posts = await Post.findAll();
+            
+//             for (const post of posts) {
+//                 if (post.type === 'foto' || post.type === 'video') {
+//                     const uploader = post.author === 'Director' ? adminUser : teacherUser;
+                    
+//                     await Media.create({
+//                         id: 'media-' + post.id,
+//                         title: post.title,
+//                         type: post.type,
+//                         url: post.mediaUrl,
+//                         uploaderName: post.authorName,
+//                         uploaderRole: post.author,
+//                         date: post.date,
+//                         postId: post.id,
+//                         uploaderId: uploader ? uploader.id : null
+//                     });
+//                 }
+//             }
+//             console.log('Historial multimedia sembrado.');
+//         }
+
+//     } catch (error) {
+//         console.error('Error al inicializar la base de datos SQL:', error);
+//         throw error;
+//     }
+// }
+
+// module.exports = {
+//     sequelize,
+//     User,
+//     Post,
+//     Media,
+//     initDB
+// };
+
 // Función para inicializar base de datos y sembrar datos de prueba
 async function initDB() {
     try {
+        // ✅ Declarar dbDialect ANTES de usarlo
+        const dbDialect = process.env.DB_DIALECT || 'sqlite';
+        
         // Asegurar que la carpeta 'data' exista si usamos SQLite
-        if (dialect === 'sqlite') {
-            const storagePath = process.env.DB_STORAGE || './data/database.sqlite';
+        if (dbDialect === 'sqlite') {
+            // Detectar si estamos en Railway
+            const isRailway = !!process.env.RAILWAY_VOLUME_MOUNT_PATH;
+            
+            let storagePath;
+            if (isRailway) {
+                storagePath = '/data/database.sqlite';
+            } else {
+                storagePath = process.env.DB_STORAGE || './data/database.sqlite';
+            }
+            
             const storageDir = path.dirname(path.resolve(storagePath));
             await fs.mkdir(storageDir, { recursive: true });
+            console.log(`📁 Carpeta de datos lista en: ${storageDir}`);
         }
 
         // Probar conexión
         await sequelize.authenticate();
-        console.log(`Conexión exitosa a la base de datos SQL (${dialect}).`);
+        console.log(`Conexión exitosa a la base de datos SQL (${dbDialect}).`);
 
         // Sincronizar tablas (crear si no existen)
         await sequelize.sync({ alter: true });
@@ -247,7 +416,6 @@ async function initDB() {
         if (userCount === 0) {
             console.log('Sembrando usuarios iniciales...');
             
-            // Hashear contraseñas de forma segura
             const adminPassHash = await bcrypt.hash('admin2026', 10);
             const teacherPassHash = await bcrypt.hash('clavero2026', 10);
 
@@ -279,7 +447,6 @@ async function initDB() {
             console.log('Sembrando publicaciones de muestra...');
             
             for (const postData of SAMPLE_POSTS) {
-                // Asociar las publicaciones al Director (admin) o AIP (docente) según corresponda
                 const creator = postData.author === 'Director' ? adminUser : teacherUser;
                 
                 await Post.create({
@@ -329,3 +496,132 @@ module.exports = {
     Media,
     initDB
 };
+
+// // Función para inicializar base de datos y sembrar datos de prueba
+// async function initDB() {
+//     try {
+//         // Asegurar que la carpeta 'data' exista si usamos SQLite
+//         // const dbDialect = process.env.DB_DIALECT || 'sqlite';
+//         // if (dbDialect === 'sqlite') {
+//         //     const storagePath = process.env.DB_STORAGE || './data/database.sqlite';
+//         //     const storageDir = path.dirname(path.resolve(storagePath));
+//         //     await fs.mkdir(storageDir, { recursive: true });
+//         // }
+
+//         // Asegurar que la carpeta 'data' exista si usamos SQLite
+//         const dbDialect = process.env.DB_DIALECT || 'sqlite';
+//         if (dbDialect === 'sqlite') {
+//             // Detectar si estamos en Railway
+//             const isRailway = !!process.env.RAILWAY_VOLUME_MOUNT_PATH;
+            
+//             let storagePath;
+//             if (isRailway) {
+//                 storagePath = '/data/database.sqlite';
+//             } else {
+//                 storagePath = process.env.DB_STORAGE || './data/database.sqlite';
+//             }
+            
+//             const storageDir = path.dirname(path.resolve(storagePath));
+//             await fs.mkdir(storageDir, { recursive: true });
+//             console.log(`📁 Carpeta de datos lista en: ${storageDir}`);
+//         }
+
+
+
+//         // Probar conexión
+//         await sequelize.authenticate();
+//         console.log(`Conexión exitosa a la base de datos SQL (${dbDialect}).`);
+
+//         // Sincronizar tablas (crear si no existen)
+//         await sequelize.sync({ alter: true });
+//         console.log('Tablas SQL sincronizadas correctamente.');
+
+//         // 1. Sembrar Usuarios si no existen
+//         const userCount = await User.count();
+//         let adminUser, teacherUser;
+
+//         if (userCount === 0) {
+//             console.log('Sembrando usuarios iniciales...');
+            
+//             // Hashear contraseñas de forma segura
+//             const adminPassHash = await bcrypt.hash('admin2026', 10);
+//             const teacherPassHash = await bcrypt.hash('clavero2026', 10);
+
+//             adminUser = await User.create({
+//                 username: 'admin',
+//                 password_hash: adminPassHash,
+//                 name: 'Lennin Jair Canaquiri Curitima',
+//                 role: 'admin'
+//             });
+
+//             teacherUser = await User.create({
+//                 username: 'docente',
+//                 password_hash: teacherPassHash,
+//                 name: 'Área de Innovación Pedagógica (AIP)',
+//                 role: 'teacher'
+//             });
+            
+//             console.log('Usuarios de prueba creados.');
+//             console.log('  Admin: user "admin", pass "admin2026"');
+//             console.log('  Docente: user "docente", pass "clavero2026"');
+//         } else {
+//             adminUser = await User.findOne({ where: { username: 'admin' } });
+//             teacherUser = await User.findOne({ where: { username: 'docente' } });
+//         }
+
+//         // 2. Sembrar Publicaciones si no existen
+//         const postCount = await Post.count();
+//         if (postCount === 0) {
+//             console.log('Sembrando publicaciones de muestra...');
+            
+//             for (const postData of SAMPLE_POSTS) {
+//                 // Asociar las publicaciones al Director (admin) o AIP (docente) según corresponda
+//                 const creator = postData.author === 'Director' ? adminUser : teacherUser;
+                
+//                 await Post.create({
+//                     ...postData,
+//                     userId: creator ? creator.id : null
+//                 });
+//             }
+//             console.log('Publicaciones sembradas.');
+//         }
+
+//         // 3. Sembrar Historial de Medios si no existe
+//         const mediaCount = await Media.count();
+//         if (mediaCount === 0) {
+//             console.log('Sembrando historial multimedia de muestra...');
+//             const posts = await Post.findAll();
+            
+//             for (const post of posts) {
+//                 if (post.type === 'foto' || post.type === 'video') {
+//                     const uploader = post.author === 'Director' ? adminUser : teacherUser;
+                    
+//                     await Media.create({
+//                         id: 'media-' + post.id,
+//                         title: post.title,
+//                         type: post.type,
+//                         url: post.mediaUrl,
+//                         uploaderName: post.authorName,
+//                         uploaderRole: post.author,
+//                         date: post.date,
+//                         postId: post.id,
+//                         uploaderId: uploader ? uploader.id : null
+//                     });
+//                 }
+//             }
+//             console.log('Historial multimedia sembrado.');
+//         }
+
+//     } catch (error) {
+//         console.error('Error al inicializar la base de datos SQL:', error);
+//         throw error;
+//     }
+// }
+
+// module.exports = {
+//     sequelize,
+//     User,
+//     Post,
+//     Media,
+//     initDB
+// };

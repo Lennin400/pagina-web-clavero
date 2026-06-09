@@ -763,6 +763,7 @@ function renderMural(filterType = 'all', filterCategory = 'all', searchQuery = '
  * @param {boolean} isAdmin - Si el usuario es administrador
  * @returns {string} HTML de la tarjeta
  */
+
 function renderMuralPostCard(post, isAdmin) {
     const badgeColor = CATEGORY_COLORS[post.category] || 'text-gray-700 bg-gray-50 border-gray-200';
     
@@ -821,14 +822,85 @@ function renderMuralPostCard(post, isAdmin) {
                     </div>
                 </div>
                 ${isAdmin ? `
-                    <button onclick="eliminarPublicacionMural('${post.id}')" class="text-red-500 hover:text-white hover:bg-red-600 border border-red-500/20 hover:border-red-600 bg-red-50 px-3 py-1.5 rounded-xl font-medium transition flex items-center gap-1">
-                        🗑️ Eliminar
-                    </button>
+                    <div class="flex gap-2">
+                        <button onclick="editarPublicacionMural('${post.id}')" class="text-blue-500 hover:text-white hover:bg-blue-600 border border-blue-500/20 hover:border-blue-600 bg-blue-50 px-3 py-1.5 rounded-xl font-medium transition flex items-center gap-1">
+                            ✏️ Editar
+                        </button>
+                        <button onclick="eliminarPublicacionMural('${post.id}')" class="text-red-500 hover:text-white hover:bg-red-600 border border-red-500/20 hover:border-red-600 bg-red-50 px-3 py-1.5 rounded-xl font-medium transition flex items-center gap-1">
+                            🗑️ Eliminar
+                        </button>
+                    </div>
                 ` : ''}
             </div>
         </div>
     `;
 }
+// function renderMuralPostCard(post, isAdmin) {
+//     const badgeColor = CATEGORY_COLORS[post.category] || 'text-gray-700 bg-gray-50 border-gray-200';
+    
+//     let mediaHtml = '';
+//     if ((post.type === 'foto' || post.type === 'comunicado') && post.mediaUrl && isValidUrl(post.mediaUrl)) {
+//         mediaHtml = `
+//             <div class="w-full overflow-hidden aspect-video border-b border-gray-100 relative group">
+//                 <img src="${post.mediaUrl}" alt="${escapeHtml(post.title)}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+//             </div>
+//         `;
+//     } else if (post.type === 'video' && post.mediaUrl) {
+//         const embedUrl = getYouTubeEmbedUrl(post.mediaUrl);
+//         mediaHtml = `
+//             <div class="w-full aspect-video border-b border-gray-100 relative bg-black">
+//                 <iframe 
+//                     class="w-full h-full"
+//                     src="${embedUrl}" 
+//                     title="${escapeHtml(post.title)}" 
+//                     frameborder="0" 
+//                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+//                     allowfullscreen
+//                     loading="lazy">
+//                 </iframe>
+//             </div>
+//         `;
+//     }
+    
+//     return `
+//         <div class="bg-white rounded-3xl shadow-md border border-gray-100 overflow-hidden flex flex-col justify-between hover:shadow-xl transition duration-300 relative group/card">
+//             ${post.pinned ? `
+//                 <div class="absolute top-3 right-3 z-10 bg-red-600 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-md flex items-center gap-1">
+//                     📌 Fijado
+//                 </div>
+//             ` : ''}
+            
+//             <div>
+//                 ${mediaHtml}
+//                 <div class="p-6 space-y-4">
+//                     <div class="flex flex-wrap gap-2 items-center justify-between">
+//                         <span class="text-xs font-semibold px-3 py-1 rounded-full border ${badgeColor}">${escapeHtml(post.category)}</span>
+//                         <span class="text-xs text-gray-400 font-medium">${formatReadableDate(post.date)}</span>
+//                     </div>
+//                     <h3 class="font-title text-xl font-bold text-[#0B2545] leading-snug">${escapeHtml(post.title)}</h3>
+//                     <p class="text-gray-600 text-sm font-light leading-relaxed whitespace-pre-line">${escapeHtml(post.content)}</p>
+//                 </div>
+//             </div>
+            
+//             <div class="p-6 bg-gray-50/50 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500 mt-auto">
+//                 <div class="flex items-center gap-2">
+//                     <div class="w-8 h-8 rounded-full bg-green-100 text-green-700 flex items-center justify-center font-bold">
+//                         ${escapeHtml(post.author.charAt(0))}
+//                     </div>
+//                     <div>
+//                         <p class="font-semibold text-gray-700">${escapeHtml(post.authorName)}</p>
+//                         <p class="text-[10px] uppercase text-gray-400">${escapeHtml(post.author)}</p>
+//                     </div>
+//                 </div>
+//                 ${isAdmin ? `
+//                     <button onclick="eliminarPublicacionMural('${post.id}')" class="text-red-500 hover:text-white hover:bg-red-600 border border-red-500/20 hover:border-red-600 bg-red-50 px-3 py-1.5 rounded-xl font-medium transition flex items-center gap-1">
+//                         🗑️ Eliminar
+//                     </button>
+//                 ` : ''}
+//             </div>
+//         </div>
+//     `;
+// }
 
 // ==================== ACCIONES GLOBALES ====================
 
@@ -850,6 +922,114 @@ window.eliminarPublicacionMural = function(id) {
         mostrarNotificacion('Publicación eliminada correctamente 🗑️', 'info');
     }
 };
+
+/**
+ * Abre el modal de edición con los datos de la publicación
+ * @param {string} id - ID de la publicación a editar
+ */
+window.editarPublicacionMural = async function(id) {
+    if (!isAdminLoggedIn()) {
+        mostrarNotificacion('Debes iniciar sesión como administrador', 'danger');
+        return;
+    }
+    
+    const posts = getPosts();
+    const post = posts.find(p => p.id === id);
+    if (!post) return;
+    
+    // Abrir el modal de publicación en modo edición
+    const modalPublicar = document.getElementById('modal-publicar');
+    const formPublicar = document.getElementById('form-publicar');
+    const modalTitulo = document.getElementById('modal-publicar-titulo');
+    
+    // Cambiar título del modal
+    if (modalTitulo) modalTitulo.textContent = '✏️ Editar Publicación';
+    
+    // Rellenar el formulario con los datos existentes
+    document.getElementById('post-titulo').value = post.title;
+    document.getElementById('post-contenido').value = post.content;
+    document.getElementById('post-tipo').value = post.type;
+    document.getElementById('post-categoria').value = post.category;
+    document.getElementById('post-autor').value = post.author;
+    document.getElementById('post-fijado').checked = post.pinned;
+    
+    // Guardar el ID de la publicación que estamos editando
+    formPublicar.setAttribute('data-editing-id', post.id);
+    
+    // Manejar campos multimedia según el tipo
+    const containerMediaInput = document.getElementById('container-media-input');
+    const containerVideoInput = document.getElementById('container-video-input');
+    const imgPreview = document.getElementById('post-img-preview');
+    const imgInputUrl = document.getElementById('post-img-url');
+    const videoUrl = document.getElementById('post-video-url');
+    
+    if (post.type === 'foto') {
+        containerMediaInput.classList.remove('hidden');
+        containerVideoInput.classList.add('hidden');
+        if (post.mediaUrl && !post.mediaUrl.includes('youtube')) {
+            imgPreview.src = post.mediaUrl;
+            imgPreview.classList.remove('hidden');
+            imgInputUrl.value = post.mediaUrl;
+        }
+    } else if (post.type === 'video') {
+        containerMediaInput.classList.add('hidden');
+        containerVideoInput.classList.remove('hidden');
+        if (post.mediaUrl) {
+            videoUrl.value = post.mediaUrl;
+        }
+    }
+    
+    // Mostrar modal
+    modalPublicar.classList.remove('hidden');
+    modalPublicar.classList.add('flex');
+    
+    // Cambiar el texto del botón submit
+    const submitBtn = formPublicar.querySelector('button[type="submit"]');
+    if (submitBtn) submitBtn.textContent = '💾 Actualizar Publicación';
+};
+
+/**
+ * Actualiza una publicación existente
+ * @param {string} id - ID de la publicación
+ * @param {Object} updatedData - Datos actualizados
+ */
+async function updatePostLocally(id, updatedData) {
+    try {
+        const token = sessionStorage.getItem('clavero_jwt');
+        const response = await fetch(`${API_BASE}/api/posts/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token ? `Bearer ${token}` : ''
+            },
+            body: JSON.stringify(updatedData)
+        });
+        
+        if (response.ok) {
+            const result = await response.json();
+            const index = window.postsCache.findIndex(post => post.id === id);
+            if (index !== -1) {
+                window.postsCache[index] = result;
+            }
+            
+            // Re-renderizar
+            triggerInitialRenders();
+            if (typeof window.cargarEstadisticas === 'function') window.cargarEstadisticas();
+            if (typeof window.renderTablePosts === 'function') window.renderTablePosts();
+            
+            mostrarNotificacion('Publicación actualizada correctamente ✏️', 'success');
+            return true;
+        } else {
+            const errData = await response.json();
+            throw new Error(errData.error || 'Error al actualizar');
+        }
+    } catch (error) {
+        console.error('Error al actualizar:', error);
+        mostrarNotificacion(`Error: ${error.message}`, 'danger');
+        return false;
+    }
+}
+
 
 // ==================== INICIALIZACIÓN DE PÁGINAS ====================
 
@@ -1042,50 +1222,52 @@ function inicializarModalPublicacion() {
             }
         });
     }
-    
+
     if (formPublicar) {
-        formPublicar.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const title = document.getElementById('post-titulo')?.value.trim();
-            const content = document.getElementById('post-contenido')?.value.trim();
-            const type = document.getElementById('post-tipo')?.value;
-            const category = document.getElementById('post-categoria')?.value;
-            const authorRole = document.getElementById('post-autor')?.value;
-            const pinned = document.getElementById('post-fijado')?.checked || false;
-            
-            if (!title || !content || !type || !category || !authorRole) {
-                mostrarNotificacion('Por favor, completa todos los campos obligatorios', 'danger');
-                return;
+    formPublicar.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const editingId = formPublicar.getAttribute('data-editing-id');
+        const title = document.getElementById('post-titulo')?.value.trim();
+        const content = document.getElementById('post-contenido')?.value.trim();
+        const type = document.getElementById('post-tipo')?.value;
+        const category = document.getElementById('post-categoria')?.value;
+        const authorRole = document.getElementById('post-autor')?.value;
+        const pinned = document.getElementById('post-fijado')?.checked || false;
+        
+        if (!title || !content || !type || !category || !authorRole) {
+            mostrarNotificacion('Por favor, completa todos los campos obligatorios', 'danger');
+            return;
+        }
+        
+        if (title.length > 100) {
+            mostrarNotificacion('El título no debe exceder los 100 caracteres', 'danger');
+            return;
+        }
+        
+        let authorName = AUTHOR_NAMES[authorRole] || 'Docente Claveriano';
+        const loggedName = sessionStorage.getItem('clavero_admin_name');
+        const loggedRole = sessionStorage.getItem('clavero_admin_role');
+        
+        if (loggedName && loggedRole === authorRole) {
+            authorName = loggedName;
+        }
+        
+        let mediaUrl = '';
+        if (type === 'foto') {
+            mediaUrl = base64ImageString || document.getElementById('post-img-url')?.value || CONFIG.DEFAULT_IMAGE;
+        } else if (type === 'video') {
+            const youtubeLink = document.getElementById('post-video-url')?.value;
+            if (youtubeLink) {
+                mediaUrl = getYouTubeEmbedUrl(youtubeLink);
             }
-            
-            if (title.length > 100) {
-                mostrarNotificacion('El título no debe exceder los 100 caracteres', 'danger');
-                return;
-            }
-            
-            let authorName = AUTHOR_NAMES[authorRole] || 'Docente Claveriano';
-            const loggedName = sessionStorage.getItem('clavero_admin_name');
-            const loggedRole = sessionStorage.getItem('clavero_admin_role');
-            
-            if (loggedName && loggedRole === authorRole) {
-                authorName = loggedName;
-            }
-            
-            let mediaUrl = '';
-            if (type === 'foto') {
-                mediaUrl = base64ImageString || document.getElementById('post-img-url')?.value || CONFIG.DEFAULT_IMAGE;
-            } else if (type === 'video') {
-                const youtubeLink = document.getElementById('post-video-url')?.value;
-                if (youtubeLink) {
-                    mediaUrl = getYouTubeEmbedUrl(youtubeLink);
-                }
-            }
-            
-            const today = new Date().toISOString().split('T')[0];
-            
-            const newPost = {
-                id: 'post-' + Date.now(),
+        }
+        
+        const today = new Date().toISOString().split('T')[0];
+        
+        // ========== MODO EDICIÓN ==========
+        if (editingId) {
+            const updatedPost = {
                 title,
                 content,
                 type,
@@ -1097,42 +1279,184 @@ function inicializarModalPublicacion() {
                 pinned
             };
             
-            addPost(newPost);
+            const success = await updatePostLocally(editingId, updatedPost);
+            
+            if (success) {
+                // Limpiar modo edición
+                formPublicar.removeAttribute('data-editing-id');
+                
+                // Restaurar título del modal
+                const modalTitulo = document.getElementById('modal-publicar-titulo');
+                if (modalTitulo) modalTitulo.textContent = '📝 Nueva Publicación';
+                
+                // Restaurar texto del botón
+                const submitBtn = formPublicar.querySelector('button[type="submit"]');
+                if (submitBtn) submitBtn.textContent = '📢 Publicar en el Mural';
+                
+                // Resetear formulario
+                formPublicar.reset();
+                if (imgPreview) {
+                    imgPreview.src = '';
+                    imgPreview.classList.add('hidden');
+                }
+                base64ImageString = '';
+                if (containerMediaInput) containerMediaInput.classList.add('hidden');
+                if (containerVideoInput) containerVideoInput.classList.add('hidden');
+                
+                // Cerrar modal
+                if (modalPublicar) {
+                    modalPublicar.classList.add('hidden');
+                    modalPublicar.classList.remove('flex');
+                }
+                
+                // Re-renderizar
+                renderMural();
+                renderLatestIndexNews();
+                mostrarNotificacion('¡Publicación actualizada con éxito! ✏️', 'success');
+            }
+            return; // Salir para no crear una nueva
+        }
+        
+        // ========== MODO CREACIÓN (tu código original) ==========
+        const newPost = {
+            id: 'post-' + Date.now(),
+            title,
+            content,
+            type,
+            category,
+            author: authorRole,
+            authorName,
+            mediaUrl,
+            date: today,
+            pinned
+        };
+        
+        addPost(newPost);
 
-            // Registrar automáticamente en el historial de archivos si es foto o video
-            if (type === 'foto' || type === 'video') {
-                const mediaItem = {
-                    id: 'media-' + Date.now(),
-                    title: title,
-                    type: type,
-                    url: mediaUrl,
-                    uploaderName: authorName,
-                    uploaderRole: authorRole,
-                    date: today,
-                    postId: newPost.id
-                };
-                addMediaToHistory(mediaItem);
-            }
+        // Registrar automáticamente en el historial de archivos si es foto o video
+        if (type === 'foto' || type === 'video') {
+            const mediaItem = {
+                id: 'media-' + Date.now(),
+                title: title,
+                type: type,
+                url: mediaUrl,
+                uploaderName: authorName,
+                uploaderRole: authorRole,
+                date: today,
+                postId: newPost.id
+            };
+            addMediaToHistory(mediaItem);
+        }
+        
+        formPublicar.reset();
+        if (imgPreview) {
+            imgPreview.src = '';
+            imgPreview.classList.add('hidden');
+        }
+        base64ImageString = '';
+        if (containerMediaInput) containerMediaInput.classList.add('hidden');
+        if (containerVideoInput) containerVideoInput.classList.add('hidden');
+        
+        if (modalPublicar) {
+            modalPublicar.classList.add('hidden');
+            modalPublicar.classList.remove('flex');
+        }
+        
+        renderMural();
+        renderLatestIndexNews();
+        mostrarNotificacion('¡Publicación agregada con éxito al mural! 🎉', 'success');
+    });
+}
+    // if (formPublicar) {
+    //     formPublicar.addEventListener('submit', (e) => {
+    //         e.preventDefault();
             
-            formPublicar.reset();
-            if (imgPreview) {
-                imgPreview.src = '';
-                imgPreview.classList.add('hidden');
-            }
-            base64ImageString = '';
-            if (containerMediaInput) containerMediaInput.classList.add('hidden');
-            if (containerVideoInput) containerVideoInput.classList.add('hidden');
+    //         const title = document.getElementById('post-titulo')?.value.trim();
+    //         const content = document.getElementById('post-contenido')?.value.trim();
+    //         const type = document.getElementById('post-tipo')?.value;
+    //         const category = document.getElementById('post-categoria')?.value;
+    //         const authorRole = document.getElementById('post-autor')?.value;
+    //         const pinned = document.getElementById('post-fijado')?.checked || false;
             
-            if (modalPublicar) {
-                modalPublicar.classList.add('hidden');
-                modalPublicar.classList.remove('flex');
-            }
+    //         if (!title || !content || !type || !category || !authorRole) {
+    //             mostrarNotificacion('Por favor, completa todos los campos obligatorios', 'danger');
+    //             return;
+    //         }
             
-            renderMural();
-            renderLatestIndexNews();
-            mostrarNotificacion('¡Publicación agregada con éxito al mural! 🎉', 'success');
-        });
-    }
+    //         if (title.length > 100) {
+    //             mostrarNotificacion('El título no debe exceder los 100 caracteres', 'danger');
+    //             return;
+    //         }
+            
+    //         let authorName = AUTHOR_NAMES[authorRole] || 'Docente Claveriano';
+    //         const loggedName = sessionStorage.getItem('clavero_admin_name');
+    //         const loggedRole = sessionStorage.getItem('clavero_admin_role');
+            
+    //         if (loggedName && loggedRole === authorRole) {
+    //             authorName = loggedName;
+    //         }
+            
+    //         let mediaUrl = '';
+    //         if (type === 'foto') {
+    //             mediaUrl = base64ImageString || document.getElementById('post-img-url')?.value || CONFIG.DEFAULT_IMAGE;
+    //         } else if (type === 'video') {
+    //             const youtubeLink = document.getElementById('post-video-url')?.value;
+    //             if (youtubeLink) {
+    //                 mediaUrl = getYouTubeEmbedUrl(youtubeLink);
+    //             }
+    //         }
+            
+    //         const today = new Date().toISOString().split('T')[0];
+            
+    //         const newPost = {
+    //             id: 'post-' + Date.now(),
+    //             title,
+    //             content,
+    //             type,
+    //             category,
+    //             author: authorRole,
+    //             authorName,
+    //             mediaUrl,
+    //             date: today,
+    //             pinned
+    //         };
+            
+    //         addPost(newPost);
+
+    //         // Registrar automáticamente en el historial de archivos si es foto o video
+    //         if (type === 'foto' || type === 'video') {
+    //             const mediaItem = {
+    //                 id: 'media-' + Date.now(),
+    //                 title: title,
+    //                 type: type,
+    //                 url: mediaUrl,
+    //                 uploaderName: authorName,
+    //                 uploaderRole: authorRole,
+    //                 date: today,
+    //                 postId: newPost.id
+    //             };
+    //             addMediaToHistory(mediaItem);
+    //         }
+            
+    //         formPublicar.reset();
+    //         if (imgPreview) {
+    //             imgPreview.src = '';
+    //             imgPreview.classList.add('hidden');
+    //         }
+    //         base64ImageString = '';
+    //         if (containerMediaInput) containerMediaInput.classList.add('hidden');
+    //         if (containerVideoInput) containerVideoInput.classList.add('hidden');
+            
+    //         if (modalPublicar) {
+    //             modalPublicar.classList.add('hidden');
+    //             modalPublicar.classList.remove('flex');
+    //         }
+            
+    //         renderMural();
+    //         renderLatestIndexNews();
+    //         mostrarNotificacion('¡Publicación agregada con éxito al mural! 🎉', 'success');
+    //     });
+    // }
 }
 
 /**
